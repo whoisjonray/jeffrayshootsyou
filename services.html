@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services &amp; Pricing — Jeff Ray, Director / Austin, TX</title>
+<meta name="description" content="The full menu — retainers, single projects, photography, brand films, headshots, drone, AI footage rescue. Cinematic direction by Jeff Ray, Austin TX.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --bg-panel: #141414;
+    --bg-elev: #1C1C1C;
+    --line: #2A2724;
+    --text: #F5F1EA;
+    --text-mute: #A39E96;
+    --text-faint: #6B6661;
+    --accent: #C8956D;
+    --accent-soft: #8E6B4F;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--text);
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--accent); color: var(--bg); }
+  .wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 clamp(32px, 5vw, 56px); }
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    font-weight: 500;
+  }
+  em.gold { font-style: italic; color: var(--accent); font-weight: 300; }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 22px clamp(20px, 4vw, 32px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    letter-spacing: 0.02em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a {
+    font-size: 13px;
+    color: var(--text-mute);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a.active { color: var(--text); }
+  .nav-cta {
+    border: 1px solid var(--line);
+    padding: 12px 24px;
+    border-radius: 999px;
+    color: var(--text);
+    font-size: 13px;
+    transition: all 0.25s;
+  }
+  .nav-cta:hover {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  /* Hero */
+  .page-hero {
+    padding: 200px 0 80px;
+    border-bottom: 1px solid var(--line);
+  }
+  .page-hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .page-hero-eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .page-hero h1 {
+    font-size: clamp(44px, 6vw, 88px);
+    line-height: 1.02;
+    margin-bottom: 28px;
+    max-width: 16ch;
+  }
+  .page-hero h1 em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .page-hero p {
+    font-size: clamp(17px, 1.4vw, 21px);
+    color: var(--text-mute);
+    max-width: 680px;
+    line-height: 1.55;
+  }
+
+  /* TOC */
+  .toc {
+    padding: 32px 0;
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--line);
+  }
+  .toc-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    justify-content: center;
+  }
+  .toc-grid a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: all 0.2s;
+  }
+  .toc-grid a:hover { color: var(--accent); border-color: var(--accent-soft); }
+
+  /* Section */
+  .section {
+    padding: 100px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .section.alt { background: var(--bg-panel); }
+  .section-head {
+    margin-bottom: 56px;
+    max-width: 760px;
+  }
+  .section-head .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-head .eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .section-head h2 {
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+  .section-head h2 em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .section-head p {
+    color: var(--text-mute);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  /* Tier card grid */
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 800px) { .tiers { grid-template-columns: 1fr; } }
+  .tier {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 36px 32px 32px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .section.alt .tier { background: var(--bg); }
+  .tier:hover {
+    border-color: var(--accent-soft);
+    transform: translateY(-2px);
+  }
+  .tier.featured {
+    border-color: var(--accent);
+    background: linear-gradient(180deg, rgba(200,149,109,0.08) 0%, var(--bg-elev) 60%);
+    position: relative;
+  }
+  .tier.featured::before {
+    content: 'MOST PICKED';
+    position: absolute;
+    top: -10px; left: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+  .tier-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 16px;
+  }
+  .tier-name {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .tier-name em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .tier-price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin: 20px 0 8px;
+  }
+  .tier-price-num {
+    font-family: 'Fraunces', serif;
+    font-size: 38px;
+    line-height: 1;
+    color: var(--text);
+  }
+  .tier-price-suf {
+    font-size: 14px;
+    color: var(--text-mute);
+  }
+  .tier-meta {
+    font-size: 13px;
+    color: var(--text-faint);
+    margin-bottom: 24px;
+  }
+  .tier-includes-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 14px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+  }
+  .tier-includes {
+    list-style: none;
+    flex: 1;
+    margin-bottom: 28px;
+  }
+  .tier-includes li {
+    display: flex;
+    gap: 12px;
+    padding: 7px 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text);
+  }
+  .tier-includes li::before {
+    content: '+';
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    flex-shrink: 0;
+    font-size: 13px;
+    margin-top: 2px;
+  }
+  .tier-cta {
+    display: block;
+    text-align: center;
+    padding: 14px 24px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    color: var(--text);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    transition: all 0.25s;
+  }
+  .tier-cta:hover {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--bg);
+  }
+  .tier.featured .tier-cta {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+  }
+  .tier.featured .tier-cta:hover {
+    background: var(--text);
+    border-color: var(--text);
+  }
+
+  /* Single column "row" services (photography, project, AI rescue, drone) */
+  .service-row {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 48px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: center;
+  }
+  .service-row:last-child { border-bottom: 0; }
+  @media (max-width: 800px) {
+    .service-row { grid-template-columns: 1fr; gap: 24px; }
+  }
+  .service-row-left h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+  .service-row-left h3 em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .service-row-left p {
+    color: var(--text-mute);
+    font-size: 15px;
+    line-height: 1.65;
+    max-width: 560px;
+  }
+  .service-row-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+  }
+  .service-row-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: 1px solid var(--line);
+    padding: 5px 9px;
+    color: var(--text-faint);
+    border-radius: 2px;
+  }
+  .service-row-right {
+    text-align: right;
+  }
+  @media (max-width: 800px) { .service-row-right { text-align: left; } }
+  .service-row-price {
+    font-family: 'Fraunces', serif;
+    font-size: 36px;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .service-row-price em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .service-row-priceunit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 16px;
+  }
+  .service-row-cta {
+    display: inline-block;
+    border: 1px solid var(--line);
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--text);
+    transition: all 0.2s;
+  }
+  .service-row-cta:hover {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  /* AI Rescue special card */
+  .ai-rescue {
+    background: linear-gradient(180deg, rgba(200,149,109,0.08) 0%, var(--bg-elev) 100%);
+    border: 1px solid var(--accent-soft);
+    border-radius: 4px;
+    padding: 48px 40px;
+    margin-top: 32px;
+  }
+  .ai-rescue-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .ai-rescue h3 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 3vw, 38px);
+    line-height: 1.15;
+    margin-bottom: 18px;
+  }
+  .ai-rescue h3 em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .ai-rescue p {
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 18px;
+    max-width: 760px;
+  }
+  .ai-rescue-pricing {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 700px) { .ai-rescue-pricing { grid-template-columns: 1fr; } }
+  .ai-rescue-tier {
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 20px 18px;
+    background: var(--bg);
+  }
+  .ai-rescue-tier-name {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+  .ai-rescue-tier-price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .ai-rescue-tier-desc {
+    font-size: 13px;
+    color: var(--text-mute);
+    line-height: 1.55;
+  }
+
+  /* FAQ */
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+    padding: 24px 0;
+  }
+  .faq-item summary {
+    cursor: pointer;
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    line-height: 1.3;
+    color: var(--text);
+    padding-right: 32px;
+    position: relative;
+    list-style: none;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: '+';
+    position: absolute;
+    right: 0; top: 0;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    transition: transform 0.2s;
+  }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p {
+    color: var(--text-mute);
+    margin-top: 16px;
+    line-height: 1.65;
+    font-size: 15px;
+  }
+
+  /* CTA */
+  .cta-section {
+    padding: 140px 0;
+    text-align: center;
+  }
+  .cta-section h2 {
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 1;
+    margin-bottom: 28px;
+  }
+  .cta-section h2 em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .cta-section p {
+    color: var(--text-mute);
+    margin-bottom: 40px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    padding: 16px 32px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: all 0.25s;
+  }
+  .btn-primary:hover { background: var(--text); transform: translateY(-1px); }
+  .btn-ghost {
+    border: 1px solid var(--line);
+    padding: 16px 32px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    transition: all 0.25s;
+  }
+  .btn-ghost:hover { border-color: var(--text); }
+
+  footer {
+    padding: 56px 0 40px;
+    border-top: 1px solid var(--line);
+  }
+  .footer-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .footer-left p {
+    font-size: 13px;
+    color: var(--text-faint);
+    line-height: 1.6;
+  }
+  .footer-attr {
+    margin-top: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .footer-attr a { color: var(--text-mute); }
+  .footer-attr a:hover { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .page-hero { padding: 140px 0 56px; }
+    .section { padding: 64px 0; }
+    .section-head { margin-bottom: 36px; }
+    .footer-grid { flex-direction: column; align-items: flex-start; }
+    .nav-links a:not(.nav-cta) { display: none; }
+    .ai-rescue { padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">JEFF<span>.</span>RAY</a>
+  <div class="nav-links">
+    <a href="index.html#work">Work</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="services.html" class="active">Services</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact" class="nav-cta">Start a project</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="page-hero-eyebrow">SERVICES &amp; PRICING · 2026</div>
+    <h1>The full <em>menu.</em></h1>
+    <p>Single projects, monthly retainers, photography, brand films, headshots, drone, and even rescuing AI footage that didn't quite work. Real numbers, not "contact for pricing." Pick what fits, or scroll the whole thing.</p>
+  </div>
+</section>
+
+<!-- TOC -->
+<div class="toc">
+  <div class="wrap">
+    <div class="toc-grid">
+      <a href="#single">SINGLE PROJECT</a>
+      <a href="#retainers">RETAINERS</a>
+      <a href="#photography">PHOTOGRAPHY</a>
+      <a href="#headshots">HEADSHOTS</a>
+      <a href="#music-videos">MUSIC VIDEOS</a>
+      <a href="#projects">BRAND FILMS</a>
+      <a href="#aerial">AERIAL / DRONE</a>
+      <a href="#ai-rescue">AI FOOTAGE DIRECTOR</a>
+      <a href="#rush">RUSH PACKAGES</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============== SINGLE PROJECT + RETAINERS ============== -->
+<section id="single" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">START SMALL</div>
+      <h2>Try me out with <em>one project.</em></h2>
+      <p>If you're not ready for a retainer, start with The Cinematic Edit. One paid project, no commitment. Most clients move to a retainer after this. Some don't. Either is fine.</p>
+    </div>
+
+    <div class="tiers">
+      <div class="tier">
+        <div class="tier-tag">SINGLE PROJECT</div>
+        <div class="tier-name">The Cinematic <em>Edit</em></div>
+        <div class="tier-price">
+          <span class="tier-price-num">$1,500</span>
+          <span class="tier-price-suf">/ project</span>
+        </div>
+        <div class="tier-meta">No retainer required · 4 slots / mo</div>
+        <div class="tier-includes-label">What you get</div>
+        <ul class="tier-includes">
+          <li>One 60–90 second cinematic cut from up to 30 minutes of your raw footage</li>
+          <li>Color grade, sound design, and licensed music</li>
+          <li>16:9 (web/YouTube) + vertical 9:16 (Reels/TikTok/Shorts) versions</li>
+          <li>5-day delivery, one round of revisions included</li>
+          <li>Yours to use anywhere, forever, no licensing surprise</li>
+        </ul>
+        <a href="index.html#contact" class="tier-cta">Start a project</a>
+      </div>
+
+      <div class="tier featured">
+        <div class="tier-tag">EXTENDED PROJECT</div>
+        <div class="tier-name">The Cinematic <em>Edit Plus</em></div>
+        <div class="tier-price">
+          <span class="tier-price-num">$3,000</span>
+          <span class="tier-price-suf">/ project</span>
+        </div>
+        <div class="tier-meta">Bigger scope · 2 slots / mo</div>
+        <div class="tier-includes-label">What you get</div>
+        <ul class="tier-includes">
+          <li>One 3–5 minute finished piece from up to 90 minutes of raw footage</li>
+          <li>Full color, sound, and licensed music</li>
+          <li>4 vertical cutdowns for social distribution</li>
+          <li>1 strategy call upfront to plan the cut</li>
+          <li>7-day delivery, two rounds of revisions</li>
+        </ul>
+        <a href="index.html#contact" class="tier-cta">Start a project</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== RETAINERS ============== -->
+<section id="retainers" class="section alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">MONTHLY RETAINERS</div>
+      <h2>Three retainer levels, <em>limited slots each.</em></h2>
+      <p>For founders, coaches, creators, and brands who make content every month and want it to stop looking like content. Month-to-month after a 3-month minimum on the entry tier. No upsell pressure. No surprise fees.</p>
+    </div>
+
+    <div class="tiers" style="grid-template-columns: repeat(3, 1fr); gap: 18px;">
+      <div class="tier">
+        <div class="tier-tag">RETAINER · ENTRY</div>
+        <div class="tier-name">The Monthly <em>Edit</em></div>
+        <div class="tier-price">
+          <span class="tier-price-num">$2,500</span>
+          <span class="tier-price-suf">/ mo</span>
+        </div>
+        <div class="tier-meta">3-month minimum · 8 slots open</div>
+        <div class="tier-includes-label">Each month</div>
+        <ul class="tier-includes">
+          <li>2 long-form edits from your raw (5–12 min)</li>
+          <li>10 vertical clips (LinkedIn / X / IG)</li>
+          <li>Color, sound design, captions burned in</li>
+          <li>1 strategy call per quarter</li>
+          <li>7-day turnaround per long-form</li>
+        </ul>
+        <a href="index.html#contact" class="tier-cta">Start the conversation</a>
+      </div>
+
+      <div class="tier featured">
+        <div class="tier-tag">RETAINER · MIDDLE</div>
+        <div class="tier-name">The <em>Channel</em></div>
+        <div class="tier-price">
+          <span class="tier-price-num">$4,500</span>
+          <span class="tier-price-suf">/ mo</span>
+        </div>
+        <div class="tier-meta">Edit-only · 5 slots open</div>
+        <div class="tier-includes-label">Each month</div>
+        <ul class="tier-includes">
+          <li>4 long-form edits (8–20 min) from your raw</li>
+          <li>16 vertical cutdowns for every platform</li>
+          <li>4 thumbnails designed</li>
+          <li>Color + sound design on every cut</li>
+          <li>7-day turnaround, 2 rounds of revisions</li>
+        </ul>
+        <a href="index.html#contact" class="tier-cta">Start the conversation</a>
+      </div>
+
+      <div class="tier">
+        <div class="tier-tag">RETAINER · TOP</div>
+        <div class="tier-name">The Director's <em>Cut</em></div>
+        <div class="tier-price">
+          <span class="tier-price-num">$7,500</span>
+          <span class="tier-price-suf">/ mo</span>
+        </div>
+        <div class="tier-meta">Full production · 3 slots open</div>
+        <div class="tier-includes-label">Each month</div>
+        <ul class="tier-includes">
+          <li>1 full shoot day in Austin (or remote with crew)</li>
+          <li>4 finished long-form videos (5–15 min each)</li>
+          <li>20 vertical cutdowns for every platform</li>
+          <li>Drone capture included on shoot day</li>
+          <li>Monthly creative strategy call</li>
+        </ul>
+        <a href="index.html#contact" class="tier-cta">Start the conversation</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PHOTOGRAPHY ============== -->
+<section id="photography" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">PHOTOGRAPHY</div>
+      <h2>The same eye, <em>still frames.</em></h2>
+      <p>Album covers, press shots, brand portraits, founder photography, and the kind of headshot that doesn't look like a headshot. Same direction, different medium.</p>
+    </div>
+
+    <div class="service-row" id="headshots">
+      <div class="service-row-left">
+        <h3>Editorial <em>headshots.</em></h3>
+        <p>Shot the way magazines shoot their cover talent. 60-minute session, studio or location in Austin. Cinematic lighting, director's eye, editorial finish. 5 final frames delivered with the raw included. Founders, executives, creators, speakers. The headshot you'll actually want to use.</p>
+        <div class="service-row-tags">
+          <span class="service-row-tag">60 MIN</span>
+          <span class="service-row-tag">5 FINALS</span>
+          <span class="service-row-tag">RAW INCL.</span>
+          <span class="service-row-tag">EDITORIAL POLISH</span>
+        </div>
+      </div>
+      <div class="service-row-right">
+        <div class="service-row-price">$750</div>
+        <div class="service-row-priceunit">PER SESSION</div>
+        <a href="index.html#contact" class="service-row-cta">Book a session →</a>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="service-row-left">
+        <h3>Brand photo <em>day.</em></h3>
+        <p>Full-day shoot for founders, agencies, and brands. Founder portraits, team frames, environmental b-roll for site and socials. 30+ delivered images, organized by use case (hero, social, web).</p>
+        <div class="service-row-tags">
+          <span class="service-row-tag">8 HOURS</span>
+          <span class="service-row-tag">30+ FINALS</span>
+          <span class="service-row-tag">USAGE-ORG.</span>
+          <span class="service-row-tag">AUSTIN OR TRAVEL</span>
+        </div>
+      </div>
+      <div class="service-row-right">
+        <div class="service-row-price">$2,500</div>
+        <div class="service-row-priceunit">PER DAY</div>
+        <a href="index.html#contact" class="service-row-cta">Book a day →</a>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="service-row-left">
+        <h3>Album / EP <em>photography.</em></h3>
+        <p>Album covers, press shots, tour book photography. The same eye that's shot Scotty McCreery, Jordan Fletcher (Sony / Triple Tigers), and Chase Bryant (Green Iris). Major-label experience, indie-friendly schedule.</p>
+        <div class="service-row-tags">
+          <span class="service-row-tag">CREATIVE DIRECTION</span>
+          <span class="service-row-tag">SHOOT</span>
+          <span class="service-row-tag">FINISHING</span>
+          <span class="service-row-tag">DELIVERY KIT</span>
+        </div>
+      </div>
+      <div class="service-row-right">
+        <div class="service-row-price"><em>From</em> $4,500</div>
+        <div class="service-row-priceunit">PER PROJECT</div>
+        <a href="index.html#contact" class="service-row-cta">Inquire →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== MUSIC VIDEOS ============== -->
+<section id="music-videos" class="section alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">SIGNATURE WORK · MUSIC VIDEOS</div>
+      <h2>Music videos, <em>fully crewed.</em></h2>
+      <p>The genre that built the resume. 300M+ views across the catalog. Full crew, full pre-production, full creative control. By invitation and budget — not by spec.</p>
+    </div>
+
+    <div class="service-row">
+      <div class="service-row-left">
+        <h3>Cinematic <em>music video.</em></h3>
+        <p>Concept-to-delivery music video for label-signed or established independent artists. Full crew (DP, gaffer, grip, AC, hair/makeup, PAs), 1–2 shoot days, location scouting, scripted treatment, full color and sound post. The same approach that made "Five More Minutes" a 100M-view, double-Platinum video.</p>
+        <div class="service-row-tags">
+          <span class="service-row-tag">FULL CREW</span>
+          <span class="service-row-tag">1–2 SHOOT DAYS</span>
+          <span class="service-row-tag">SCRIPTED TREATMENT</span>
+          <span class="service-row-tag">LABEL-GRADE FINISH</span>
+        </div>
+      </div>
+      <div class="service-row-right">
+        <div class="service-row-price"><em>From</em> $30K</div>
+        <div class="service-row-priceunit">PER VIDEO</div>
+        <a href="index.html#contact" class="service-row-cta">Inquire →</a>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="service-row-left">
+        <h3>Performance / acoustic <em>session.</em></h3>
+        <p>Stripped-down session video for an artist who wants the song to lead. One location, intimate camerawork, beautiful color. The format I've cut for the McCreery Soundcheck Sessions and similar premieres on iHeartCountry.</p>
+        <div class="service-row-tags">
+          <span class="service-row-tag">SINGLE LOCATION</span>
+          <span class="service-row-tag">INTIMATE</span>
+          <span class="service-row-tag">FAST TURNAROUND</span>
+        </div>
+      </div>
+      <div class="service-row-right">
+        <div class="service-row-price">$12K – $20K</div>
+        <div class="service-row-priceunit">PER SESSION</div>
+        <a href="index.html#contact" class="service-row-cta">Inquire →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== BRAND FILMS / PROJECT WORK ============== -->
+<section id="projects" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">BRAND FILMS &amp; PROJECT WORK</div>
+      <h2>One-off films, <em>built to last.</em></h2>
+      <p>The pieces you point to for years. Founder origin films, cinematic sales VSLs, mini-docs, and full-length brand documentaries. Project pricing means no surprises and no monthly commitment.</p>
+    </div>
+
+    <div class="service-row">
+      <div class="service-row-left">
+        <h3>Brand <em>mini-doc.</em></h3>
+        <p>3–5 minute finished film. One shoot day. Founder + b-roll, festival-quality finish. The kind of piece you put on the homepage and sales decks.</p>
+        <div class="service-row-tags">
+          <span class="service-row-tag">3–5 MIN</span>
+          <span class="service-row-tag">1 SHOOT DAY</span>
+          <span class="service-row-tag">FULL POST</span>
+          <span class="service-row-tag">3 WEEKS</span>
+        </div>
+      </div>
+      <div class="service-row-right">
+        <div class="service-row-price"><em>From</em> $15,000</div>
+        <div class="service-row-priceunit">PER PROJECT</div>
+        <a href="index.html#contact" class="service-row-cta">Inquire →</a>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="service-row-left">
+        <h3>Founder <em>origin film.</em></h3>
+        <p>5–15 minute finished film with a scripted narrative arc, original score, and full color + sound. The piece that introduces who you are at the level you want to be introduced.</p>
+        <div class="service-row-tags">
+          <span class="service-row-tag">5–15 MIN</span>
+          <span class="service-row-tag">2–3 SHOOT DAYS</span>
+          <span class="service-row-tag">SCRIPTED</span>
+          <span class="service-row-tag">ORIGINAL SCORE</span>
+        </div>
+      </div>
+      <div class="service-row-right">
+        <div class="service-row-price">$25K – $45K</div>
+        <div class="service-row-priceunit">PER PROJECT</div>
+        <a href="index.html#contact" class="service-row-cta">Inquire →</a>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="service-row-left">
+        <h3>Cinematic <em>sales VSL.</em></h3>
+        <p>5–12 minute video sales letter that reads conversationally on the page but plays theatrically on the screen. The kind buyers don't skip. Scripted with you, shot in Austin or remote.</p>
+        <div class="service-row-tags">
+          <span class="service-row-tag">5–12 MIN</span>
+          <span class="service-row-tag">SCRIPTED</span>
+          <span class="service-row-tag">CONVERSION-FOCUSED</span>
+        </div>
+      </div>
+      <div class="service-row-right">
+        <div class="service-row-price">$8K – $15K</div>
+        <div class="service-row-priceunit">PER PROJECT</div>
+        <a href="index.html#contact" class="service-row-cta">Inquire →</a>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="service-row-left">
+        <h3>Long-form <em>brand documentary.</em></h3>
+        <p>15–45 minute documentary. Archival access required. 4–8 weeks of production. Festival-grade. The piece you put on your homepage for the next ten years.</p>
+        <div class="service-row-tags">
+          <span class="service-row-tag">15–45 MIN</span>
+          <span class="service-row-tag">4–8 WEEKS</span>
+          <span class="service-row-tag">FESTIVAL-GRADE</span>
+          <span class="service-row-tag">ARCHIVAL</span>
+        </div>
+      </div>
+      <div class="service-row-right">
+        <div class="service-row-price">$45K – $120K</div>
+        <div class="service-row-priceunit">PER PROJECT</div>
+        <a href="index.html#contact" class="service-row-cta">Inquire →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== AERIAL / DRONE ============== -->
+<section id="aerial" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">AERIAL &amp; DRONE</div>
+      <h2>Cinematic <em>from the air.</em></h2>
+      <p>FAA-certified pilot. Mavic 3 Cine + Inspire 3 available. Real estate, brand, event, construction, agriculture. Edit add-on available.</p>
+    </div>
+
+    <div class="service-row">
+      <div class="service-row-left">
+        <h3>Aerial / drone <em>day.</em></h3>
+        <p>Full-day cinematic 4K aerial capture. Property, brand campaign, event coverage, or construction documentation. Raw footage delivered, with optional 60-90 second edited piece for an additional $750.</p>
+        <div class="service-row-tags">
+          <span class="service-row-tag">8 HOURS</span>
+          <span class="service-row-tag">4K / RAW</span>
+          <span class="service-row-tag">FAA CERT.</span>
+          <span class="service-row-tag">EDIT ADD-ON</span>
+        </div>
+      </div>
+      <div class="service-row-right">
+        <div class="service-row-price">$1,800</div>
+        <div class="service-row-priceunit">PER DAY</div>
+        <a href="index.html#contact" class="service-row-cta">Book a day →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== AI FOOTAGE DIRECTOR ============== -->
+<section id="ai-rescue" class="section alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">FOR PROJECTS THAT USED AI</div>
+      <h2>AI footage, <em>directed.</em></h2>
+      <p>If you've already generated AI footage and it doesn't quite work, you don't need more generations. You need a director on the cut. Color, rhythm, pacing, framing — directed the way a real cinematic piece would be directed.</p>
+    </div>
+
+    <div class="ai-rescue">
+      <div class="ai-rescue-tag">AI FOOTAGE DIRECTOR</div>
+      <h3>I won't generate AI footage. I'll direct it. <em>And I'll tell you when it can't be saved.</em></h3>
+      <p>If you generated AI footage and the cuts feel off, the faces feel dead, or the rhythm just isn't there, that's not your fault. Even the best AI editing tools know where a cut <em class="gold">could</em> happen, not where it <em class="gold">should</em>. I'll direct what you have. Color it. Sound-design it. Tighten the cuts to musical phrasing instead of detected pauses. Cover the close-up giveaways with the right framing.</p>
+      <p>The result still won't beat real footage shot by a real director. But it can beat what you're looking at right now. Send me what you've got. I'll be honest about what's salvageable and what isn't before we start.</p>
+
+      <div class="ai-rescue-pricing">
+        <div class="ai-rescue-tier">
+          <div class="ai-rescue-tier-name">Single clip direction</div>
+          <div class="ai-rescue-tier-price">$1,500 / project</div>
+          <div class="ai-rescue-tier-desc">Up to 60 seconds of generated footage. Color, sound, music, and pacing pass.</div>
+        </div>
+        <div class="ai-rescue-tier">
+          <div class="ai-rescue-tier-name">Full piece direction</div>
+          <div class="ai-rescue-tier-price">$2,500 / project</div>
+          <div class="ai-rescue-tier-desc">Up to 3 minutes of generated footage. Full edit, color, sound design, music license.</div>
+        </div>
+        <div class="ai-rescue-tier">
+          <div class="ai-rescue-tier-name">Hybrid project</div>
+          <div class="ai-rescue-tier-price">From $4,500</div>
+          <div class="ai-rescue-tier-desc">Mix your AI footage with real footage I shoot or you supply. Full integration, single finished piece.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== RUSH PACKAGES ============== -->
+<section id="rush" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">URGENT</div>
+      <h2>Rush <em>packages.</em></h2>
+      <p>If you need it fast, I can move things around. Rush pricing reflects the cost of bumping other clients, not artificial scarcity.</p>
+    </div>
+
+    <div class="service-row">
+      <div class="service-row-left">
+        <h3>24-hour <em>rush edit.</em></h3>
+        <p>Cinematic Edit ($1,500 base) delivered in 24 hours instead of 5 days. For launch days, time-sensitive announcements, or when something just has to be out tomorrow.</p>
+      </div>
+      <div class="service-row-right">
+        <div class="service-row-price">+ $1,000</div>
+        <div class="service-row-priceunit">RUSH FEE</div>
+        <a href="index.html#contact" class="service-row-cta">Inquire →</a>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="service-row-left">
+        <h3>Same-week <em>shoot.</em></h3>
+        <p>Director's Cut shoot day booked within 7 days of contact. Subject to availability — depends on what's already booked. Not always possible, but worth asking.</p>
+      </div>
+      <div class="service-row-right">
+        <div class="service-row-price">+ $1,500</div>
+        <div class="service-row-priceunit">RUSH FEE</div>
+        <a href="index.html#contact" class="service-row-cta">Inquire →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FAQ ============== -->
+<section id="faq" class="section alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">QUESTIONS</div>
+      <h2>The honest <em>FAQ.</em></h2>
+      <p>The questions I actually get asked.</p>
+    </div>
+
+    <details class="faq-item">
+      <summary>Why would I hire you over a $50/hour editor?</summary>
+      <p>If your content needs to look like cinema, I'm cheaper than the time you'll spend revising a $50/hour editor's work. If your content just needs to exist, you don't need me. Honest answer: I'm worth it for founders, coaches, creators, and brands where every video is a sales tool. I'm not worth it for high-volume bulk content.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Do you take on wedding videos, corporate training, or stock-style work?</summary>
+      <p>No. Not because I'm above them, but because I'm not the best fit. Those genres have specialists who'll do better work for less money. I'll happily refer you.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>What's the difference between The Monthly Edit ($2.5K) and The Channel ($4.5K)?</summary>
+      <p>Volume and turnaround. The Monthly Edit gives you 2 long-forms and 10 verticals per month with a quarterly strategy call. The Channel gives you 4 long-forms, 16 verticals, 4 thumbnails, and 7-day turnaround. The Channel is for creators publishing weekly. The Monthly Edit is for creators publishing twice a month or less.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I switch tiers between months?</summary>
+      <p>Yes. Up or down or pause. 30-day notice. The only commitment is the 3-month minimum on The Monthly Edit, since that tier requires onboarding work that doesn't make sense to do for one month.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>What if I don't like the first cut?</summary>
+      <p>Every tier includes one or two rounds of revisions, depending on tier. If after revisions you still don't love it, we keep working. I don't ship work I'm not proud of, which means I don't bill for work clients don't love.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Where are you based and do you travel?</summary>
+      <p>Austin, Texas. I travel for shoots. Travel costs are billed at cost (flights, lodging, ground) plus a flat $500/day travel day fee for anything over 4 hours from Austin.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Do you sign NDAs?</summary>
+      <p>Yes. Send yours.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>What about music licensing?</summary>
+      <p>Standard tier music (Musicbed, Artlist, Soundstripe) is included in every project. Premium licensed music or original score is quoted separately based on the project.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Why is your pricing visible?</summary>
+      <p>Because "contact for pricing" wastes everyone's time. If $1,500 is too much, you should know that before scheduling a call. If $7,500/mo is in your range, you should know that too. My time is valuable. Yours is too.</p>
+    </details>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="wrap">
+    <h2>Ready to <em>start?</em></h2>
+    <p>Tell me what you're making, who it's for, and what's not working. I'll tell you whether I'm the right person to help, what tier or project fits, and we'll go from there.</p>
+    <div class="cta-actions">
+      <a href="index.html#contact" class="btn-primary">Email me directly</a>
+      <a href="portfolio.html" class="btn-ghost">See the full portfolio</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-left">
+        <p>Directed and built in Austin, TX.<br>Available worldwide.</p>
+        <div class="footer-attr">© 2026 Jeff Ray · Mockup built by Jon Ray · <a href="https://whoisjonray.com" target="_blank" rel="noopener">whoisjonray.com</a></div>
+      </div>
+      <div class="mono">JEFF.RAY · DIR. ED. CIN. PHOT. · 30°16'N 97°44'W</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

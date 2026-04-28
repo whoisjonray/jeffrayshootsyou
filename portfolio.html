@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Jeff Ray, Director / Austin, TX</title>
+<meta name="description" content="The full body of work — music videos, documentaries, short film, and photography by Jeff Ray. Austin, TX.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --bg-panel: #141414;
+    --bg-elev: #1C1C1C;
+    --line: #2A2724;
+    --text: #F5F1EA;
+    --text-mute: #A39E96;
+    --text-faint: #6B6661;
+    --accent: #C8956D;
+    --accent-soft: #8E6B4F;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body.modal-open { overflow: hidden; }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--text);
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--accent); color: var(--bg); }
+  .wrap { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 clamp(32px, 5vw, 56px); }
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    font-weight: 500;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 22px clamp(20px, 4vw, 32px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    letter-spacing: 0.02em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a {
+    font-size: 13px;
+    color: var(--text-mute);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a.active { color: var(--text); }
+  .nav-cta {
+    border: 1px solid var(--line);
+    padding: 12px 24px;
+    border-radius: 999px;
+    color: var(--text);
+    font-size: 13px;
+    transition: all 0.25s;
+  }
+  .nav-cta:hover { border-color: var(--accent); background: var(--accent); color: var(--bg); }
+
+  /* Hamburger toggle */
+  .nav-toggle {
+    display: none;
+    background: transparent;
+    border: 0;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    padding: 0;
+    z-index: 110;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--text);
+    margin: 6px auto;
+    transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+  .nav-toggle.active span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+  .nav-toggle.active span:nth-child(2) { opacity: 0; }
+  .nav-toggle.active span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,10,10,0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 105;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    padding: 80px clamp(32px, 5vw, 56px) 40px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 8vw, 40px);
+    color: var(--text);
+    line-height: 1.1;
+  }
+  .mobile-menu a:hover { color: var(--accent); }
+  .mobile-menu .mobile-menu-cta {
+    margin-top: 16px;
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: var(--bg);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    padding: 16px 36px;
+    border-radius: 999px;
+  }
+
+  /* Hero */
+  .page-hero {
+    padding: 200px 0 80px;
+    border-bottom: 1px solid var(--line);
+  }
+  .page-hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .page-hero-eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .page-hero h1 {
+    font-size: clamp(44px, 6vw, 88px);
+    line-height: 1.02;
+    margin-bottom: 28px;
+    max-width: 16ch;
+  }
+  .page-hero h1 em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .page-hero p {
+    font-size: clamp(17px, 1.4vw, 21px);
+    color: var(--text-mute);
+    max-width: 680px;
+    line-height: 1.55;
+  }
+
+  /* Filter bar */
+  .filter-bar {
+    padding: 32px 0;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg-panel);
+    position: sticky;
+    top: 70px;
+    z-index: 50;
+  }
+  .filter-bar .wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    justify-content: center;
+    align-items: center;
+  }
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--text-mute);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover {
+    color: var(--text);
+    border-color: var(--text-mute);
+  }
+  .filter-btn.active {
+    color: var(--bg);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* Section */
+  .section {
+    padding: 96px 0;
+  }
+  .section-head {
+    margin-bottom: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .section-head-left h2 {
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.05;
+    margin-bottom: 8px;
+  }
+  .section-head-left h2 em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .section-head-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+
+  /* Video grid */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .video-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.25s, transform 0.25s;
+    position: relative;
+  }
+  .video-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .video-card[data-no-id="true"] {
+    cursor: default;
+  }
+  .video-card[data-no-id="true"]:hover {
+    border-color: var(--line);
+    transform: none;
+  }
+  .video-thumb {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--bg-elev);
+    overflow: hidden;
+  }
+  .video-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease, filter 0.3s ease;
+  }
+  .video-card:hover .video-thumb img {
+    transform: scale(1.04);
+    filter: brightness(1.1);
+  }
+  .video-thumb-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--bg-elev) 0%, var(--bg) 100%);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text-faint);
+    font-size: 14px;
+    text-align: center;
+    padding: 16px;
+  }
+  .video-thumb-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10,10,10,0.15);
+    opacity: 0;
+    transition: opacity 0.25s;
+    pointer-events: none;
+  }
+  .video-card:hover .video-thumb-play {
+    opacity: 1;
+  }
+  .video-thumb-play::before {
+    content: '';
+    width: 0; height: 0;
+    border-left: 18px solid var(--text);
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    margin-left: 4px;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+  }
+  .video-card-body {
+    padding: 14px 16px 16px;
+    border-top: 1px solid var(--line);
+  }
+  .video-card-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .video-card-name .sep {
+    color: var(--accent);
+    margin: 0 4px;
+  }
+  .video-card-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text);
+    background: rgba(10,10,10,0.75);
+    padding: 4px 8px;
+    border-radius: 2px;
+    backdrop-filter: blur(6px);
+    z-index: 2;
+  }
+  .video-card-tag.featured {
+    background: rgba(200,149,109,0.92);
+    color: var(--bg);
+  }
+
+  /* Modal lightbox */
+  .modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,10,10,0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(16px, 4vw, 48px);
+    animation: fadeIn 0.25s ease;
+  }
+  .modal.open { display: flex; }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .modal-inner {
+    width: 100%;
+    max-width: 1200px;
+    aspect-ratio: 16 / 9;
+    position: relative;
+  }
+  .modal-iframe-wrap {
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+    border: 1px solid var(--line);
+  }
+  .modal-inner iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .modal-caption {
+    position: absolute;
+    bottom: -56px;
+    left: 0; right: 0;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+  .modal-caption .accent { color: var(--accent); }
+  .modal-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    background: rgba(10,10,10,0.6);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 210;
+  }
+  .modal-close::before,
+  .modal-close::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 18px; height: 1.5px;
+    background: var(--text);
+    transform-origin: center;
+  }
+  .modal-close::before { transform: translate(-50%, -50%) rotate(45deg); }
+  .modal-close::after { transform: translate(-50%, -50%) rotate(-45deg); }
+  .modal-close:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .modal-close:hover::before,
+  .modal-close:hover::after {
+    background: var(--bg);
+  }
+
+  /* Photography section */
+  .photo-section { background: var(--bg-panel); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .photo-categories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+  @media (max-width: 900px) { .photo-categories { grid-template-columns: 1fr; } }
+  .photo-category {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 32px 28px;
+    transition: border-color 0.25s;
+  }
+  .photo-category:hover { border-color: var(--accent-soft); }
+  .photo-category-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .photo-category-title {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .photo-category-title em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .photo-category p { color: var(--text-mute); font-size: 15px; line-height: 1.6; margin-bottom: 20px; }
+  .photo-category-list { list-style: none; margin-bottom: 24px; }
+  .photo-category-list li {
+    font-size: 13px;
+    color: var(--text);
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--line);
+    display: flex;
+    justify-content: space-between;
+  }
+  .photo-category-list li:last-child { border-bottom: 0; }
+  .photo-category-list li .year { color: var(--text-faint); font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .photo-category-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border-bottom: 1px solid var(--accent-soft);
+    padding-bottom: 2px;
+  }
+  .photo-category-link:hover { color: var(--text); border-color: var(--text); }
+
+  /* CTA */
+  .cta-section {
+    padding: 140px 0;
+    text-align: center;
+  }
+  .cta-section h2 {
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 1;
+    margin-bottom: 28px;
+  }
+  .cta-section h2 em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .cta-section p {
+    color: var(--text-mute);
+    margin-bottom: 40px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    padding: 16px 32px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: all 0.25s;
+  }
+  .btn-primary:hover { background: var(--text); transform: translateY(-1px); }
+  .btn-ghost {
+    border: 1px solid var(--line);
+    padding: 16px 32px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    transition: all 0.25s;
+  }
+  .btn-ghost:hover { border-color: var(--text); }
+
+  footer {
+    padding: 56px 0 40px;
+    border-top: 1px solid var(--line);
+  }
+  .footer-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .footer-left p { font-size: 13px; color: var(--text-faint); line-height: 1.6; }
+  .footer-attr {
+    margin-top: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .footer-attr a { color: var(--text-mute); }
+  .footer-attr a:hover { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .page-hero { padding: 140px 0 56px; }
+    .section { padding: 64px 0; }
+    .section-head { margin-bottom: 36px; }
+    .footer-grid { flex-direction: column; align-items: flex-start; }
+    .nav-links { display: none; }
+    .nav-toggle { display: block; }
+    .filter-bar { top: 60px; padding: 20px 0; }
+    .video-grid { grid-template-columns: 1fr; gap: 16px; }
+    .modal-close { top: 16px; right: 16px; width: 40px; height: 40px; }
+    .modal-caption { bottom: -44px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">JEFF<span>.</span>RAY</a>
+  <div class="nav-links">
+    <a href="index.html#work">Work</a>
+    <a href="portfolio.html" class="active">Portfolio</a>
+    <a href="services.html">Services</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact" class="nav-cta">Start a project</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <a href="index.html#work">Work</a>
+  <a href="portfolio.html">Portfolio</a>
+  <a href="services.html">Services</a>
+  <a href="index.html#about">About</a>
+  <a href="index.html#contact" class="mobile-menu-cta">Start a project</a>
+</div>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="page-hero-eyebrow">PORTFOLIO · 2012 — 2025</div>
+    <h1>The whole <em>archive.</em></h1>
+    <p>Music videos, documentaries, short films, and photography. Twenty-three years of work. Click any video below to play it in place. The four featured pieces on the homepage are the highlights. Everything else lives here.</p>
+  </div>
+</section>
+
+<!-- Filter bar -->
+<div class="filter-bar">
+  <div class="wrap">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="reel">Director's Reel</button>
+    <button class="filter-btn" data-filter="music">Music Videos</button>
+    <button class="filter-btn" data-filter="doc">Documentary</button>
+    <button class="filter-btn" data-filter="film">Short Film</button>
+  </div>
+</div>
+
+<!-- Video grid -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-head-left">
+        <h2>Films <em>&amp; videos.</em></h2>
+      </div>
+      <div class="section-head-meta" id="videoCount">38 PIECES · 300M+ COMBINED VIEWS · CLICK TO PLAY</div>
+    </div>
+
+    <div class="video-grid" id="videoGrid"></div>
+  </div>
+</section>
+
+<!-- Photography -->
+<section class="section photo-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-head-left">
+        <h2>Photography <em>&amp; portraiture.</em></h2>
+      </div>
+      <div class="section-head-meta">jeffrayphotography.com</div>
+    </div>
+
+    <div class="photo-categories">
+      <div class="photo-category">
+        <div class="photo-category-tag">ALBUM &amp; PRESS</div>
+        <h3 class="photo-category-title">Album covers <em>&amp; press photography.</em></h3>
+        <p>Album artwork and press shots for major-label country artists. Studio sessions, location shoots, tour book photography.</p>
+        <ul class="photo-category-list">
+          <li><span>Scotty McCreery</span><span class="year">2021 · 2024 · 2025</span></li>
+          <li><span>Eli Young Band</span><span class="year">2024</span></li>
+          <li><span>Jordan Fletcher</span><span class="year">SONY / TRIPLE TIGERS · 2021</span></li>
+          <li><span>Chase Bryant</span><span class="year">GREEN IRIS · 2020</span></li>
+          <li><span>Kelsey</span><span class="year">2020 — 2022</span></li>
+        </ul>
+        <a href="https://www.jeffrayphotography.com/" target="_blank" rel="noopener" class="photo-category-link">SEE THE PHOTOGRAPHY SITE →</a>
+      </div>
+
+      <div class="photo-category">
+        <div class="photo-category-tag">HEADSHOTS</div>
+        <h3 class="photo-category-title">Editorial headshots <em>&amp; portraits.</em></h3>
+        <p>Founder, executive, and creator headshots. Austin-based studio or on-location. The kind of headshot that doesn't look like a headshot.</p>
+        <ul class="photo-category-list">
+          <li><span>Founder portraits</span><span class="year">2025 — 2026</span></li>
+          <li><span>Executive headshots</span><span class="year">2025 — 2026</span></li>
+          <li><span>Creator + speaker portraits</span><span class="year">2025 — 2026</span></li>
+        </ul>
+        <a href="services.html#headshots" class="photo-category-link">BOOK A HEADSHOT SESSION →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="wrap">
+    <h2>Ready to make <em>something?</em></h2>
+    <p>Music video, documentary, brand film, founder portrait, monthly content. Tell me what you're working on.</p>
+    <div class="cta-actions">
+      <a href="services.html" class="btn-primary">See pricing &amp; services</a>
+      <a href="index.html#contact" class="btn-ghost">Email me directly</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-left">
+        <p>Directed and built in Austin, TX.<br>Available worldwide.</p>
+        <div class="footer-attr">© 2026 Jeff Ray · Mockup built by Jon Ray · <a href="https://whoisjonray.com" target="_blank" rel="noopener">whoisjonray.com</a></div>
+      </div>
+      <div class="mono">JEFF.RAY · DIR. ED. CIN. PHOT. · 30°16'N 97°44'W</div>
+    </div>
+  </div>
+</footer>
+
+<!-- Modal lightbox -->
+<div class="modal" id="videoModal" aria-hidden="true">
+  <button class="modal-close" id="modalClose" aria-label="Close video"></button>
+  <div class="modal-inner">
+    <div class="modal-iframe-wrap" id="modalIframeWrap"></div>
+    <div class="modal-caption" id="modalCaption"></div>
+  </div>
+</div>
+
+<script>
+  // Video catalog — Vimeo IDs scraped from jeffrayshootsyou.com homepage.
+  // platform: "vimeo" or "youtube". videoId: 11-char (YouTube) or numeric (Vimeo).
+  const videos = [
+    { slug: "directors-reel",            artist: "Jeff Ray",                     title: "DIRECTOR'S REEL",                category: "reel",  platform: "vimeo",   videoId: "1169701150", featured: true },
+    { slug: "scotty-five-more-minutes",  artist: "Scotty McCreery",              title: "FIVE MORE MINUTES",              category: "music", platform: "youtube", videoId: "2dPDBU9MC8c", featured: true, tag: "100M+ VIEWS" },
+    { slug: "missio-can-i-exist",        artist: "MISSIO",                       title: "CAN I EXIST",                     category: "music", platform: "vimeo",   videoId: "162209236",  featured: true, tag: "AMVA · BEST NARRATIVE" },
+    { slug: "eli-young-band-doc",        artist: "Eli Young Band",               title: "THIS IS ELI YOUNG BAND",          category: "doc",   platform: "youtube", videoId: "MdZBTwl9xZU", featured: true },
+    { slug: "sigur-ros-varud",           artist: "Sigur Rós",                    title: "VARÚÐ",                            category: "music", platform: "vimeo",   videoId: "51864518",   tag: "SELECTED · VALTARI" },
+
+    { slug: "corey-kent-wild-as-her",    artist: "Corey Kent",                   title: "WILD AS HER",                     category: "music", platform: "youtube", videoId: "uUTpppM8xOQ" },
+    { slug: "eli-young-prayer",          artist: "Eli Young Band",               title: "PRAYER FOR THE ROAD",              category: "music", platform: "vimeo",   videoId: "115089204" },
+    { slug: "chase-bryant-part-1",       artist: "Chase Bryant",                 title: "PART I",                            category: "music", platform: "vimeo",   videoId: "438527417" },
+    { slug: "chase-bryant-part-2",       artist: "Chase Bryant",                 title: "PART II",                           category: "music", platform: "vimeo",   videoId: "564944721" },
+    { slug: "jordan-fletcher-elsewhere", artist: "Jordan Fletcher",              title: "ELSEWHERE",                         category: "music", platform: "vimeo",   videoId: "583317404" },
+    { slug: "ross-ellis-buy-and-buy",    artist: "Ross Ellis",                   title: "BUY AND BUY",                       category: "music", platform: "vimeo",   videoId: "385643771" },
+    { slug: "scotty-this-is-it",         artist: "Scotty McCreery",              title: "THIS IS IT",                        category: "music", platform: "vimeo",   videoId: "276631409" },
+    { slug: "scotty-damn-strait",        artist: "Scotty McCreery",              title: "DAMN STRAIT",                       category: "music", platform: "vimeo",   videoId: "664592998" },
+    { slug: "scotty-fall-of-summer",     artist: "Scotty McCreery",              title: "FALL OF SUMMER",                    category: "music", platform: "vimeo",   videoId: "1006414436" },
+    { slug: "blue-october-the-chills",   artist: "Blue October",                 title: "THE CHILLS",                        category: "music", platform: "vimeo",   videoId: "51867988" },
+    { slug: "sam-riggs-air-opportunity", artist: "Sam Riggs",                    title: "AIR & OPPORTUNITY",                 category: "music", platform: "vimeo",   videoId: "257856055" },
+    { slug: "missio-love-me-whole",      artist: "MISSIO",                       title: "DOCUMENTARY FEATURE",               category: "doc",   platform: "vimeo",   videoId: "351066957" },
+    { slug: "ember-days-without-love",   artist: "The Ember Days",               title: "WITHOUT LOVE",                      category: "music", platform: "vimeo",   videoId: "267168748" },
+    { slug: "scotty-in-between",         artist: "Scotty McCreery",              title: "IN BETWEEN",                        category: "music", platform: "vimeo",   videoId: "336745367" },
+    { slug: "scotty-gusi",               artist: "Scotty McCreery / Gusi",       title: "WHY SHE GOTTA BE LIKE THAT",        category: "music", platform: "vimeo",   videoId: "813780160" },
+    { slug: "wind-wave-grand-canyon",    artist: "The Wind + The Wave",          title: "GRAND CANYON",                      category: "music", platform: "vimeo",   videoId: "168122468" },
+    { slug: "third-eye-blind-everything",artist: "Third Eye Blind",              title: "EVERYTHING IS EASY",                category: "music", platform: "vimeo",   videoId: "128455694" },
+    { slug: "whiskey-myers-early",       artist: "Whiskey Myers",                title: "EARLY MORNING SHAKES",              category: "music", platform: "vimeo",   videoId: "88605491" },
+    { slug: "missio-skeletons",          artist: "MISSIO",                       title: "SKELETONS",                         category: "music", platform: "vimeo",   videoId: "233244301" },
+    { slug: "wind-wave-introduction",    artist: "The Wind + The Wave",          title: "INTRODUCTION",                      category: "music", platform: "vimeo",   videoId: "71611563" },
+    { slug: "deliver-me-from-glory",     artist: "Deliver Me From Glory",        title: "SHORT FILM",                        category: "film",  platform: "vimeo",   videoId: "125765408" },
+    { slug: "missio-stripped",           artist: "MISSIO",                       title: "STRIPPED · KAMIKAZEE (ACOUSTIC)",   category: "music", platform: "vimeo",   videoId: "207908320" },
+    { slug: "paper-hotel-golddigger",    artist: "Paper Hotel",                  title: "GOLDDIGGER",                        category: "music", platform: "vimeo",   videoId: "51867989" },
+    { slug: "ryan-hurd-volumes",         artist: "Ryan Hurd",                    title: "VOLUMES I & II",                    category: "music", platform: "vimeo",   videoId: "188897667" },
+    { slug: "scotty-cab-in-a-solo",      artist: "Scotty McCreery",              title: "CAB IN A SOLO",                     category: "music", platform: "vimeo",   videoId: "876427403" },
+    { slug: "scotty-it-matters-to-her",  artist: "Scotty McCreery",              title: "IT MATTERS TO HER",                 category: "music", platform: "vimeo",   videoId: "761678482" },
+    { slug: "zeale-hope-dies",           artist: "Zeale",                        title: "HOPE DIES",                         category: "music", platform: "vimeo",   videoId: "51872348" },
+    { slug: "wind-wave-neon-prayer",     artist: "The Wind + The Wave",          title: "NEON PRAYER FLAGS",                 category: "music", platform: "vimeo",   videoId: "289184805" },
+    { slug: "ross-ellis-acoustic",       artist: "Ross Ellis",                   title: "BUY AND BUY (ACOUSTIC)",            category: "music", platform: "vimeo",   videoId: "281525184" },
+    { slug: "where-the-red-fox-lies",    artist: "Where the Red Fox Lies",       title: "PROOF-OF-CONCEPT",                  category: "film",  platform: "vimeo",   videoId: "207992250" },
+    { slug: "wheeler-walker-summers",    artist: "Wheeler Walker Jr.",           title: "SUMMERS IN KENTUCKY",               category: "music", platform: "vimeo",   videoId: "207723297" },
+    { slug: "joe-nichols-never-gets-old",artist: "Joe Nichols",                  title: "NEVER GETS OLD · BTS",              category: "doc",   platform: "vimeo",   videoId: "223039785" },
+    { slug: "jason-scott-high-heat",     artist: "Jason Scott & The High Heat",  title: "MUSIC VIDEO",                       category: "music", platform: "vimeo",   videoId: "1071650849" },
+    { slug: "j-greene-shakedown",        artist: "J. Greene & The Steady",       title: "SHAKEDOWN",                         category: "music", platform: "vimeo",   videoId: "88730799" }
+  ];
+
+  function thumbUrl(v) {
+    if (v.platform === 'youtube') return `https://i.ytimg.com/vi/${v.videoId}/hqdefault.jpg`;
+    if (v.platform === 'vimeo') return `https://vumbnail.com/${v.videoId}.jpg`;
+    return '';
+  }
+
+  function embedUrl(v) {
+    if (v.platform === 'youtube') return `https://www.youtube.com/embed/${v.videoId}?autoplay=1&rel=0&modestbranding=1`;
+    if (v.platform === 'vimeo') return `https://player.vimeo.com/video/${v.videoId}?autoplay=1&dnt=1`;
+    return '';
+  }
+
+  function renderGrid(filter = 'all') {
+    const grid = document.getElementById('videoGrid');
+    grid.innerHTML = '';
+    const filtered = filter === 'all' ? videos : videos.filter(v => v.category === filter);
+
+    filtered.forEach(v => {
+      const hasId = !!v.videoId;
+      const card = document.createElement('div');
+      card.className = 'video-card';
+      card.dataset.slug = v.slug;
+      if (!hasId) card.dataset.noId = 'true';
+      if (hasId) {
+        card.dataset.embed = embedUrl(v);
+        card.dataset.title = `${v.artist} | ${v.title}`;
+      }
+
+      const tagHTML = v.tag
+        ? `<div class="video-card-tag${v.featured ? ' featured' : ''}">${v.tag}</div>`
+        : (v.featured ? `<div class="video-card-tag featured">FEATURED</div>` : '');
+
+      const thumbHTML = hasId
+        ? `<img src="${thumbUrl(v)}" alt="${v.artist} — ${v.title}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="video-thumb-fallback" style="display:none;">${v.artist}<br>${v.title}</div><div class="video-thumb-play"></div>`
+        : `<div class="video-thumb-fallback">Coming soon</div>`;
+
+      card.innerHTML = `
+        ${tagHTML}
+        <div class="video-thumb">${thumbHTML}</div>
+        <div class="video-card-body">
+          <div class="video-card-name">${v.artist}<span class="sep">|</span>${v.title}</div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    // Wire up modal triggers
+    grid.querySelectorAll('.video-card[data-embed]').forEach(card => {
+      card.addEventListener('click', () => openModal(card.dataset.embed, card.dataset.title));
+    });
+  }
+
+  function openModal(embed, title) {
+    const modal = document.getElementById('videoModal');
+    const wrap = document.getElementById('modalIframeWrap');
+    const caption = document.getElementById('modalCaption');
+    wrap.innerHTML = `<iframe src="${embed}" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+    caption.innerHTML = `<span class="accent">DIR. JEFF RAY</span> &nbsp;·&nbsp; ${title}`;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('videoModal');
+    const wrap = document.getElementById('modalIframeWrap');
+    wrap.innerHTML = ''; // stop iframe playback
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+  }
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderGrid(btn.dataset.filter);
+    });
+  });
+
+  // Modal close interactions
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('videoModal').addEventListener('click', (e) => {
+    if (e.target.id === 'videoModal') closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('videoModal');
+      if (modal.classList.contains('open')) closeModal();
+    }
+  });
+
+  // Mobile menu
+  const navToggle = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (navToggle && mobileMenu) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      navToggle.classList.toggle('active', isOpen);
+      navToggle.setAttribute('aria-expanded', isOpen);
+      mobileMenu.setAttribute('aria-hidden', !isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        navToggle.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+  // Initial render
+  renderGrid('all');
+</script>
+
+</body>
+</html>
