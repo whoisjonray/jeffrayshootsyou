@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photography — Jeff Ray, Director / Austin, TX</title>
+<meta name="description" content="Album, press, and editorial photography. Scotty McCreery, Eli Young Band, Jordan Fletcher, Chase Bryant, and editorial headshots by Jeff Ray. Austin, TX.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.squarespace-cdn.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --bg-panel: #141414;
+    --bg-elev: #1C1C1C;
+    --line: #2A2724;
+    --text: #F5F1EA;
+    --text-mute: #A39E96;
+    --text-faint: #6B6661;
+    --accent: #C8956D;
+    --accent-soft: #8E6B4F;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body.modal-open, body.detail-mode { overflow: hidden; }
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none; z-index: 999;
+    opacity: 0.06; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--text);
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--accent); color: var(--bg); }
+  .wrap { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 clamp(32px, 5vw, 56px); }
+  em.gold { font-style: italic; color: var(--accent); font-weight: 300; }
+
+  /* Nav */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 22px clamp(20px, 4vw, 32px);
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-logo { font-family: 'Fraunces', serif; font-size: 18px; letter-spacing: 0.02em; }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a { font-size: 13px; color: var(--text-mute); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a.active { color: var(--text); }
+  .nav-cta {
+    border: 1px solid var(--line); padding: 12px 24px; border-radius: 999px;
+    color: var(--text); font-size: 13px; transition: all 0.25s;
+  }
+  .nav-cta:hover { border-color: var(--accent); background: var(--accent); color: var(--bg); }
+  .nav-toggle {
+    display: none; background: transparent; border: 0;
+    width: 36px; height: 36px; cursor: pointer; padding: 0; z-index: 110;
+  }
+  .nav-toggle span {
+    display: block; width: 22px; height: 1.5px; background: var(--text);
+    margin: 6px auto; transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+  .nav-toggle.active span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+  .nav-toggle.active span:nth-child(2) { opacity: 0; }
+  .nav-toggle.active span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+  .mobile-menu {
+    display: none; position: fixed; inset: 0;
+    background: rgba(10,10,10,0.97);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    z-index: 105;
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 28px; padding: 80px clamp(32px, 5vw, 56px) 40px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-family: 'Fraunces', serif; font-size: clamp(28px, 8vw, 40px); color: var(--text); line-height: 1.1; }
+  .mobile-menu a:hover { color: var(--accent); }
+  .mobile-menu .mobile-menu-cta {
+    margin-top: 16px; border: 1px solid var(--accent); background: var(--accent);
+    color: var(--bg); font-family: 'Inter', sans-serif; font-size: 16px;
+    padding: 16px 36px; border-radius: 999px;
+  }
+
+  /* HUB VIEW: hero */
+  #hubView { display: block; }
+  body.detail-mode #hubView { display: none; }
+
+  .page-hero {
+    padding: 200px 0 64px;
+    border-bottom: 1px solid var(--line);
+  }
+  .page-hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .page-hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--accent); }
+  .page-hero h1 {
+    font-size: clamp(44px, 6vw, 88px); line-height: 1.02;
+    margin-bottom: 28px; max-width: 16ch;
+  }
+  .page-hero h1 em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .page-hero p {
+    font-size: clamp(17px, 1.4vw, 21px); color: var(--text-mute);
+    max-width: 680px; line-height: 1.55;
+  }
+
+  /* Genre bucket */
+  .bucket {
+    padding: 96px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .bucket:last-of-type { border-bottom: 0; }
+  .bucket-head {
+    margin-bottom: 48px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 32px; flex-wrap: wrap;
+  }
+  .bucket-head h2 {
+    font-size: clamp(32px, 4vw, 48px); line-height: 1.05;
+    margin-bottom: 8px;
+  }
+  .bucket-head h2 em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .bucket-head p { color: var(--text-mute); max-width: 540px; line-height: 1.55; }
+  .bucket-head-meta {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-mute);
+  }
+
+  /* Project card grid */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+  .project-card {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.4s ease, border-color 0.3s;
+  }
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+  .project-card img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease, filter 0.4s ease;
+    filter: brightness(0.9);
+  }
+  .project-card:hover img { transform: scale(1.04); filter: brightness(1.05); }
+  .project-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,10,0.1) 0%, rgba(10,10,10,0.2) 50%, rgba(10,10,10,0.92) 100%);
+    pointer-events: none;
+  }
+  .project-card-body {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 24px 24px 22px;
+    z-index: 2;
+  }
+  .project-card-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .project-card-name {
+    font-family: 'Fraunces', serif; font-size: 22px; line-height: 1.2;
+    color: var(--text); margin-bottom: 4px;
+  }
+  .project-card-name em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .project-card-count {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.16em; color: var(--text-mute);
+  }
+
+  /* DETAIL VIEW */
+  #detailView { display: none; }
+  body.detail-mode #detailView { display: block; }
+
+  .detail-back {
+    position: fixed;
+    top: 96px; left: clamp(24px, 4vw, 48px);
+    z-index: 90;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--text-mute);
+    border: 1px solid var(--line);
+    padding: 10px 18px; border-radius: 999px;
+    background: rgba(10,10,10,0.7);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .detail-back:hover { color: var(--accent); border-color: var(--accent); }
+  .detail-back::before { content: '← '; }
+
+  .detail-hero {
+    position: relative;
+    width: 100%;
+    padding-top: 96px;
+    background: var(--bg);
+  }
+  .detail-hero-img {
+    width: 100%;
+    aspect-ratio: 21 / 9;
+    background: var(--bg-elev);
+    overflow: hidden;
+  }
+  .detail-hero-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    cursor: zoom-in;
+  }
+  .detail-meta {
+    padding: 56px 0 0;
+  }
+  .detail-meta-eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 20px;
+  }
+  .detail-title {
+    font-size: clamp(44px, 6vw, 80px); line-height: 1.02;
+    margin-bottom: 20px; max-width: 18ch;
+  }
+  .detail-title em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .detail-credits {
+    display: flex; flex-wrap: wrap; gap: 8px 24px;
+    padding: 20px 0; margin-bottom: 16px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .detail-credit {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    display: flex; gap: 8px;
+  }
+  .detail-credit .key { color: var(--text-faint); }
+  .detail-credit .val { color: var(--text); }
+  .detail-credit .val.hot { color: var(--accent); }
+  .detail-blurb {
+    font-size: 17px; color: var(--text-mute); line-height: 1.65;
+    max-width: 640px; margin-top: 24px;
+  }
+
+  /* Image sequence */
+  .detail-sequence {
+    padding: 96px 0 0;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .seq-img {
+    width: 100%; height: auto; display: block;
+    background: var(--bg-elev);
+    cursor: zoom-in;
+    transition: filter 0.3s ease;
+  }
+  .seq-img:hover { filter: brightness(1.05); }
+
+  /* Mid-sequence inline CTA (~70% scroll) */
+  .detail-inline-cta {
+    margin: 64px auto;
+    padding: 56px clamp(28px, 5vw, 64px);
+    background: linear-gradient(180deg, rgba(200,149,109,0.06) 0%, rgba(10,10,10,0.4) 100%);
+    border: 1px solid var(--accent-soft);
+    border-radius: 4px;
+    text-align: center;
+    max-width: 720px;
+  }
+  .detail-inline-cta .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 20px;
+  }
+  .detail-inline-cta h3 {
+    font-family: 'Fraunces', serif; font-size: clamp(28px, 3.4vw, 40px);
+    line-height: 1.15; margin-bottom: 14px;
+  }
+  .detail-inline-cta h3 em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .detail-inline-cta p { color: var(--text-mute); margin-bottom: 28px; }
+  .detail-inline-cta a {
+    display: inline-block;
+    background: var(--accent); color: var(--bg);
+    padding: 16px 32px; border-radius: 4px;
+    font-size: 14px; font-weight: 500; letter-spacing: 0.02em;
+    transition: all 0.25s;
+  }
+  .detail-inline-cta a:hover { background: var(--text); transform: translateY(-1px); }
+
+  /* Bottom-fixed mobile CTA */
+  .mobile-fixed-cta {
+    display: none;
+    position: fixed; bottom: 16px; left: 16px; right: 16px;
+    z-index: 80;
+    background: var(--accent); color: var(--bg);
+    padding: 16px 24px; border-radius: 999px;
+    text-align: center; font-size: 14px; font-weight: 500;
+    letter-spacing: 0.02em; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+
+  /* Inquiry section */
+  .detail-inquiry {
+    padding: 120px 0 80px;
+    background: var(--bg-panel);
+    border-top: 1px solid var(--line);
+    margin-top: 96px;
+  }
+  .inquiry-card {
+    max-width: 640px; margin: 0 auto;
+    text-align: center;
+  }
+  .inquiry-card .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 20px;
+  }
+  .inquiry-card h2 {
+    font-size: clamp(32px, 4.4vw, 56px); line-height: 1.05;
+    margin-bottom: 16px;
+  }
+  .inquiry-card h2 em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .inquiry-card p {
+    color: var(--text-mute); line-height: 1.6;
+    max-width: 520px; margin: 0 auto 36px;
+  }
+
+  .inquiry-form {
+    text-align: left; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .inquiry-form-row label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--text-mute); margin-bottom: 8px; display: block;
+  }
+  .inquiry-form-row input,
+  .inquiry-form-row select,
+  .inquiry-form-row textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 14px 16px;
+    color: var(--text);
+    font-family: inherit; font-size: 15px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .inquiry-form-row input::placeholder,
+  .inquiry-form-row textarea::placeholder { color: var(--text-faint); }
+  .inquiry-form-row input:focus,
+  .inquiry-form-row select:focus,
+  .inquiry-form-row textarea:focus {
+    outline: none; border-color: var(--accent); background: var(--bg-elev);
+  }
+  .inquiry-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  @media (max-width: 600px) {
+    .inquiry-form-grid { grid-template-columns: 1fr; }
+  }
+  .inquiry-submit {
+    background: var(--accent); color: var(--bg); border: 0;
+    padding: 18px 24px; border-radius: 2px;
+    font-family: inherit; font-size: 15px; font-weight: 500;
+    letter-spacing: 0.02em; cursor: pointer;
+    margin-top: 8px; transition: all 0.25s;
+  }
+  .inquiry-submit:hover { background: var(--text); transform: translateY(-1px); }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(10,10,10,0.97);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    display: none;
+    align-items: center; justify-content: center;
+    padding: clamp(48px, 6vw, 80px);
+    cursor: zoom-out;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 100%; max-height: 100%;
+    object-fit: contain;
+    border-radius: 2px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+  }
+  .lightbox-close,
+  .lightbox-prev,
+  .lightbox-next {
+    position: absolute;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: rgba(10,10,10,0.6);
+    border: 1px solid var(--line);
+    cursor: pointer;
+    z-index: 210;
+    transition: all 0.2s;
+  }
+  .lightbox-close { top: 24px; right: 24px; }
+  .lightbox-prev { top: 50%; left: 24px; transform: translateY(-50%); }
+  .lightbox-next { top: 50%; right: 24px; transform: translateY(-50%); }
+  .lightbox-close:hover,
+  .lightbox-prev:hover,
+  .lightbox-next:hover { background: var(--accent); border-color: var(--accent); }
+  .lightbox-close::before,
+  .lightbox-close::after {
+    content: ''; position: absolute; top: 50%; left: 50%;
+    width: 18px; height: 1.5px; background: var(--text);
+  }
+  .lightbox-close::before { transform: translate(-50%, -50%) rotate(45deg); }
+  .lightbox-close::after { transform: translate(-50%, -50%) rotate(-45deg); }
+  .lightbox-close:hover::before,
+  .lightbox-close:hover::after { background: var(--bg); }
+  .lightbox-prev::before,
+  .lightbox-next::before {
+    content: ''; position: absolute; top: 50%; left: 50%;
+    width: 12px; height: 12px;
+    border-top: 1.5px solid var(--text);
+    border-right: 1.5px solid var(--text);
+  }
+  .lightbox-prev::before { transform: translate(-30%, -50%) rotate(-135deg); }
+  .lightbox-next::before { transform: translate(-70%, -50%) rotate(45deg); }
+  .lightbox-prev:hover::before,
+  .lightbox-next:hover::before { border-color: var(--bg); }
+  .lightbox-counter {
+    position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.18em; color: var(--text-mute);
+  }
+  .lightbox-counter .accent { color: var(--accent); }
+
+  /* Footer */
+  footer { padding: 56px 0 40px; border-top: 1px solid var(--line); }
+  .footer-grid {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 32px; flex-wrap: wrap;
+  }
+  .footer-left p { font-size: 13px; color: var(--text-faint); line-height: 1.6; }
+  .footer-attr {
+    margin-top: 12px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint);
+  }
+  .footer-attr a { color: var(--text-mute); }
+  .footer-attr a:hover { color: var(--accent); }
+  .mono {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mute);
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .page-hero { padding: 140px 0 56px; }
+    .bucket { padding: 64px 0; }
+    .bucket-head { margin-bottom: 32px; }
+    .nav-links { display: none; }
+    .nav-toggle { display: block; }
+    .footer-grid { flex-direction: column; align-items: flex-start; }
+    .project-grid { grid-template-columns: 1fr; gap: 16px; }
+    .project-card { aspect-ratio: 5 / 6; }
+    .detail-back { top: 76px; left: 16px; padding: 8px 14px; font-size: 10px; }
+    .detail-hero-img { aspect-ratio: 4 / 3; }
+    .detail-meta { padding-top: 32px; }
+    body.detail-mode .mobile-fixed-cta { display: block; }
+    .detail-inquiry { padding-bottom: 120px; }
+    .lightbox { padding: 16px; }
+    .lightbox-close { top: 12px; right: 12px; width: 40px; height: 40px; }
+    .lightbox-prev { left: 12px; width: 40px; height: 40px; }
+    .lightbox-next { right: 12px; width: 40px; height: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">JEFF<span>.</span>RAY</a>
+  <div class="nav-links">
+    <a href="index.html#work">Work</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="photography.html" class="active">Photography</a>
+    <a href="services.html">Services</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact" class="nav-cta">Start a project</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <a href="index.html#work">Work</a>
+  <a href="portfolio.html">Portfolio</a>
+  <a href="photography.html">Photography</a>
+  <a href="services.html">Services</a>
+  <a href="index.html#about">About</a>
+  <a href="index.html#contact" class="mobile-menu-cta">Start a project</a>
+</div>
+
+<!-- ============== HUB VIEW ============== -->
+<div id="hubView">
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="page-hero-eyebrow">PHOTOGRAPHY · 2020 — 2026</div>
+    <h1>Stills with the same <em>eye.</em></h1>
+    <p>Album covers and press for major-label country artists. Editorial headshots that don't look like headshots. Brand and personal portraiture out of Austin. Click any project to see the full set.</p>
+  </div>
+</section>
+
+<section class="bucket">
+  <div class="wrap">
+    <div class="bucket-head">
+      <div>
+        <h2>Album <em>&amp; press.</em></h2>
+        <p>Album artwork, press shots, and tour book photography for label-signed and independent artists.</p>
+      </div>
+      <div class="bucket-head-meta">SCOTTY McCREERY · ELI YOUNG BAND · JORDAN FLETCHER · CHASE BRYANT</div>
+    </div>
+    <div class="project-grid" id="albumGrid"></div>
+  </div>
+</section>
+
+<section class="bucket">
+  <div class="wrap">
+    <div class="bucket-head">
+      <div>
+        <h2>Editorial <em>headshots.</em></h2>
+        <p>Founder, executive, and creator headshots. Cinematic lighting, editorial finish.</p>
+      </div>
+      <div class="bucket-head-meta">AUSTIN · STUDIO &amp; LOCATION</div>
+    </div>
+    <div class="project-grid" id="headshotGrid"></div>
+  </div>
+</section>
+
+<section class="bucket">
+  <div class="wrap">
+    <div class="bucket-head">
+      <div>
+        <h2>Personal <em>&amp; lifestyle.</em></h2>
+        <p>Editorial portraiture and personal projects.</p>
+      </div>
+      <div class="bucket-head-meta">SELECTED WORK</div>
+    </div>
+    <div class="project-grid" id="lifestyleGrid"></div>
+  </div>
+</section>
+
+</div>
+<!-- ============== /HUB VIEW ============== -->
+
+
+<!-- ============== DETAIL VIEW ============== -->
+<div id="detailView" aria-hidden="true">
+  <button class="detail-back" id="detailBack">All photography</button>
+
+  <section class="detail-hero">
+    <div class="detail-hero-img" id="detailHeroImg"></div>
+    <div class="wrap">
+      <div class="detail-meta">
+        <div class="detail-meta-eyebrow" id="detailEyebrow"></div>
+        <h1 class="detail-title" id="detailTitle"></h1>
+        <div class="detail-credits" id="detailCredits"></div>
+        <p class="detail-blurb" id="detailBlurb"></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="detail-sequence" id="detailSequence"></div>
+  </div>
+
+  <section class="detail-inquiry">
+    <div class="wrap">
+      <div class="inquiry-card">
+        <div class="eyebrow">BOOK A SHOOT LIKE THIS</div>
+        <h2 id="inquiryTitle">Want this for <em>your project?</em></h2>
+        <p>Album, press, headshots, brand. Tell me the format, the deadline, and the budget range. I read every message myself.</p>
+        <form class="inquiry-form" action="https://formsubmit.co/jeffrayshootsyou@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="Photography inquiry from jeffrayshootsyou.whoisjonray.com">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="referrer" id="inquiryReferrer" value="">
+          <div class="inquiry-form-grid">
+            <div class="inquiry-form-row">
+              <label for="iname">Your name</label>
+              <input type="text" id="iname" name="name" placeholder="Jane Founder" required>
+            </div>
+            <div class="inquiry-form-row">
+              <label for="iemail">Email</label>
+              <input type="email" id="iemail" name="email" placeholder="you@company.com" required>
+            </div>
+          </div>
+          <div class="inquiry-form-grid">
+            <div class="inquiry-form-row">
+              <label for="iformat">Format</label>
+              <select id="iformat" name="format" required>
+                <option value="">Pick one…</option>
+                <option>Album / EP photography</option>
+                <option>Press / promo photography</option>
+                <option>Editorial headshot session</option>
+                <option>Brand photo day</option>
+                <option>Personal / lifestyle</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div class="inquiry-form-row">
+              <label for="ibudget">Budget range</label>
+              <select id="ibudget" name="budget" required>
+                <option value="">Pick one…</option>
+                <option>Under $1K</option>
+                <option>$1K – $2.5K</option>
+                <option>$2.5K – $5K</option>
+                <option>$5K – $10K</option>
+                <option>$10K – $25K</option>
+                <option>$25K+</option>
+              </select>
+            </div>
+          </div>
+          <div class="inquiry-form-row">
+            <label for="iproject">Tell me about the project</label>
+            <textarea id="iproject" name="project" rows="4" placeholder="Who's it for, what's the deadline, any references." required></textarea>
+          </div>
+          <button type="submit" class="inquiry-submit">Send the inquiry →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <a href="#inquiry" class="mobile-fixed-cta">Book a shoot →</a>
+</div>
+<!-- ============== /DETAIL VIEW ============== -->
+
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" id="lbClose" aria-label="Close"></button>
+  <button class="lightbox-prev" id="lbPrev" aria-label="Previous"></button>
+  <button class="lightbox-next" id="lbNext" aria-label="Next"></button>
+  <img id="lbImg" alt="">
+  <div class="lightbox-counter" id="lbCounter"></div>
+</div>
+
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-left">
+        <p>Directed and built in Austin, TX.<br>Available worldwide.</p>
+        <div class="footer-attr">© 2026 Jeff Ray · Mockup built by Jon Ray · <a href="https://whoisjonray.com" target="_blank" rel="noopener">whoisjonray.com</a></div>
+      </div>
+      <div class="mono">JEFF.RAY · DIR. ED. CIN. PHOT. · 30°16'N 97°44'W</div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+/* ===== Photography catalog. Each project has a slug, title, year, bucket, blurb, credits, image array. ===== */
+const cdn = 'https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e';
+const sized = (path, w) => `${cdn}/${path}?format=${w}w`;
+
+// Data: image paths (without CDN prefix and without ?format) per project
+const projects = {
+  'scotty-mccreery-2025': {
+    title: 'Scotty McCreery',
+    year: '2025',
+    bucket: 'album',
+    cover: '3bcba0c4-85ed-47c0-87cf-482d95d94f29/DSC05637.jpg',
+    artist: 'Scotty McCreery',
+    blurb: 'Press and album artwork session, 2025. Continued collaboration with the platinum-certified country artist whose "Five More Minutes" video crossed 100M YouTube views.',
+    credits: [
+      ['Photographer', 'Jeff Ray'],
+      ['Subject', 'Scotty McCreery'],
+      ['Year', '2025'],
+      ['Format', 'Press / Promo'],
+    ],
+    images: [
+      '3bcba0c4-85ed-47c0-87cf-482d95d94f29/DSC05637.jpg',
+      '9da44de0-3b93-41e4-8196-eab917a3ef6c/DSC05297.jpg',
+    ]
+  },
+  'scotty-mccreery-2024': {
+    title: 'Scotty McCreery',
+    year: '2024',
+    bucket: 'album',
+    cover: '74935955-72a8-4016-a87a-0b71d668e83b/DSC03479.jpg',
+    artist: 'Scotty McCreery',
+    blurb: 'Press session, 2024. Color and black-and-white frames from the same shoot day.',
+    credits: [
+      ['Photographer', 'Jeff Ray'],
+      ['Subject', 'Scotty McCreery'],
+      ['Year', '2024'],
+      ['Format', 'Press / Album'],
+    ],
+    images: [
+      '74935955-72a8-4016-a87a-0b71d668e83b/DSC03479.jpg',
+      '49e9e5f7-37d5-482e-b2f6-82f782d3fe5a/DSC02957_BW.jpg',
+    ]
+  },
+  'scotty-mccreery-2021': {
+    title: 'Scotty McCreery',
+    year: '2021',
+    bucket: 'album',
+    cover: '4bc943b6-7ef4-432d-bbca-7f197eea7c3c/DSC08034_COLOR_ALBUMCOVER.jpg',
+    artist: 'Scotty McCreery',
+    blurb: 'Album cover photography, 2021. Both color and black-and-white sequences from the cover session.',
+    credits: [
+      ['Photographer', 'Jeff Ray'],
+      ['Subject', 'Scotty McCreery'],
+      ['Year', '2021'],
+      ['Format', 'Album Cover'],
+      ['Use', 'Album Artwork'],
+    ],
+    images: [
+      '4bc943b6-7ef4-432d-bbca-7f197eea7c3c/DSC08034_COLOR_ALBUMCOVER.jpg',
+      '7d1bf192-c05f-419b-bee3-caf323efa85a/DSC09223_BW.jpg',
+    ]
+  },
+  'eli-young-band-2024': {
+    title: 'Eli Young Band',
+    year: '2024',
+    bucket: 'album',
+    cover: 'd51c9a8e-2a81-4151-a01b-b13e953807c6/DSC04463.jpg',
+    artist: 'Eli Young Band',
+    blurb: 'Band session for Eli Young Band, 2024. Companion stills to the 26-minute documentary that ran on YouTube and across country media in October 2025.',
+    credits: [
+      ['Photographer', 'Jeff Ray'],
+      ['Subject', 'Eli Young Band'],
+      ['Year', '2024'],
+      ['Format', 'Press / Promo'],
+      ['Press', '18× RIAA-cert. band'],
+    ],
+    images: [
+      'd51c9a8e-2a81-4151-a01b-b13e953807c6/DSC04463.jpg',
+      '44492ded-9bf9-4e89-87c2-c129e481ce37/DSC04596.jpg',
+    ]
+  },
+  'jordan-fletcher': {
+    title: 'Jordan Fletcher',
+    year: '2021',
+    bucket: 'album',
+    cover: 'afb9c113-28ce-48c7-a4a2-9f2fac745523/DSC01560_BW.jpg',
+    artist: 'Jordan Fletcher',
+    blurb: 'Press photography for Sony / Triple Tigers artist Jordan Fletcher. Black-and-white sequence focused on close presence and quiet camera work.',
+    credits: [
+      ['Photographer', 'Jeff Ray'],
+      ['Subject', 'Jordan Fletcher'],
+      ['Label', 'Sony / Triple Tigers'],
+      ['Year', '2021'],
+      ['Format', 'Press / Promo'],
+    ],
+    images: [
+      'afb9c113-28ce-48c7-a4a2-9f2fac745523/DSC01560_BW.jpg',
+      '6191e631-d2cb-4b2b-a3f9-635b70a7224d/DSC02083_BW.jpg',
+    ]
+  },
+  'chase-bryant': {
+    title: 'Chase Bryant',
+    year: '2020',
+    bucket: 'album',
+    cover: '33c57506-6cf0-4055-80c3-a8a103a13ada/Chase+Bryant+-+PARKING+GARAGE_2.jpg',
+    artist: 'Chase Bryant',
+    blurb: 'Press session with Chase Bryant. Parking garage location, mixed color and black-and-white treatment.',
+    credits: [
+      ['Photographer', 'Jeff Ray'],
+      ['Subject', 'Chase Bryant'],
+      ['Label', 'Green Iris'],
+      ['Year', '2020'],
+      ['Format', 'Press / Promo'],
+    ],
+    images: [
+      '33c57506-6cf0-4055-80c3-a8a103a13ada/Chase+Bryant+-+PARKING+GARAGE_2.jpg',
+      '9582ce13-59f6-440d-912f-6a34331b1fa7/Chase+Bryant+-+PARKING+GARAGE_1.jpg',
+    ]
+  },
+  'kelsey': {
+    title: 'Kelsey',
+    year: '2020 – 2022',
+    bucket: 'lifestyle',
+    cover: 'a137bba1-65ca-402a-ac1d-5de17ad5e269/DSC00207.jpg',
+    artist: 'Kelsey',
+    blurb: 'A multi-year personal portraiture project. Editorial framing, mixed locations, ongoing.',
+    credits: [
+      ['Photographer', 'Jeff Ray'],
+      ['Subject', 'Kelsey'],
+      ['Years', '2020 – 2022'],
+      ['Format', 'Personal / Editorial'],
+    ],
+    images: [
+      'a137bba1-65ca-402a-ac1d-5de17ad5e269/DSC00207.jpg',
+      '3d74b6b5-9977-48c0-9435-44a7c304f44e/DSC00162.jpg',
+    ]
+  },
+  'headshots-2025': {
+    title: 'Editorial Headshots',
+    year: '2025 – 2026',
+    bucket: 'headshot',
+    cover: '61bc19b0-8924-4c6a-9c2e-4a22616fd156/DSC09228+copy.jpg',
+    artist: 'Founders, executives, creators',
+    blurb: 'Editorial headshots that don\'t look like headshots. 60-minute sessions in Austin (studio or location), cinematic lighting, 5 finished frames delivered, raw included.',
+    credits: [
+      ['Photographer', 'Jeff Ray'],
+      ['Format', 'Editorial Headshot'],
+      ['Years', '2025 – 2026'],
+      ['Studio', 'Austin, TX'],
+    ],
+    images: [
+      '61bc19b0-8924-4c6a-9c2e-4a22616fd156/DSC09228+copy.jpg',
+      '11b30ee1-9c47-4134-924f-a0e2df6a5349/DSC08151.jpg',
+    ]
+  },
+};
+
+/* ===== Inject the full image lists from the scraped JSON ===== */
+const allImages = {
+  "scotty-mccreery-2025": [
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/3bcba0c4-85ed-47c0-87cf-482d95d94f29/DSC05637.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/9da44de0-3b93-41e4-8196-eab917a3ef6c/DSC05297.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/885462cf-0cc5-4204-9075-c0a2fceb9103/DSC04964.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/a8d8fc49-9288-4e2b-91e6-30bdad1c15d2/DSC03510_BW.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/b88a039f-0c39-4ee3-a499-c317f2ed9d0d/DSC05083.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/d340442a-bb6e-4cde-aba0-10c1367db75c/DSC03671_BW.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/ee1b8040-0916-4b4a-8ca2-4bd510dc3638/DSC04086.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/ce89546b-3db1-45af-8ab2-bf4efe5b00ba/DSC03701.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/dd665b8c-9db5-491e-8c76-a9c622d70913/DSC05057.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/991bf7f0-9856-4cf1-ac5f-2e12478421cc/DSC04022.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/25a7641e-e1c7-4d0a-b359-6d8c24be6a25/DSC05669.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/d8efd16c-b861-4a42-a31c-e5989f818ad2/DSC04006.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/75bddcf0-82b3-4d8d-9886-6f4408ee8d51/DSC04769.jpg"
+  ],
+  "scotty-mccreery-2024": [
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/74935955-72a8-4016-a87a-0b71d668e83b/DSC03479.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/49e9e5f7-37d5-482e-b2f6-82f782d3fe5a/DSC02957_BW.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/c2c6deb7-a127-444c-b245-8850cf73d47f/DSC02372_COLOR_WEB.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/e1fb3986-a8a6-4b34-afdd-964b3df34fcf/DSC03780_BW.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/35997ed5-9dbe-4a21-b848-5301098e3e91/DSC03176_COLOR.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/36ec3d33-4b06-4794-97be-591239b0ba87/DSC02436.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/c89b0d33-222a-493d-a1c0-a51c8d649750/DSC03115.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/7ccdfec8-ef8b-4ed8-8d1c-0f1472b0c561/DSC02238.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/74add767-9baa-4053-bf47-230e95d9c9ac/DSC02282_BW.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/699bf317-c1d8-45fe-812d-94946aed3b34/DSC03424_1C.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/1327b86f-e4be-4955-b54f-85cf49c5c7c3/DSC02643_BW.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/63d5b372-d1dd-4fad-9909-fbeb6a80b588/DSC02262.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/fe986649-4c3a-4a5a-a67a-40ac17c89b0d/DSC02897_COLOR.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/e53c1295-73a0-4647-bfd5-d64ad9bf1390/DSC02330.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/d5dbad98-eec6-4f48-8b4a-198e1a4dcd46/DSC02343.jpg"
+  ],
+  "scotty-mccreery-2021": [
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/4bc943b6-7ef4-432d-bbca-7f197eea7c3c/DSC08034_COLOR_ALBUMCOVER.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/7d1bf192-c05f-419b-bee3-caf323efa85a/DSC09223_BW.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/03752e07-378b-4006-9a27-66865d77d528/DSC09301_COLOR.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/70bda599-5bbd-4414-9c8d-3afddfaf76a9/DSC09966_BW.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/5af0ddba-26b4-4d84-985c-68b57d22b284/DSC08323_COLOR.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/6dae840d-cf37-4c36-a0f8-e12b4110b9d9/DSC07914_BW.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/559f464d-11d3-4639-b37c-886efa169df3/DSC00591_COLOR.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/e321c01c-c71c-4d90-aacb-f82f07b7baf2/DSC08631_BW.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/85a6bed3-d6a7-4642-a631-4ab1ddfd84a2/DSC09963_COLOR.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/53066fda-ac51-489d-ae61-e25b39979517/DSC09634_BW.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/0b58d31d-c310-4467-a0fa-0cbdcab336d0/DSC09397_BW.jpg"
+  ],
+  "eli-young-band-2024": [
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/d51c9a8e-2a81-4151-a01b-b13e953807c6/DSC04463.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/44492ded-9bf9-4e89-87c2-c129e481ce37/DSC04596.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/8c60e7dc-cc09-4f61-9429-ec44740d8475/DSC03269_VERTICAL.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/6a64947c-478c-4162-9ac9-28bc20a32dba/DSC04653_VERTICAL.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/90cca84c-445f-4014-8193-5179ef0aeae2/DSC03371.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/6275082f-7ac3-439c-b5b2-d27f13e496d5/DSC03405.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/8dcf84ab-2612-4a34-8321-5657cb8ee7da/DSC03330.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/f5376cb5-6120-4bf5-b76f-61bbae38c738/DSC03349.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/005b731a-a4e8-4aa3-af4a-4a6cd5f282d1/DSC03126.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/287a9e12-238f-4573-aed8-8d8c42aaf685/DSC03094_VERTICAL.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/41e29376-8f85-46fd-a375-f8d3f669e100/DSC04030.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/37dd3658-b32f-4e1a-b7dc-d3718068b163/DSC04075.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/d57b318a-89b8-4638-8d1b-de009378eaf3/DSC04347.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/ea780d99-b00a-4bb9-92d2-5e72b9561ab4/DSC04492.jpg"
+  ],
+  "jordan-fletcher": [
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/afb9c113-28ce-48c7-a4a2-9f2fac745523/DSC01560_BW.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/6191e631-d2cb-4b2b-a3f9-635b70a7224d/DSC02083_BW.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/bc200f57-3f35-4d9e-a9b7-bcd0ad0c85b9/DSC02905_BW.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/89a4094e-9566-466a-95dd-ff0f6625a2f9/DSC01126_BW.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/99a28c9e-3259-4d8b-8afd-d7fa45c5ab5d/DSC01467_COLOR.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/e406eb0f-d4d0-4011-a654-1e103d07bd85/DSC01453_COLOR.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/ca13c05f-044e-4375-8f46-d074295af5bb/DSC00752_BW.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/d1fe34ba-9fe2-42b9-ae01-fcdca16fecd6/DSC00833_COLOR.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/28c0a282-ab73-413a-95ce-7b2bdf350ae7/DSC03080_BW.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/da5481f7-0062-40c6-9cc7-ba20feb85e90/DSC02649_BW.jpg"
+  ],
+  "chase-bryant": [
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/33c57506-6cf0-4055-80c3-a8a103a13ada/Chase+Bryant+-+PARKING+GARAGE_2.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/9582ce13-59f6-440d-912f-6a34331b1fa7/Chase+Bryant+-+PARKING+GARAGE_1.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/9099b36b-c0bb-49b9-953f-e2f036b8e07e/Chase+Bryant+-+SLIVER+OF+LIGHT+.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/a4c6a5a1-ebc5-4b4e-aba9-b47e308223cc/CHASE+FIELD+2.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/b766efb2-e726-4899-8a1e-40db924eb81b/CHASE+HANGER+DOOR+1.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/5deddec7-7ad2-46b9-8bc5-dafb8c1154db/CHASE+BRYANT+-+CIGARETTE+PORTRAIT+THREE_1.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/2165b7ef-f873-4fb3-a052-67ff595ac2e7/CHASE+-+AC+LIGHT_27.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/dbebb543-283e-43fb-b834-61fc30e55607/CHASE+-+AC+LIGHT_2.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/7fe617e2-92df-41e1-a32a-d81a39b0f2f1/CHASE+AC+LIGHT+9.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/3f95667a-3d89-4784-af8b-87a110687b7b/Chase+Bryant+-+GREEN+PASTURES.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/923bb38c-bc3a-430f-8341-db1b9e8186ff/CHASE+BRYANT+-+SIDEHOUSE+%28FINAL%29_3.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/5e0334bf-e283-4aac-bdea-82026281887b/Chase+Bryant+-+Bedroom+Portrait+2.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/53c97bf3-8d8b-4847-a5c2-8f30299c6840/CHASE+BEDROOM+1.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/eae49b4d-f663-4854-8965-0d746895924a/CHASE+-+AC+LIGHT_36.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/5ec2ff1f-d79c-4fe4-bef9-1f8bef093b89/Chase+Bryant+-+MAIN+HOUSE+COUCH.jpg"
+  ],
+  "kelsey": [
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/a137bba1-65ca-402a-ac1d-5de17ad5e269/DSC00207.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/3d74b6b5-9977-48c0-9435-44a7c304f44e/DSC00162.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/4489a211-2f26-45cc-837c-6bf647f0a076/DSC00154.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/4949c55e-c3d6-4ecd-982e-fd067aa38c03/IMG_8429.JPG",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/02e4b60f-9772-4166-a893-8b9fcd374974/KELSEY+GRASS+PHOTO+_17.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/0204be8d-7ada-4a7d-95e2-98b459d9aa00/KELSEY+GRASS+PHOTO+_9.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/f7d71cb5-7353-4f7b-833e-8c103e365dc0/KELSEY+GRASS+PHOTO+_24.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/a75df50b-c37b-4d7e-a033-4efdc293a410/DSC00496_COLOR.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/c745f034-e59a-4ebd-bb4b-d7b0c39a7b01/DSC00133_COLOR.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/e87c78aa-1148-4ec1-bb27-4cefcd76e146/DSC00064_BW.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/35a47962-da2c-401b-9734-ee7374179c1d/DSC00264_BW.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/a58b7747-f3b9-4454-84f6-ba1dd7526982/IMG_8427.JPG",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/fc686087-ff5d-4caa-b5af-6c7481930ad4/DSC09995_SMALL.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/7936ec33-afa7-4671-b03c-3e4630543ea5/IMG_8428.JPG"
+  ],
+  "headshots-2025": [
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/61bc19b0-8924-4c6a-9c2e-4a22616fd156/DSC09228+copy.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/11b30ee1-9c47-4134-924f-a0e2df6a5349/DSC08151.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/5919b526-9765-4d8a-b21f-312beda1a08c/DSC08564.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/75f6e202-cb27-4950-8577-6435341482b1/DSC00070+copy.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/9349c43c-49a4-4731-b5b6-9dfa34fb6aec/DSC04052+copy.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/56f86221-848b-4841-b4a6-5b51cafa02e8/DSC07715.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/9564c6c2-bf4a-432b-b572-67322091b352/DSC03539.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/4ed03446-f52f-4391-9b70-e3593963fe86/DSC07478.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/7d3c11bc-51e0-4c03-a162-985d31a12726/DSC09878+copy.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/aafb9250-af28-419c-b15c-f0e31ffc1b29/DSC06917.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/f500990a-fe3d-4fa3-be7b-8589efaf0d11/DSC06588.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/43d5b544-3808-4797-95ba-84eaf98e4753/DSC00959.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/21287d17-af7c-4e80-ad65-61cadf20996f/DSC07952.jpg",
+    "https://images.squarespace-cdn.com/content/v1/626ae332956bc476f17c9f9e/1657392b-cdea-4e8a-ba0e-94bc6a38c843/DSC07307.jpg"
+  ]
+};
+Object.keys(allImages).forEach(slug => {
+  if (projects[slug]) {
+    projects[slug].images = allImages[slug];
+    if (!projects[slug].cover && allImages[slug][0]) {
+      // Extract path-after-CDN
+      projects[slug].cover = allImages[slug][0].replace(cdn + '/', '').split('?')[0];
+    }
+  }
+});
+
+/* ===== Render hub grids ===== */
+function renderHub() {
+  const grids = {
+    album: document.getElementById('albumGrid'),
+    headshot: document.getElementById('headshotGrid'),
+    lifestyle: document.getElementById('lifestyleGrid'),
+  };
+  Object.keys(grids).forEach(b => grids[b].innerHTML = '');
+
+  const order = [
+    'scotty-mccreery-2025',
+    'scotty-mccreery-2024',
+    'eli-young-band-2024',
+    'jordan-fletcher',
+    'chase-bryant',
+    'scotty-mccreery-2021',
+    'headshots-2025',
+    'kelsey',
+  ];
+
+  order.forEach(slug => {
+    const p = projects[slug];
+    if (!p) return;
+    const grid = grids[p.bucket];
+    if (!grid) return;
+    const card = document.createElement('a');
+    card.className = 'project-card';
+    card.href = `#${slug}`;
+    const coverPath = p.cover.replace(cdn + '/', '');
+    card.innerHTML = `
+      <img src="${sized(coverPath, 1000)}" alt="${p.title} — ${p.year}" loading="lazy">
+      <div class="project-card-overlay"></div>
+      <div class="project-card-body">
+        <div class="project-card-meta">${p.year}</div>
+        <div class="project-card-name">${p.title}</div>
+        <div class="project-card-count">${p.images.length} frames</div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+/* ===== Render detail view ===== */
+function renderDetail(slug) {
+  const p = projects[slug];
+  if (!p) { closeDetail(); return; }
+
+  document.getElementById('detailEyebrow').textContent = p.year.toUpperCase();
+  document.getElementById('detailTitle').innerHTML = `${p.title}<em>.</em>`;
+  document.getElementById('detailBlurb').textContent = p.blurb;
+
+  // Hero image (use the cover at high res)
+  const coverPath = p.cover.replace(cdn + '/', '');
+  document.getElementById('detailHeroImg').innerHTML =
+    `<img src="${sized(coverPath, 2500)}" alt="${p.title} — ${p.year}" data-full="${cdn}/${coverPath}?format=2500w" data-idx="0">`;
+
+  // Credits
+  const creditsEl = document.getElementById('detailCredits');
+  creditsEl.innerHTML = p.credits.map(([k, v]) =>
+    `<div class="detail-credit"><span class="key">${k}:</span><span class="val">${v}</span></div>`
+  ).join('');
+
+  // Sequence (skip the cover since it's the hero)
+  const seq = document.getElementById('detailSequence');
+  seq.innerHTML = '';
+  const sequenceImages = p.images.filter(u => !u.includes(coverPath.split('?')[0]));
+
+  // Insert the inline CTA at ~70% depth
+  const insertAt = Math.max(2, Math.floor(sequenceImages.length * 0.7));
+  sequenceImages.forEach((url, i) => {
+    if (i === insertAt) {
+      const cta = document.createElement('div');
+      cta.className = 'detail-inline-cta';
+      cta.innerHTML = `
+        <div class="eyebrow">BOOK A SHOOT LIKE THIS</div>
+        <h3>Want this for <em>your project?</em></h3>
+        <p>Album, press, headshots, brand. Tell me what you're making.</p>
+        <a href="#inquiry">Send an inquiry →</a>
+      `;
+      seq.appendChild(cta);
+    }
+    const img = document.createElement('img');
+    img.className = 'seq-img';
+    // Use 1500w for sequence display, 2500w for lightbox
+    const path = url.replace(cdn + '/', '').split('?')[0];
+    img.src = sized(path, 1500);
+    img.dataset.full = sized(path, 2500);
+    img.dataset.idx = i + 1; // +1 because cover is idx 0
+    img.loading = 'lazy';
+    img.alt = `${p.title} — frame ${i + 2}`;
+    seq.appendChild(img);
+  });
+
+  document.getElementById('inquiryReferrer').value = `${p.title} (${p.year})`;
+  document.getElementById('inquiryTitle').innerHTML = `Want a shoot like the <em>${p.title}</em> set?`;
+
+  document.body.classList.add('detail-mode');
+  document.getElementById('detailView').setAttribute('aria-hidden', 'false');
+  document.getElementById('hubView').setAttribute('aria-hidden', 'true');
+  window.scrollTo(0, 0);
+
+  bindLightbox(slug);
+}
+
+function closeDetail() {
+  document.body.classList.remove('detail-mode');
+  document.getElementById('detailView').setAttribute('aria-hidden', 'true');
+  document.getElementById('hubView').setAttribute('aria-hidden', 'false');
+  if (window.location.hash) {
+    history.pushState('', document.title, window.location.pathname + window.location.search);
+  }
+  window.scrollTo(0, 0);
+}
+
+/* ===== Lightbox ===== */
+let currentLightbox = { slug: null, index: 0, total: 0 };
+function bindLightbox(slug) {
+  const p = projects[slug];
+  const heroImg = document.querySelector('#detailHeroImg img');
+  const seqImgs = document.querySelectorAll('#detailSequence .seq-img');
+  const all = [heroImg, ...seqImgs].filter(Boolean);
+  all.forEach((img, i) => {
+    img.addEventListener('click', () => openLightbox(slug, i));
+  });
+}
+function openLightbox(slug, index) {
+  const p = projects[slug];
+  currentLightbox = { slug, index, total: p.images.length };
+  showLightboxImage();
+  document.getElementById('lightbox').classList.add('open');
+  document.getElementById('lightbox').setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+}
+function showLightboxImage() {
+  const p = projects[currentLightbox.slug];
+  const url = p.images[currentLightbox.index];
+  const path = url.replace(cdn + '/', '').split('?')[0];
+  document.getElementById('lbImg').src = sized(path, 2500);
+  document.getElementById('lbCounter').innerHTML =
+    `<span class="accent">${String(currentLightbox.index + 1).padStart(2, '0')}</span> / ${String(currentLightbox.total).padStart(2, '0')}`;
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lightbox').setAttribute('aria-hidden', 'true');
+  document.getElementById('lbImg').src = '';
+  document.body.classList.remove('modal-open');
+}
+function nextLightbox() {
+  currentLightbox.index = (currentLightbox.index + 1) % currentLightbox.total;
+  showLightboxImage();
+}
+function prevLightbox() {
+  currentLightbox.index = (currentLightbox.index - 1 + currentLightbox.total) % currentLightbox.total;
+  showLightboxImage();
+}
+
+/* ===== Routing ===== */
+function handleHash() {
+  const hash = window.location.hash.replace('#', '');
+  if (hash && projects[hash]) {
+    renderDetail(hash);
+  } else if (hash === 'inquiry') {
+    // Don't change view, just scroll
+  } else {
+    closeDetail();
+  }
+}
+
+/* ===== Bindings ===== */
+document.getElementById('detailBack').addEventListener('click', closeDetail);
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+document.getElementById('lbNext').addEventListener('click', nextLightbox);
+document.getElementById('lbPrev').addEventListener('click', prevLightbox);
+document.getElementById('lightbox').addEventListener('click', (e) => {
+  if (e.target.id === 'lightbox') closeLightbox();
+});
+document.addEventListener('keydown', (e) => {
+  if (document.getElementById('lightbox').classList.contains('open')) {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') nextLightbox();
+    if (e.key === 'ArrowLeft') prevLightbox();
+  } else if (document.body.classList.contains('detail-mode')) {
+    if (e.key === 'Escape') closeDetail();
+  }
+});
+window.addEventListener('hashchange', handleHash);
+
+/* ===== Mobile menu ===== */
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+if (navToggle && mobileMenu) {
+  navToggle.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    navToggle.classList.toggle('active', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      navToggle.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  });
+}
+
+/* ===== Initial render ===== */
+renderHub();
+handleHash();
+</script>
+
+</body>
+</html>
