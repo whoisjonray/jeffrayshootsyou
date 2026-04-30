@@ -664,7 +664,7 @@
     <div class="detail-sequence" id="detailSequence"></div>
   </div>
 
-  <section class="detail-inquiry">
+  <section class="detail-inquiry" id="inquiry">
     <div class="wrap">
       <div class="inquiry-card">
         <div class="eyebrow">BOOK A SHOOT LIKE THIS</div>
@@ -1227,6 +1227,15 @@ document.addEventListener('keydown', (e) => {
   }
 });
 window.addEventListener('hashchange', handleHash);
+
+/* Inline CTA / mobile fixed CTA: scroll to inquiry without changing URL hash */
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('a[href="#inquiry"]');
+  if (!a) return;
+  e.preventDefault();
+  const target = document.getElementById('inquiry');
+  if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
 
 /* ===== Mobile menu ===== */
 const navToggle = document.getElementById('navToggle');
