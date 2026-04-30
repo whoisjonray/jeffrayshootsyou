@@ -839,7 +839,7 @@
               <option value="5">5x your average (strong breakout)</option>
               <option value="10">10x your average (viral moment)</option>
             </select>
-            <div class="helper"><strong>What this means:</strong> A flagship compilation typically gets 2–5x the views of a regular upload because emotional retention triggers the algorithm to push it past your subscriber bubble. Stick with 2x to be safe — anything above is upside. <em>Reference: "Year in Review" videos consistently rank in creators' top 5 every year.</em></div>
+            <div class="helper"><strong>What this means:</strong> A flagship compilation typically gets 2–5x the views of a regular upload because emotional retention triggers the algorithm to push it past your subscriber bubble. Try a few options and see how the math changes. <em>Reference: "Year in Review" videos consistently rank in creators' top 5 every year.</em></div>
           </div>
 
           <div class="calc-row">
@@ -1295,13 +1295,13 @@ function recalc() {
     verdictIcon.textContent = '✓';
     if (isSpec && year1Cost === 0) {
       verdictHead.textContent = 'You keep the reel for free.';
-      verdictText.textContent = `Your reel projects to ${viewsPerReel.toLocaleString()} views — below the 100K threshold, so you owe nothing. You still get $${Math.round(totalValue).toLocaleString()} in compounding value over 12 months. Win either way.`;
+      verdictText.textContent = `Your reel projects to ${viewsPerReel.toLocaleString()} views — below the 100K trigger, so you owe nothing. You still earn $${Math.round(totalValue).toLocaleString()} in compounding value over 12 months. Win either way.`;
     } else if (isSpec) {
       verdictHead.textContent = 'Great fit.';
-      verdictText.textContent = `If your Spec hits 100K, you pay $1,500 and earn $${Math.round(totalValue).toLocaleString()} back over 12 months. That's ${roi.toFixed(1)}x what you paid. Apply.`;
+      verdictText.textContent = `Your reel projects to ${viewsPerReel.toLocaleString()} views — above the 100K trigger, so you'd pay $1,500. You'd earn $${Math.round(totalValue).toLocaleString()} back over 12 months. That's ${roi.toFixed(1)}x what you paid. Apply.`;
     } else {
       verdictHead.textContent = 'Great fit for the retainer.';
-      verdictText.textContent = `${reelsPerMonth} reels per month at your numbers projects to $${Math.round(totalValue).toLocaleString()} over 12 months — ${roi.toFixed(1)}x your retainer cost. Start with The Spec to prove it on one reel, then move up.`;
+      verdictText.textContent = `${reelsPerMonth} reels/mo at ${viewsPerReel.toLocaleString()} views each projects to $${Math.round(totalValue).toLocaleString()} over 12 months — ${roi.toFixed(1)}x your retainer cost. Start with The Spec to prove it on one reel, then move up.`;
     }
   } else {
     verdictEl.classList.remove('good');
@@ -1309,9 +1309,9 @@ function recalc() {
     verdictIcon.textContent = '✕';
     verdictHead.textContent = "Probably not the best fit.";
     if (isSpec) {
-      verdictText.textContent = `If your Spec hits 100K, the value back ($${Math.round(totalValue).toLocaleString()}) wouldn't clear the $1,500 cost. Your channel might need a higher CPM niche or stronger back-end product before this play makes sense for cashflow.`;
+      verdictText.textContent = `Your reel projects to ${viewsPerReel.toLocaleString()} views. If it crosses 100K, the $${Math.round(totalValue).toLocaleString()} you'd earn back wouldn't clear the $1,500 cost. Your channel might need a higher-RPM niche or a stronger back-end product before this play makes sense for cashflow.`;
     } else {
-      verdictText.textContent = `At your current numbers, this retainer wouldn't clear its cost over 12 months. If the cashflow needs to make sense from day one, this isn't the right fit. Try The Spec first — pay-on-performance means you risk nothing.`;
+      verdictText.textContent = `${reelsPerMonth} reels/mo at ${viewsPerReel.toLocaleString()} views each ($${Math.round(totalValue).toLocaleString()} value) wouldn't clear the $${Math.round(year1Cost).toLocaleString()} retainer cost over 12 months. If cashflow needs to make sense from day one, this isn't the right fit. Try The Spec first — pay-on-performance means you risk nothing.`;
     }
   }
 }
