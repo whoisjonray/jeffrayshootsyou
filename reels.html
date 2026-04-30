@@ -374,6 +374,104 @@
   }
   .scenarios-footer a:hover { color: var(--text); border-color: var(--text); }
 
+  /* Match tool — 3 inputs, points to the right scenario */
+  .match-tool {
+    margin-top: 56px;
+    padding: 48px clamp(28px, 4vw, 56px);
+    background: var(--bg);
+    border: 1px solid var(--accent-soft);
+    border-radius: 4px;
+  }
+  .match-tool-head {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .match-tool-head h3 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(24px, 3vw, 36px);
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+  .match-tool-head h3 em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .match-tool-head p { color: var(--text-mute); font-size: 15px; }
+
+  .match-form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 720px; margin: 0 auto;
+  }
+  @media (max-width: 700px) { .match-form { grid-template-columns: 1fr; } }
+  .match-input { display: flex; flex-direction: column; gap: 8px; }
+  .match-input label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--text-mute);
+  }
+  .match-input input {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 14px 16px;
+    color: var(--text);
+    font-family: inherit; font-size: 16px;
+    transition: border-color 0.2s;
+  }
+  .match-input input::placeholder { color: var(--text-faint); }
+  .match-input input:focus {
+    outline: none; border-color: var(--accent); background: var(--bg-panel);
+  }
+
+  .match-result { margin-top: 28px; max-width: 720px; margin-left: auto; margin-right: auto; }
+  .match-result:empty { display: none; }
+  .match-verdict {
+    padding: 24px 28px;
+    border-radius: 4px;
+    border: 1px solid;
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+  .match-verdict.good { background: rgba(140, 200, 140, 0.06); border-color: rgba(140, 200, 140, 0.4); }
+  .match-verdict.comeback { background: rgba(212, 168, 67, 0.06); border-color: rgba(212, 168, 67, 0.4); }
+  .match-verdict.bad { background: rgba(217, 117, 96, 0.06); border-color: rgba(217, 117, 96, 0.4); }
+  .match-verdict .vdct-icon {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 28px; line-height: 1; flex-shrink: 0;
+  }
+  .match-verdict.good .vdct-icon { color: #8cc88c; }
+  .match-verdict.comeback .vdct-icon { color: #d4a843; }
+  .match-verdict.bad .vdct-icon { color: #d97560; }
+  .match-verdict-body { flex: 1; }
+  .match-verdict-body h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 19px; line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .match-verdict.good .match-verdict-body h4 { color: #b3dab3; }
+  .match-verdict.comeback .match-verdict-body h4 { color: #e8c87a; }
+  .match-verdict.bad .match-verdict-body h4 { color: #e8a597; }
+  .match-verdict-body p {
+    color: var(--text-mute); font-size: 14.5px; line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .match-verdict-body p:last-child { margin-bottom: 0; }
+  .match-verdict-body a.cta {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif; font-size: 13px;
+    letter-spacing: 0.04em;
+    transition: all 0.2s;
+  }
+  .match-verdict.good .cta {
+    background: #8cc88c; color: var(--bg); border: 1px solid #8cc88c;
+  }
+  .match-verdict.good .cta:hover { background: var(--text); border-color: var(--text); }
+  .match-verdict.comeback .cta {
+    background: #d4a843; color: var(--bg); border: 1px solid #d4a843;
+  }
+  .match-verdict.comeback .cta:hover { background: var(--text); border-color: var(--text); }
+
   /* CALCULATOR (legacy — kept in case we want to bring it back) */
   .calc-card {
     background: var(--bg-elev);
@@ -979,6 +1077,28 @@
 
     </div>
 
+    <div class="match-tool">
+      <div class="match-tool-head">
+        <h3>Where does <em>your channel</em> land?</h3>
+        <p>Three quick inputs. We'll tell you which pattern you match.</p>
+      </div>
+      <div class="match-form">
+        <div class="match-input">
+          <label for="m-subs">Subscribers</label>
+          <input type="number" id="m-subs" placeholder="e.g. 250000" min="0" step="1000">
+        </div>
+        <div class="match-input">
+          <label for="m-avg">Avg views / video</label>
+          <input type="number" id="m-avg" placeholder="e.g. 50000" min="0" step="100">
+        </div>
+        <div class="match-input">
+          <label for="m-peak">Best video, last 6 months</label>
+          <input type="number" id="m-peak" placeholder="e.g. 200000" min="0" step="1000">
+        </div>
+      </div>
+      <div class="match-result" id="m-result"></div>
+    </div>
+
     <p class="scenarios-footer">If your channel looks like one of the first two patterns, <a href="#spec">apply for a Spec</a>. If you're closer to the third, the format works once your channel grows or your back-end product solidifies. We'll be honest if it's not the right time.</p>
 
   </div>
@@ -1242,7 +1362,65 @@ https://youtube.com/watch?v=..." required></textarea>
 </footer>
 
 <script>
-/* ===== Calculator — simplified, transparent, with verdict ===== */
+/* ===== Match tool — 3 inputs, point to the right scenario ===== */
+function matchChannel() {
+  const subs = +document.getElementById('m-subs').value || 0;
+  const avg = +document.getElementById('m-avg').value || 0;
+  const peak = +document.getElementById('m-peak').value || 0;
+  const result = document.getElementById('m-result');
+
+  if (!subs || !avg || !peak) {
+    result.innerHTML = '';
+    return;
+  }
+
+  const isSmall = subs < 100000 || peak < 100000 || avg < 3000;
+  const liftRatio = avg > 0 ? peak / avg : 0;
+  const isComeback = !isSmall && liftRatio >= 8;
+  const isHealthy = !isSmall && !isComeback;
+
+  let html;
+  if (isHealthy) {
+    const projection = Math.round((peak + avg) / 2);
+    html = `<div class="match-verdict good">
+      <span class="vdct-icon">✓</span>
+      <div class="match-verdict-body">
+        <h4>You match The Healthy Creator.</h4>
+        <p>Your peak (${peak.toLocaleString()}) is ${liftRatio.toFixed(1)}x your average — the normal variance band for an active channel. A flagship reel realistically projects to ~${projection.toLocaleString()} views, well above the 100K trigger. The math closes itself.</p>
+        <a href="#spec" class="cta">Apply for a Spec →</a>
+      </div>
+    </div>`;
+  } else if (isComeback) {
+    html = `<div class="match-verdict comeback">
+      <span class="vdct-icon">⟳</span>
+      <div class="match-verdict-body">
+        <h4>You match The Dormant Coaching Channel.</h4>
+        <p>Your peak (${peak.toLocaleString()}) is ${liftRatio.toFixed(0)}x your average — the comeback signature. The algorithm has demonstrably pushed you past 100K, but recent uploads have cooled. A reel that hits 100K again proves the format works for you and reactivates the dormant audience.</p>
+        <a href="#spec" class="cta">Apply for a Spec →</a>
+      </div>
+    </div>`;
+  } else {
+    let why = [];
+    if (subs < 100000) why.push(`under 100K subs (you're at ${subs.toLocaleString()})`);
+    if (peak < 100000) why.push(`no video past 100K in the last 6 months (peak ${peak.toLocaleString()})`);
+    if (avg < 3000) why.push(`average views under 3K (you're at ${avg.toLocaleString()})`);
+    html = `<div class="match-verdict bad">
+      <span class="vdct-icon">✕</span>
+      <div class="match-verdict-body">
+        <h4>You match The Small Channel pattern.</h4>
+        <p>${why.join(', ')}. The 100K-view threshold is too far for the format to reliably deliver. Build to 100K+ subs or land a 100K+ peak first — then come back. We'll be honest about timing instead of taking your money.</p>
+      </div>
+    </div>`;
+  }
+
+  result.innerHTML = html;
+}
+
+document.querySelectorAll('#m-subs, #m-avg, #m-peak').forEach(el => {
+  el.addEventListener('input', matchChannel);
+});
+
+/* ===== Calculator — legacy (no longer rendered) ===== */
 function recalc() {
   const subs = +document.getElementById('ci-subs').value || 0;
   const avgViews = +document.getElementById('ci-avg').value || 0;
@@ -1425,11 +1603,13 @@ function recalc() {
   }
 }
 
-document.querySelectorAll('#ci-subs, #ci-avg, #ci-outlier, #ci-niche, #ci-backend, #ci-lift, #ci-tier').forEach(el => {
+// Legacy calculator removed from page — handler kept defensive
+const ciEls = document.querySelectorAll('#ci-subs, #ci-avg, #ci-outlier, #ci-niche, #ci-backend, #ci-lift, #ci-tier');
+ciEls.forEach(el => {
   el.addEventListener('input', recalc);
   el.addEventListener('change', recalc);
 });
-recalc();
+if (ciEls.length > 0) recalc();
 
 /* ===== Mobile menu ===== */
 const navToggle = document.getElementById('navToggle');
