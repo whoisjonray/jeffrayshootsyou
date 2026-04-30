@@ -106,8 +106,38 @@
   body.detail-mode #hubView { display: none; }
 
   .page-hero {
-    padding: 200px 0 64px;
+    position: relative;
+    padding: 200px 0 96px;
+    min-height: clamp(560px, 78vh, 820px);
     border-bottom: 1px solid var(--line);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  .page-hero .wrap { position: relative; z-index: 3; width: 100%; }
+  .page-hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: var(--bg);
+  }
+  .page-hero-bg img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    opacity: 0;
+    transition: opacity 2s ease, transform 8s ease;
+    transform: scale(1.04);
+    filter: grayscale(8%);
+  }
+  .page-hero-bg img.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .page-hero-overlay {
+    position: absolute; inset: 0; z-index: 1;
+    background:
+      linear-gradient(180deg, rgba(10,10,10,0.7) 0%, rgba(10,10,10,0.4) 28%, rgba(10,10,10,0.25) 55%, rgba(10,10,10,0.85) 88%, rgba(10,10,10,1) 100%),
+      linear-gradient(90deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.15) 50%, rgba(10,10,10,0.4) 100%);
+    pointer-events: none;
   }
   .page-hero-eyebrow {
     font-family: 'JetBrains Mono', monospace; font-size: 11px;
@@ -119,11 +149,30 @@
   .page-hero h1 {
     font-size: clamp(44px, 6vw, 88px); line-height: 1.02;
     margin-bottom: 28px; max-width: 16ch;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.6);
   }
   .page-hero h1 em { font-style: italic; color: var(--accent); font-weight: 300; }
   .page-hero p {
-    font-size: clamp(17px, 1.4vw, 21px); color: var(--text-mute);
-    max-width: 680px; line-height: 1.55;
+    font-size: clamp(17px, 1.4vw, 21px); color: var(--text);
+    max-width: 580px; line-height: 1.6;
+    text-shadow: 0 1px 14px rgba(0,0,0,0.85);
+  }
+  .page-hero-meta {
+    position: absolute; bottom: 24px; right: clamp(24px, 4vw, 48px);
+    z-index: 3;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-mute);
+  }
+  .page-hero-meta .dot {
+    display: inline-block; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--accent);
+    margin-right: 8px; vertical-align: middle;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
   }
 
   /* Genre bucket */
@@ -540,11 +589,16 @@
 <div id="hubView">
 
 <section class="page-hero">
+  <div class="page-hero-bg" id="heroBg">
+    <!-- images injected by JS -->
+  </div>
+  <div class="page-hero-overlay"></div>
   <div class="wrap">
     <div class="page-hero-eyebrow">PHOTOGRAPHY · 2020 — 2026</div>
     <h1>Stills with the same <em>eye.</em></h1>
     <p>Album covers and press for major-label country artists. Editorial headshots that don't look like headshots. Brand and personal portraiture out of Austin. Click any project to see the full set.</p>
   </div>
+  <div class="page-hero-meta"><span class="dot"></span>SELECTED FRAMES · 2020 – 2026</div>
 </section>
 
 <section class="bucket">
@@ -1192,8 +1246,52 @@ if (navToggle && mobileMenu) {
   });
 }
 
+/* ===== Hero rotating background ===== */
+function initHeroRotator() {
+  const bg = document.getElementById('heroBg');
+  if (!bg) return;
+  // Pick one strong landscape-leaning shot from each major project
+  const heroSlugs = [
+    'scotty-mccreery-2025',
+    'chase-bryant',
+    'eli-young-band-2024',
+    'jordan-fletcher',
+    'headshots-2025',
+    'scotty-mccreery-2024',
+  ];
+  const heroUrls = heroSlugs
+    .map(s => projects[s])
+    .filter(Boolean)
+    .map(p => {
+      // Use the cover, sized for hero (full-width)
+      const path = p.cover.replace(cdn + '/', '').split('?')[0];
+      return sized(path, 2500);
+    });
+
+  // Inject all images upfront so transitions are smooth
+  heroUrls.forEach((url, i) => {
+    const img = document.createElement('img');
+    img.src = url;
+    img.alt = '';
+    img.loading = i === 0 ? 'eager' : 'lazy';
+    if (i === 0) img.classList.add('active');
+    bg.appendChild(img);
+  });
+
+  if (heroUrls.length < 2) return;
+
+  const imgs = bg.querySelectorAll('img');
+  let idx = 0;
+  setInterval(() => {
+    imgs[idx].classList.remove('active');
+    idx = (idx + 1) % imgs.length;
+    imgs[idx].classList.add('active');
+  }, 6500);
+}
+
 /* ===== Initial render ===== */
 renderHub();
+initHeroRotator();
 handleHash();
 </script>
 
