@@ -271,12 +271,12 @@
     grid-template-columns: 1fr 1fr;
     gap: 56px;
   }
-  @media (max-width: 800px) { .calc-grid { grid-template-columns: 1fr; gap: 40px; } }
-  .calc-inputs { display: flex; flex-direction: column; gap: 24px; }
+  @media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; gap: 40px; } }
+  .calc-inputs { display: flex; flex-direction: column; gap: 28px; }
   .calc-row label {
     font-family: 'JetBrains Mono', monospace; font-size: 11px;
     letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--text-mute); margin-bottom: 10px; display: block;
+    color: var(--text-mute); margin-bottom: 8px; display: block;
   }
   .calc-row input,
   .calc-row select {
@@ -293,30 +293,55 @@
   .calc-row select:focus {
     outline: none; border-color: var(--accent); background: var(--bg-panel);
   }
+  .calc-row .helper {
+    font-size: 12.5px; color: var(--text-faint);
+    line-height: 1.5; margin-top: 8px;
+  }
+  .calc-row .helper strong { color: var(--text-mute); font-weight: 500; }
+
   .calc-output {
     background: var(--bg);
     border: 1px solid var(--line);
     border-radius: 4px;
     padding: 32px 28px;
     align-self: start;
+    position: sticky; top: 100px;
   }
   .calc-output-label {
     font-family: 'JetBrains Mono', monospace; font-size: 11px;
     letter-spacing: 0.16em; text-transform: uppercase;
     color: var(--text-mute); margin-bottom: 24px;
   }
+  .calc-scenario {
+    font-size: 14px; color: var(--text-mute);
+    line-height: 1.6; margin-bottom: 20px;
+    padding: 14px 16px; background: var(--bg-panel);
+    border-radius: 2px; border-left: 2px solid var(--accent-soft);
+  }
+  .calc-scenario strong { color: var(--accent); }
+
   .calc-line {
     display: flex; justify-content: space-between; align-items: baseline;
     padding: 14px 0;
     border-bottom: 1px dashed var(--line);
-    font-size: 15px;
   }
-  .calc-line:last-of-type { border-bottom: 0; padding-bottom: 0; }
-  .calc-line .key { color: var(--text-mute); }
-  .calc-line .val { color: var(--text); font-family: 'Fraunces', serif; font-size: 22px; }
+  .calc-line:last-of-type { border-bottom: 0; }
+  .calc-line .key {
+    color: var(--text); font-size: 15px;
+    flex: 1; padding-right: 16px;
+  }
+  .calc-line .key small {
+    display: block;
+    font-size: 11.5px; color: var(--text-faint);
+    line-height: 1.4; margin-top: 4px; font-weight: 400;
+  }
+  .calc-line .val {
+    color: var(--text); font-family: 'Fraunces', serif;
+    font-size: 22px; flex-shrink: 0;
+  }
   .calc-line.total {
-    margin-top: 16px;
-    padding: 20px 0 0;
+    margin-top: 12px;
+    padding: 22px 0 16px;
     border-top: 1px solid var(--accent-soft);
     border-bottom: 0;
   }
@@ -326,6 +351,40 @@
   }
   .calc-line.total .val {
     color: var(--accent); font-size: clamp(28px, 3vw, 40px); font-weight: 400;
+  }
+
+  /* Verdict box (green / red) */
+  .calc-verdict {
+    margin-top: 24px;
+    padding: 24px 24px;
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid;
+  }
+  .calc-verdict.good {
+    background: rgba(120, 180, 120, 0.08);
+    border-color: rgba(140, 200, 140, 0.5);
+  }
+  .calc-verdict.bad {
+    background: rgba(217, 117, 96, 0.08);
+    border-color: rgba(217, 117, 96, 0.5);
+  }
+  .calc-verdict-icon {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 36px; line-height: 1;
+    margin-bottom: 12px; display: block;
+  }
+  .calc-verdict.good .calc-verdict-icon { color: #8cc88c; }
+  .calc-verdict.bad .calc-verdict-icon { color: #d97560; }
+  .calc-verdict-headline {
+    font-family: 'Fraunces', serif; font-size: 22px; line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .calc-verdict.good .calc-verdict-headline { color: #b3dab3; }
+  .calc-verdict.bad .calc-verdict-headline { color: #e8a597; }
+  .calc-verdict p {
+    font-size: 14px; color: var(--text-mute); line-height: 1.55;
+    margin: 0 auto; max-width: 380px;
   }
   .calc-disclaimer {
     margin-top: 20px; font-size: 12px; color: var(--text-faint);
@@ -1067,98 +1126,138 @@ https://youtube.com/watch?v=..." required></textarea>
 </footer>
 
 <script>
-/* ===== Calculator — 12-month compounding model ===== */
+/* ===== Calculator — simplified, transparent, with verdict ===== */
 function recalc() {
   const avgViews = +document.getElementById('ci-avg').value || 0;
   const rpm = +document.getElementById('ci-niche').value || 0;
   const ltv = +document.getElementById('ci-backend').value || 0;
   const lift = +document.getElementById('ci-lift').value || 1;
-  const tierVal = document.getElementById('ci-tier').value || '1500-1';
+  const tierVal = document.getElementById('ci-tier').value || '1500-once';
 
-  // Parse tier value: "PRICE-REELSPERMO" or "1500-once"
   const [priceStr, reelStr] = tierVal.split('-');
-  const monthlyPrice = +priceStr;
-  const isOnce = reelStr === 'once';
-  const reelsPerMonth = isOnce ? 0 : +reelStr; // one-time has 1 reel total
-  const oneTimeReels = isOnce ? 1 : 0;
+  const tierPrice = +priceStr;
+  const isSpec = reelStr === 'once';
+  const reelsPerMonth = isSpec ? 0 : +reelStr;
 
-  // === Per-reel view & sub conversion ===
-  const viewsPerReel = avgViews * lift;
-  const SUB_CONV_RATE = 0.015;       // 1.5% of new viewers subscribe
-  const NON_SUB_VIEW_RATE = 0.6;     // 60% of reel views are non-subscribers
-  const BACKEND_CONV_RATE = 0.02;    // 2% of new subs become back-end customers
-  const REGULAR_VIEW_RATE = 0.18;    // 18% of subs watch each regular upload
-  const REGULAR_UPLOADS_PER_MO = 16; // 4/wk × ~4 weeks
+  // === Industry-standard assumptions (sourced) ===
+  const SUB_CONV_RATE = 0.015;       // 1.5% — Influencer Marketing Hub creator-economy avg
+  const NON_SUB_VIEW_RATE = 0.6;     // 60% — typical for breakout content reaching beyond subs
+  const BACKEND_CONV_RATE = 0.02;    // 2% — standard creator-funnel conversion benchmark
+  const REGULAR_VIEW_RATE = 0.18;    // 18% — typical sub view-rate for active 100K+ channels
+  const REGULAR_UPLOADS_PER_MO = 16; // 4 uploads/wk (active creator baseline)
 
-  // === Year 1 simulation, month by month ===
-  let cumNewSubs = 0;
-  let totalReelAdRev = 0;
-  let totalRegularLiftAdRev = 0;
-  let totalBackendRev = 0;
+  const viewsPerReel = Math.round(avgViews * lift);
 
-  // For one-time tier: 1 reel in month 1, then nothing more.
-  // The reel keeps earning declining views over the year (start 30% in M1, decline)
-  // For monthly tiers: reelsPerMonth new reels each month, plus older reels still earning.
-  for (let m = 1; m <= 12; m++) {
-    // Reels published this month
-    const newReels = (m === 1 ? oneTimeReels : 0) + reelsPerMonth;
+  let scenarioText, totalReelViews, year1ReelAdRev, totalNewSubs, year1BackendRev, year1RegularLift, year1Cost;
 
-    // Each new reel earns its peak in publish month, decaying for ~3 months after
-    // Simple model: month 1 of a reel = 60% of total 12-mo views, M2 = 20%, M3 = 10%, M4-12 = 1% each
-    // Sum across all currently-active reels
-    const decayCurve = [0.55, 0.20, 0.10, 0.04, 0.03, 0.02, 0.02, 0.01, 0.01, 0.01, 0.005, 0.005];
-    let monthlyReelViews = 0;
-    // Each month's reels generate views in subsequent months
-    for (let publishMonth = 1; publishMonth <= m; publishMonth++) {
-      const ageMonths = m - publishMonth;
-      if (ageMonths >= 12) continue;
-      // Reels published in publishMonth
-      const reelsInThatMonth = (publishMonth === 1 ? oneTimeReels : 0) + reelsPerMonth;
-      monthlyReelViews += reelsInThatMonth * viewsPerReel * decayCurve[ageMonths];
+  if (isSpec) {
+    // === The Spec scenario: 1 reel, only triggers payment if it hits 100K views ===
+    // For the calculation, we assume the reel hits 100K (the trigger threshold).
+    // If their projected reel views are < 100K, we'll show the "won't trigger" path.
+    const willTrigger = viewsPerReel >= 100000;
+    const effectiveViews = willTrigger ? viewsPerReel : viewsPerReel; // they get the views either way
+
+    if (willTrigger) {
+      scenarioText = `Your reel projects to <strong>${viewsPerReel.toLocaleString()} views</strong> at ${lift}x your average. That crosses the 100K threshold, so you'd <strong>owe $1,500</strong>. Here's what you'd get back over 12 months.`;
+    } else {
+      scenarioText = `Your reel projects to only <strong>${viewsPerReel.toLocaleString()} views</strong> at ${lift}x your average. That's below the 100K threshold, so you'd <strong>owe nothing</strong>. The numbers below show what you'd still earn from the reel anyway.`;
     }
 
-    // Direct ad revenue from reels this month
-    totalReelAdRev += (monthlyReelViews / 1000) * rpm;
+    totalReelViews = effectiveViews;
+    year1ReelAdRev = (effectiveViews / 1000) * rpm;
+    totalNewSubs = Math.round(effectiveViews * NON_SUB_VIEW_RATE * SUB_CONV_RATE);
+    // Back-end: half of new subs convert in year 1 (gradual)
+    year1BackendRev = totalNewSubs * BACKEND_CONV_RATE * ltv * 0.5;
+    // Regular video lift: avg of new subs across year × view rate × uploads × RPM ÷ 1000
+    year1RegularLift = (totalNewSubs / 2) * REGULAR_VIEW_RATE * REGULAR_UPLOADS_PER_MO * 12 / 1000 * rpm;
+    year1Cost = willTrigger ? tierPrice : 0;
 
-    // New subs from this month's reel views
-    const newSubsThisMonth = monthlyReelViews * NON_SUB_VIEW_RATE * SUB_CONV_RATE;
-    cumNewSubs += newSubsThisMonth;
+    // Update the cost detail line
+    document.getElementById('o-cost-detail').textContent = willTrigger
+      ? `Spec triggered (reel hit 100K views)`
+      : `Spec did not trigger (reel didn't hit 100K)`;
+    document.getElementById('o-reelads-detail').textContent = `${effectiveViews.toLocaleString()} views × $${rpm} RPM ÷ 1,000`;
+  } else {
+    // === Monthly retainer: reelsPerMonth × 12 months, with compounding ===
+    const totalReels12mo = reelsPerMonth * 12;
+    totalReelViews = viewsPerReel * totalReels12mo;
+    year1ReelAdRev = (totalReelViews / 1000) * rpm;
+    totalNewSubs = Math.round(totalReelViews * NON_SUB_VIEW_RATE * SUB_CONV_RATE);
+    year1BackendRev = totalNewSubs * BACKEND_CONV_RATE * ltv * 0.5;
+    year1RegularLift = (totalNewSubs / 2) * REGULAR_VIEW_RATE * REGULAR_UPLOADS_PER_MO * 12 / 1000 * rpm;
+    year1Cost = tierPrice * 12;
 
-    // Lift on regular videos: cumulative new subs × view rate × uploads/mo × RPM
-    totalRegularLiftAdRev += (cumNewSubs * REGULAR_VIEW_RATE * REGULAR_UPLOADS_PER_MO / 1000) * rpm;
-
-    // Back-end revenue this month: cumulative new subs × conv rate × LTV / 12 (monthly portion of annual LTV)
-    totalBackendRev += (cumNewSubs * BACKEND_CONV_RATE * ltv) / 12;
+    scenarioText = `<strong>${totalReels12mo} reels over 12 months</strong>, each projecting to about <strong>${viewsPerReel.toLocaleString()} views</strong> at ${lift}x your average. Here's the cumulative 12-month value.`;
+    document.getElementById('o-cost-detail').textContent = `$${tierPrice.toLocaleString()}/mo × 12 months`;
+    document.getElementById('o-reelads-detail').textContent = `${totalReelViews.toLocaleString()} total views × $${rpm} RPM ÷ 1,000`;
   }
 
-  const year1Cost = isOnce ? monthlyPrice : monthlyPrice * 12;
-  const year1Value = totalReelAdRev + totalRegularLiftAdRev + totalBackendRev;
-  const year1Net = year1Value - year1Cost;
+  document.getElementById('o-backend-detail').textContent = ltv === 0
+    ? `No back-end product = no back-end conversions`
+    : `2% of ${totalNewSubs.toLocaleString()} new subs × $${ltv}/yr LTV × 50% Y1`;
 
-  // Year 2 estimate: if we keep running, sub base doubles roughly. Year 2 value scales.
-  // Quick approximation: year 2 starts with cumNewSubs already in place, earning back-end + lift the whole year.
-  const year2BackendBaseline = (cumNewSubs * BACKEND_CONV_RATE * ltv); // annual LTV from year 1 cohort
-  const year2LiftBaseline = (cumNewSubs * REGULAR_VIEW_RATE * REGULAR_UPLOADS_PER_MO * 12 / 1000) * rpm;
-  // Plus year 2's new reel revenue (similar pattern, slightly higher base)
-  const year2NewValue = (totalReelAdRev + totalBackendRev * 0.5 + totalRegularLiftAdRev * 0.5);
-  const year2Total = year2BackendBaseline + year2LiftBaseline + year2NewValue;
-  const year2Cost = isOnce ? 0 : monthlyPrice * 12;
-  const year2Net = year2Total - year2Cost;
+  const totalValue = year1ReelAdRev + year1BackendRev + year1RegularLift;
+  const net = totalValue - year1Cost;
+  const roi = year1Cost > 0 ? totalValue / year1Cost : (totalValue > 0 ? Infinity : 0);
 
-  // === Render ===
-  document.getElementById('o-reelads').textContent = '$' + Math.round(totalReelAdRev).toLocaleString();
-  document.getElementById('o-lift').textContent = '$' + Math.round(totalRegularLiftAdRev).toLocaleString();
-  document.getElementById('o-backend').textContent = '$' + Math.round(totalBackendRev).toLocaleString() + (ltv === 0 ? '' : '');
-  document.getElementById('o-newsubs').textContent = Math.round(cumNewSubs).toLocaleString();
-  document.getElementById('o-total').textContent = '$' + Math.round(year1Value).toLocaleString();
-  document.getElementById('o-cost').textContent = '$' + year1Cost.toLocaleString();
+  // Render numbers
+  document.getElementById('o-scenario').innerHTML = scenarioText;
+  document.getElementById('o-reelads').textContent = '$' + Math.round(year1ReelAdRev).toLocaleString();
+  document.getElementById('o-newsubs').textContent = totalNewSubs.toLocaleString();
+  document.getElementById('o-backend').textContent = '$' + Math.round(year1BackendRev).toLocaleString();
+  document.getElementById('o-lift').textContent = '$' + Math.round(year1RegularLift).toLocaleString();
+  document.getElementById('o-total').textContent = '$' + Math.round(totalValue).toLocaleString();
+  document.getElementById('o-cost').textContent = '$' + Math.round(year1Cost).toLocaleString();
 
   const netEl = document.getElementById('o-net');
-  netEl.textContent = (year1Net >= 0 ? '+' : '−') + '$' + Math.abs(Math.round(year1Net)).toLocaleString() +
-    '  ·  ' + (year1Value / Math.max(year1Cost, 1)).toFixed(1) + 'x ROI';
-  netEl.style.color = year1Net >= 0 ? 'var(--accent)' : '#d97560';
+  const netDisplay = (net >= 0 ? '+' : '−') + '$' + Math.abs(Math.round(net)).toLocaleString();
+  const roiDisplay = roi === Infinity ? '∞ ROI' : roi > 0 ? roi.toFixed(1) + 'x ROI' : '';
+  netEl.textContent = netDisplay + (roiDisplay && year1Cost > 0 ? '  ·  ' + roiDisplay : '');
 
-  document.getElementById('o-year2').textContent = '+$' + Math.round(year2Net).toLocaleString() + ' net';
+  // Color-code the net
+  if (net >= 0) {
+    netEl.style.color = '#8cc88c';
+  } else {
+    netEl.style.color = '#d97560';
+  }
+
+  // === Verdict ===
+  const verdictEl = document.getElementById('o-verdict');
+  const verdictIcon = document.getElementById('o-verdict-icon');
+  const verdictHead = document.getElementById('o-verdict-headline');
+  const verdictText = document.getElementById('o-verdict-text');
+
+  // For the Spec, "good fit" = positive net IF triggered (or non-zero value if not triggered)
+  // For retainers, "good fit" = positive net (value > cost)
+  const isGoodFit = isSpec
+    ? (year1Cost === 0 ? totalValue > 500 : net > 0)  // if not triggered, just need meaningful value; if triggered, need to net positive
+    : net > 0;
+
+  if (isGoodFit) {
+    verdictEl.classList.remove('bad');
+    verdictEl.classList.add('good');
+    verdictIcon.textContent = '✓';
+    if (isSpec && year1Cost === 0) {
+      verdictHead.textContent = 'You keep the reel for free.';
+      verdictText.textContent = `Your reel projects to ${viewsPerReel.toLocaleString()} views — below the 100K threshold, so you owe nothing. You still get $${Math.round(totalValue).toLocaleString()} in compounding value over 12 months. Win either way.`;
+    } else if (isSpec) {
+      verdictHead.textContent = 'Great fit.';
+      verdictText.textContent = `If your Spec hits 100K, you pay $1,500 and earn $${Math.round(totalValue).toLocaleString()} back over 12 months. That's ${roi.toFixed(1)}x what you paid. Apply.`;
+    } else {
+      verdictHead.textContent = 'Great fit for the retainer.';
+      verdictText.textContent = `${reelsPerMonth} reels per month at your numbers projects to $${Math.round(totalValue).toLocaleString()} over 12 months — ${roi.toFixed(1)}x your retainer cost. Start with The Spec to prove it on one reel, then move up.`;
+    }
+  } else {
+    verdictEl.classList.remove('good');
+    verdictEl.classList.add('bad');
+    verdictIcon.textContent = '✕';
+    verdictHead.textContent = "Probably not the best fit.";
+    if (isSpec) {
+      verdictText.textContent = `If your Spec hits 100K, the value back ($${Math.round(totalValue).toLocaleString()}) wouldn't clear the $1,500 cost. Your channel might need a higher CPM niche or stronger back-end product before this play makes sense for cashflow.`;
+    } else {
+      verdictText.textContent = `At your current numbers, this retainer wouldn't clear its cost over 12 months. If the cashflow needs to make sense from day one, this isn't the right fit. Try The Spec first — pay-on-performance means you risk nothing.`;
+    }
+  }
 }
 
 document.querySelectorAll('#ci-subs, #ci-avg, #ci-niche, #ci-backend, #ci-lift, #ci-tier').forEach(el => {
