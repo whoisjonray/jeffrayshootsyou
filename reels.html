@@ -809,7 +809,13 @@
           <div class="calc-row">
             <label for="ci-avg">Your average views per video</label>
             <input type="number" id="ci-avg" value="50000" min="100" step="100">
-            <div class="helper"><strong>Why we ask:</strong> This is the baseline we project against. Look at your last 10 regular uploads and average them. Higher = the reel has a bigger starting audience to break out from.</div>
+            <div class="helper"><strong>Why we ask:</strong> This is the baseline we project against. Look at your last 10 regular uploads and average them.</div>
+          </div>
+
+          <div class="calc-row">
+            <label for="ci-outlier">Your best-ever video (peak view count)</label>
+            <input type="number" id="ci-outlier" value="500000" min="100" step="1000">
+            <div class="helper"><strong>Why we ask:</strong> This is the strongest signal we have. If the algorithm has ALREADY pushed one of your videos to this number, it's proven willing to push you that far when retention spikes. A flagship compilation reel is designed to trigger that retention spike. We project the reel's performance as a fraction of the gap between your average and your best-ever — not a flat multiplier.</div>
           </div>
 
           <div class="calc-row">
@@ -840,12 +846,13 @@
           <div class="calc-row">
             <label for="ci-lift">How well will the reel perform?</label>
             <select id="ci-lift">
-              <option value="2" selected>2x your average (conservative)</option>
-              <option value="3">3x your average (realistic)</option>
-              <option value="5">5x your average (strong breakout)</option>
-              <option value="10">10x your average (viral moment)</option>
+              <option value="0.25">Conservative — close to your average</option>
+              <option value="0.5" selected>Realistic — halfway between average and your best ever</option>
+              <option value="0.75">Strong — within reach of your best ever</option>
+              <option value="1.0">Match your best ever</option>
+              <option value="1.5">Breakout — beats your best ever</option>
             </select>
-            <div class="helper"><strong>What this means:</strong> A flagship compilation typically gets 2–5x the views of a regular upload because emotional retention triggers the algorithm to push it past your subscriber bubble. Try a few options and see how the math changes. <em>Reference: "Year in Review" videos consistently rank in creators' top 5 every year.</em></div>
+            <div class="helper"><strong>What this means:</strong> Your channel's outlier proves the algorithmic ceiling. A flagship reel optimized for emotional retention realistically lands in the band between average and outlier. Pick where you think it'll fall. <em>Reference: "Year in Review" videos consistently rank in creators' top 5 every year. Compilation reels at peak (MotivationMadness, Alan Watts, Tragedy &amp; Hope) routinely matched or beat their channels' previous outliers.</em></div>
           </div>
 
           <div class="calc-row">
@@ -1192,9 +1199,10 @@ https://youtube.com/watch?v=..." required></textarea>
 function recalc() {
   const subs = +document.getElementById('ci-subs').value || 0;
   const avgViews = +document.getElementById('ci-avg').value || 0;
+  const outlier = +document.getElementById('ci-outlier').value || avgViews;
   const rpm = +document.getElementById('ci-niche').value || 0;
   const ltv = +document.getElementById('ci-backend').value || 0;
-  const lift = +document.getElementById('ci-lift').value || 1;
+  const liftFraction = +document.getElementById('ci-lift').value || 0.5;
   const tierVal = document.getElementById('ci-tier').value || '1500-once';
 
   const [priceStr, reelStr] = tierVal.split('-');
@@ -1208,11 +1216,16 @@ function recalc() {
   const BACKEND_CONV_RATE = 0.02;    // 2% — standard creator-funnel conversion benchmark
   const REGULAR_UPLOADS_PER_MO = 16; // 4 uploads/wk (active creator baseline)
 
-  // === Channel's ACTUAL view rate (avg views / subs) — capped at 60% to avoid edge cases ===
-  // This replaces the old 18% industry-benchmark assumption with the creator's real number.
+  // === Channel's ACTUAL view rate (avg views / subs) — capped at 60% ===
   const channelViewRate = subs > 0 ? Math.min(avgViews / subs, 0.6) : 0.18;
 
-  const viewsPerReel = Math.round(avgViews * lift);
+  // === Projected reel views: avg + fraction of the gap to outlier ===
+  // This grounds the projection in the channel's ALREADY-PROVEN algorithmic ceiling.
+  // 0.5 = halfway between avg and best-ever
+  // 1.0 = matches the best-ever
+  // 1.5 = beats the best-ever (rare, but possible)
+  const gapToOutlier = Math.max(outlier - avgViews, 0);
+  const viewsPerReel = Math.round(avgViews + gapToOutlier * liftFraction);
 
   let scenarioText, totalReelViews, year1ReelAdRev, totalNewSubs, year1BackendRev, year1RegularLift, year1Cost;
 
@@ -1224,9 +1237,9 @@ function recalc() {
     const effectiveViews = willTrigger ? viewsPerReel : viewsPerReel; // they get the views either way
 
     if (willTrigger) {
-      scenarioText = `Your reel projects to <strong>${viewsPerReel.toLocaleString()} views</strong> at ${lift}x your average. That crosses the 100K threshold, so you'd <strong>owe $1,500</strong>. Here's what you'd get back over 12 months.`;
+      scenarioText = `Your reel projects to <strong>${viewsPerReel.toLocaleString()} views</strong> (your avg is ${avgViews.toLocaleString()}, your best ever is ${outlier.toLocaleString()}). That crosses the 100K threshold, so you'd <strong>owe $1,500</strong>. Here's what you'd get back over 12 months.`;
     } else {
-      scenarioText = `Your reel projects to only <strong>${viewsPerReel.toLocaleString()} views</strong> at ${lift}x your average. That's below the 100K threshold, so you'd <strong>owe nothing</strong>. The numbers below show what you'd still earn from the reel anyway.`;
+      scenarioText = `Your reel projects to only <strong>${viewsPerReel.toLocaleString()} views</strong> (your avg is ${avgViews.toLocaleString()}, your best ever is ${outlier.toLocaleString()}). That's below the 100K threshold, so you'd <strong>owe nothing</strong>. The numbers below show what you'd still earn from the reel anyway.`;
     }
 
     totalReelViews = effectiveViews;
@@ -1253,7 +1266,7 @@ function recalc() {
     year1RegularLift = (totalNewSubs / 2) * channelViewRate * REGULAR_UPLOADS_PER_MO * 12 / 1000 * rpm;
     year1Cost = tierPrice * 12;
 
-    scenarioText = `<strong>${totalReels12mo} reels over 12 months</strong>, each projecting to about <strong>${viewsPerReel.toLocaleString()} views</strong> at ${lift}x your average. Here's the cumulative 12-month value.`;
+    scenarioText = `<strong>${totalReels12mo} reels over 12 months</strong>, each projecting to about <strong>${viewsPerReel.toLocaleString()} views</strong> (your avg is ${avgViews.toLocaleString()}, your best ever is ${outlier.toLocaleString()}). Here's the cumulative 12-month value.`;
     document.getElementById('o-cost-detail').textContent = `$${tierPrice.toLocaleString()}/mo × 12 months`;
     document.getElementById('o-reelads-detail').textContent = `${totalReelViews.toLocaleString()} total views × $${rpm} RPM ÷ 1,000`;
   }
@@ -1332,7 +1345,7 @@ function recalc() {
   }
 }
 
-document.querySelectorAll('#ci-subs, #ci-avg, #ci-niche, #ci-backend, #ci-lift, #ci-tier').forEach(el => {
+document.querySelectorAll('#ci-subs, #ci-avg, #ci-outlier, #ci-niche, #ci-backend, #ci-lift, #ci-tier').forEach(el => {
   el.addEventListener('input', recalc);
   el.addEventListener('change', recalc);
 });
