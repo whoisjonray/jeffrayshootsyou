@@ -1321,35 +1321,36 @@ function recalc() {
   // Reset all classes
   verdictEl.classList.remove('good', 'bad', 'comeback');
 
-  // === COMEBACK CHANNEL DETECTION ===
-  // Pattern: recent avg is < 10% of historical peak, AND peak was meaningful (>200K), AND meaningful sub base.
-  // The algorithm has demonstrably pushed this creator past their current floor before.
-  // Even if direct ROI is tight, the format-validation alone is worth the Spec.
+  // === COMEBACK CHANNEL PATTERN ===
+  // Channel had a meaningful peak (algorithm proved willing) but recent avg has collapsed.
+  // Pattern: avg < 10% of outlier, outlier > 200K, subs > 50K
   const isComebackChannel =
     avgViews > 0 && outlier > 200000 && subs > 50000 &&
     (avgViews / outlier) < 0.10;
 
-  // For the Spec: "good fit" = positive net IF triggered (or meaningful value if not)
-  // For retainers: "good fit" = positive net (value > cost)
-  const isGoodFit = isSpec
-    ? (year1Cost === 0 ? totalValue > 500 : net > 0)
-    : net > 0;
+  // === Decide verdict ===
+  // ROI ≥ 2.0x  → GREEN (math sells itself, no reframe needed)
+  // ROI 1.0–2.0 → GREEN for healthy, COMEBACK for declined (tight-but-positive, comeback adds context)
+  // ROI 0.5–1.0 → COMEBACK for declined (tight loss, but algorithmic-ceiling signal worth it), RED for healthy
+  // ROI < 0.5   → RED regardless (math too far gone)
+  // Spec edge case: if it doesn't trigger (cost = $0), it's always GREEN — free reel
 
-  // === COMEBACK VERDICT (yellow) — overrides good/bad for declining channels with proven peaks ===
-  if (isSpec && isComebackChannel && year1Cost > 0) {
-    verdictEl.classList.add('comeback');
-    verdictIcon.textContent = '⟳';
-    verdictHead.textContent = 'Comeback bet worth taking.';
-    const tightOrPositive = net >= 0
-      ? `you'd net +$${Math.round(net).toLocaleString()} on direct math`
-      : `the math is tight on direct ROI alone`;
-    verdictText.textContent = `Your reel projects to ${viewsPerReel.toLocaleString()} views — above the 100K trigger. ${tightOrPositive.charAt(0).toUpperCase() + tightOrPositive.slice(1)}, but the real signal is your channel's pattern (recent avg ${avgViews.toLocaleString()} / proven peak ${outlier.toLocaleString()}). The algorithm has pushed you past 100K before. A reel that hits again proves the format works for you — and unlocks the retainer math where the bigger money lives. Apply.`;
-    return;
+  let state;
+  if (isSpec && year1Cost === 0) {
+    state = 'good';  // didn't trigger = free reel
+  } else if (roi >= 2.0) {
+    state = 'good';
+  } else if (roi >= 1.0) {
+    state = isComebackChannel ? 'comeback' : 'good';
+  } else if (roi >= 0.5) {
+    state = isComebackChannel ? 'comeback' : 'bad';
+  } else {
+    state = 'bad';
   }
 
-  // === GREEN / RED for everyone else ===
-  if (isGoodFit) {
-    verdictEl.classList.add('good');
+  verdictEl.classList.add(state);
+
+  if (state === 'good') {
     verdictIcon.textContent = '✓';
     if (isSpec && year1Cost === 0) {
       verdictHead.textContent = 'You keep the reel for free.';
@@ -1361,8 +1362,18 @@ function recalc() {
       verdictHead.textContent = 'Great fit for the retainer.';
       verdictText.textContent = `${reelsPerMonth} reels/mo at ${viewsPerReel.toLocaleString()} views each projects to $${Math.round(totalValue).toLocaleString()} over 12 months — a ${roi.toFixed(1)}x ROI on your retainer. Start with The Spec to prove it on one reel, then move up.`;
     }
+  } else if (state === 'comeback') {
+    verdictIcon.textContent = '⟳';
+    verdictHead.textContent = 'Comeback bet worth taking.';
+    const mathLine = net >= 0
+      ? `you'd net +$${Math.round(net).toLocaleString()} (${roi.toFixed(1)}x ROI) on direct math`
+      : `you'd be down $${Math.abs(Math.round(net)).toLocaleString()} on strict ROI`;
+    if (isSpec) {
+      verdictText.textContent = `Your reel projects to ${viewsPerReel.toLocaleString()} views — above the 100K trigger. On strict math, ${mathLine}. But the real signal is your channel's pattern (recent avg ${avgViews.toLocaleString()} / proven peak ${outlier.toLocaleString()}): the algorithm has pushed you past 100K before. A reel that hits again proves the format works for you — and unlocks the retainer math where the bigger money lives. Apply.`;
+    } else {
+      verdictText.textContent = `${reelsPerMonth} reels/mo at ${viewsPerReel.toLocaleString()} views each — on strict math, ${mathLine}. But your channel pattern (recent avg ${avgViews.toLocaleString()} / proven peak ${outlier.toLocaleString()}) tells the comeback story: the algorithm has pushed you past these numbers before. The retainer rebuilds that audience month after month. Worth taking, but start with The Spec to prove the format on one reel first.`;
+    }
   } else {
-    verdictEl.classList.add('bad');
     verdictIcon.textContent = '✕';
     verdictHead.textContent = "Probably not the best fit.";
     if (isSpec) {
