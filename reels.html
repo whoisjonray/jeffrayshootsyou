@@ -1314,10 +1314,10 @@ function recalc() {
       verdictText.textContent = `Your reel projects to ${viewsPerReel.toLocaleString()} views — below the 100K trigger, so you owe nothing. You still earn $${Math.round(totalValue).toLocaleString()} in compounding value over 12 months. Win either way.`;
     } else if (isSpec) {
       verdictHead.textContent = 'Great fit.';
-      verdictText.textContent = `Your reel projects to ${viewsPerReel.toLocaleString()} views — above the 100K trigger, so you'd pay $1,500. You'd earn $${Math.round(totalValue).toLocaleString()} back over 12 months. That's ${roi.toFixed(1)}x what you paid. Apply.`;
+      verdictText.textContent = `Your reel projects to ${viewsPerReel.toLocaleString()} views — above the 100K trigger, so you'd pay $1,500. You'd earn $${Math.round(totalValue).toLocaleString()} back over 12 months. That's a ${roi.toFixed(1)}x ROI. Apply.`;
     } else {
       verdictHead.textContent = 'Great fit for the retainer.';
-      verdictText.textContent = `${reelsPerMonth} reels/mo at ${viewsPerReel.toLocaleString()} views each projects to $${Math.round(totalValue).toLocaleString()} over 12 months — ${roi.toFixed(1)}x your retainer cost. Start with The Spec to prove it on one reel, then move up.`;
+      verdictText.textContent = `${reelsPerMonth} reels/mo at ${viewsPerReel.toLocaleString()} views each projects to $${Math.round(totalValue).toLocaleString()} over 12 months — a ${roi.toFixed(1)}x ROI on your retainer. Start with The Spec to prove it on one reel, then move up.`;
     }
   } else {
     verdictEl.classList.remove('good');
