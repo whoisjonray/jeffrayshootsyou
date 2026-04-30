@@ -369,6 +369,10 @@
     background: rgba(217, 117, 96, 0.08);
     border-color: rgba(217, 117, 96, 0.5);
   }
+  .calc-verdict.comeback {
+    background: rgba(212, 168, 67, 0.08);
+    border-color: rgba(212, 168, 67, 0.5);
+  }
   .calc-verdict-icon {
     font-family: 'Fraunces', serif; font-style: italic;
     font-size: 36px; line-height: 1;
@@ -376,12 +380,14 @@
   }
   .calc-verdict.good .calc-verdict-icon { color: #8cc88c; }
   .calc-verdict.bad .calc-verdict-icon { color: #d97560; }
+  .calc-verdict.comeback .calc-verdict-icon { color: #d4a843; }
   .calc-verdict-headline {
     font-family: 'Fraunces', serif; font-size: 22px; line-height: 1.2;
     margin-bottom: 8px;
   }
   .calc-verdict.good .calc-verdict-headline { color: #b3dab3; }
   .calc-verdict.bad .calc-verdict-headline { color: #e8a597; }
+  .calc-verdict.comeback .calc-verdict-headline { color: #e8c87a; }
   .calc-verdict p {
     font-size: 14px; color: var(--text-mute); line-height: 1.55;
     margin: 0 auto; max-width: 380px;
@@ -1312,14 +1318,37 @@ function recalc() {
   const verdictHead = document.getElementById('o-verdict-headline');
   const verdictText = document.getElementById('o-verdict-text');
 
-  // For the Spec, "good fit" = positive net IF triggered (or non-zero value if not triggered)
-  // For retainers, "good fit" = positive net (value > cost)
+  // Reset all classes
+  verdictEl.classList.remove('good', 'bad', 'comeback');
+
+  // === COMEBACK CHANNEL DETECTION ===
+  // Pattern: recent avg is < 10% of historical peak, AND peak was meaningful (>200K), AND meaningful sub base.
+  // The algorithm has demonstrably pushed this creator past their current floor before.
+  // Even if direct ROI is tight, the format-validation alone is worth the Spec.
+  const isComebackChannel =
+    avgViews > 0 && outlier > 200000 && subs > 50000 &&
+    (avgViews / outlier) < 0.10;
+
+  // For the Spec: "good fit" = positive net IF triggered (or meaningful value if not)
+  // For retainers: "good fit" = positive net (value > cost)
   const isGoodFit = isSpec
-    ? (year1Cost === 0 ? totalValue > 500 : net > 0)  // if not triggered, just need meaningful value; if triggered, need to net positive
+    ? (year1Cost === 0 ? totalValue > 500 : net > 0)
     : net > 0;
 
+  // === COMEBACK VERDICT (yellow) — overrides good/bad for declining channels with proven peaks ===
+  if (isSpec && isComebackChannel && year1Cost > 0) {
+    verdictEl.classList.add('comeback');
+    verdictIcon.textContent = '⟳';
+    verdictHead.textContent = 'Comeback bet worth taking.';
+    const tightOrPositive = net >= 0
+      ? `you'd net +$${Math.round(net).toLocaleString()} on direct math`
+      : `the math is tight on direct ROI alone`;
+    verdictText.textContent = `Your reel projects to ${viewsPerReel.toLocaleString()} views — above the 100K trigger. ${tightOrPositive.charAt(0).toUpperCase() + tightOrPositive.slice(1)}, but the real signal is your channel's pattern (recent avg ${avgViews.toLocaleString()} / proven peak ${outlier.toLocaleString()}). The algorithm has pushed you past 100K before. A reel that hits again proves the format works for you — and unlocks the retainer math where the bigger money lives. Apply.`;
+    return;
+  }
+
+  // === GREEN / RED for everyone else ===
   if (isGoodFit) {
-    verdictEl.classList.remove('bad');
     verdictEl.classList.add('good');
     verdictIcon.textContent = '✓';
     if (isSpec && year1Cost === 0) {
@@ -1333,7 +1362,6 @@ function recalc() {
       verdictText.textContent = `${reelsPerMonth} reels/mo at ${viewsPerReel.toLocaleString()} views each projects to $${Math.round(totalValue).toLocaleString()} over 12 months — a ${roi.toFixed(1)}x ROI on your retainer. Start with The Spec to prove it on one reel, then move up.`;
     }
   } else {
-    verdictEl.classList.remove('good');
     verdictEl.classList.add('bad');
     verdictIcon.textContent = '✕';
     verdictHead.textContent = "Probably not the best fit.";
