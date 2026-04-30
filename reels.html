@@ -801,6 +801,12 @@
         <div class="calc-inputs">
 
           <div class="calc-row">
+            <label for="ci-subs">Your subscriber count</label>
+            <input type="number" id="ci-subs" value="500000" min="1000" step="1000">
+            <div class="helper"><strong>Why we ask:</strong> Combined with your avg views, this tells us your channel's actual sub-to-view rate. A 1M-sub channel getting 50K views has a 5% view rate; a 100K-sub channel getting 50K has 50%. Your real number replaces our 18% industry benchmark for the regular-video lift calc below.</div>
+          </div>
+
+          <div class="calc-row">
             <label for="ci-avg">Your average views per video</label>
             <input type="number" id="ci-avg" value="50000" min="100" step="100">
             <div class="helper"><strong>Why we ask:</strong> This is the baseline we project against. Look at your last 10 regular uploads and average them. Higher = the reel has a bigger starting audience to break out from.</div>
@@ -886,7 +892,7 @@
 
           <div class="calc-line">
             <span class="key">Lift on your regular videos
-              <small>Bigger sub base watches your daily uploads (18% view rate × ~4 videos/wk)</small>
+              <small id="o-lift-detail">Bigger sub base watches your daily uploads</small>
             </span>
             <span class="val" id="o-lift">$0</span>
           </div>
@@ -1184,6 +1190,7 @@ https://youtube.com/watch?v=..." required></textarea>
 <script>
 /* ===== Calculator — simplified, transparent, with verdict ===== */
 function recalc() {
+  const subs = +document.getElementById('ci-subs').value || 0;
   const avgViews = +document.getElementById('ci-avg').value || 0;
   const rpm = +document.getElementById('ci-niche').value || 0;
   const ltv = +document.getElementById('ci-backend').value || 0;
@@ -1199,8 +1206,11 @@ function recalc() {
   const SUB_CONV_RATE = 0.015;       // 1.5% — Influencer Marketing Hub creator-economy avg
   const NON_SUB_VIEW_RATE = 0.6;     // 60% — typical for breakout content reaching beyond subs
   const BACKEND_CONV_RATE = 0.02;    // 2% — standard creator-funnel conversion benchmark
-  const REGULAR_VIEW_RATE = 0.18;    // 18% — typical sub view-rate for active 100K+ channels
   const REGULAR_UPLOADS_PER_MO = 16; // 4 uploads/wk (active creator baseline)
+
+  // === Channel's ACTUAL view rate (avg views / subs) — capped at 60% to avoid edge cases ===
+  // This replaces the old 18% industry-benchmark assumption with the creator's real number.
+  const channelViewRate = subs > 0 ? Math.min(avgViews / subs, 0.6) : 0.18;
 
   const viewsPerReel = Math.round(avgViews * lift);
 
@@ -1225,7 +1235,7 @@ function recalc() {
     // Back-end: half of new subs convert in year 1 (gradual)
     year1BackendRev = totalNewSubs * BACKEND_CONV_RATE * ltv * 0.5;
     // Regular video lift: avg of new subs across year × view rate × uploads × RPM ÷ 1000
-    year1RegularLift = (totalNewSubs / 2) * REGULAR_VIEW_RATE * REGULAR_UPLOADS_PER_MO * 12 / 1000 * rpm;
+    year1RegularLift = (totalNewSubs / 2) * channelViewRate * REGULAR_UPLOADS_PER_MO * 12 / 1000 * rpm;
     year1Cost = willTrigger ? tierPrice : 0;
 
     // Update the cost detail line
@@ -1240,7 +1250,7 @@ function recalc() {
     year1ReelAdRev = (totalReelViews / 1000) * rpm;
     totalNewSubs = Math.round(totalReelViews * NON_SUB_VIEW_RATE * SUB_CONV_RATE);
     year1BackendRev = totalNewSubs * BACKEND_CONV_RATE * ltv * 0.5;
-    year1RegularLift = (totalNewSubs / 2) * REGULAR_VIEW_RATE * REGULAR_UPLOADS_PER_MO * 12 / 1000 * rpm;
+    year1RegularLift = (totalNewSubs / 2) * channelViewRate * REGULAR_UPLOADS_PER_MO * 12 / 1000 * rpm;
     year1Cost = tierPrice * 12;
 
     scenarioText = `<strong>${totalReels12mo} reels over 12 months</strong>, each projecting to about <strong>${viewsPerReel.toLocaleString()} views</strong> at ${lift}x your average. Here's the cumulative 12-month value.`;
@@ -1251,6 +1261,12 @@ function recalc() {
   document.getElementById('o-backend-detail').textContent = ltv === 0
     ? `No back-end product = no back-end conversions`
     : `2% of ${totalNewSubs.toLocaleString()} new subs × $${ltv}/yr LTV × 50% Y1`;
+
+  // Lift detail with the channel's real view rate
+  const viewRatePct = (channelViewRate * 100).toFixed(1);
+  document.getElementById('o-lift-detail').textContent = subs > 0
+    ? `${(totalNewSubs/2).toFixed(0)} avg new subs × ${viewRatePct}% your view rate × 16 uploads/mo × 12 mo`
+    : `${(totalNewSubs/2).toFixed(0)} avg new subs × 18% benchmark view rate (no sub count given)`;
 
   const totalValue = year1ReelAdRev + year1BackendRev + year1RegularLift;
   const net = totalValue - year1Cost;
@@ -1316,7 +1332,7 @@ function recalc() {
   }
 }
 
-document.querySelectorAll('#ci-avg, #ci-niche, #ci-backend, #ci-lift, #ci-tier').forEach(el => {
+document.querySelectorAll('#ci-subs, #ci-avg, #ci-niche, #ci-backend, #ci-lift, #ci-tier').forEach(el => {
   el.addEventListener('input', recalc);
   el.addEventListener('change', recalc);
 });
