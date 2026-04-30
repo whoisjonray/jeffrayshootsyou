@@ -34,7 +34,7 @@
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
-  body.modal-open, body.detail-mode { overflow: hidden; }
+  body.modal-open { overflow: hidden; } /* lightbox only — detail-mode is a scrollable full page */
   body::before {
     content: '';
     position: fixed; inset: 0; pointer-events: none; z-index: 999;
