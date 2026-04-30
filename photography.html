@@ -232,7 +232,7 @@
   }
   .detail-hero-img {
     width: 100%;
-    aspect-ratio: 21 / 9;
+    aspect-ratio: 16 / 9;
     background: var(--bg-elev);
     overflow: hidden;
   }
@@ -273,28 +273,36 @@
     max-width: 640px; margin-top: 24px;
   }
 
-  /* Image sequence */
+  /* Image sequence — tight 2-column masonry (matches Squarespace pattern) */
   .detail-sequence {
-    padding: 96px 0 0;
-    display: flex; flex-direction: column; gap: 8px;
+    padding: 64px 0 0;
+    column-count: 2;
+    column-gap: 10px;
   }
   .seq-img {
     width: 100%; height: auto; display: block;
     background: var(--bg-elev);
     cursor: zoom-in;
     transition: filter 0.3s ease;
+    margin-bottom: 10px;
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
   }
   .seq-img:hover { filter: brightness(1.05); }
 
-  /* Mid-sequence inline CTA (~70% scroll) */
+  /* Mid-sequence inline CTA — spans both columns to break the rhythm naturally */
   .detail-inline-cta {
-    margin: 64px auto;
-    padding: 56px clamp(28px, 5vw, 64px);
+    column-span: all;
+    -webkit-column-span: all;
+    margin: 32px auto 42px;
+    padding: 48px clamp(28px, 5vw, 56px);
     background: linear-gradient(180deg, rgba(200,149,109,0.06) 0%, rgba(10,10,10,0.4) 100%);
     border: 1px solid var(--accent-soft);
     border-radius: 4px;
     text-align: center;
-    max-width: 720px;
+    max-width: 680px;
+    break-inside: avoid;
   }
   .detail-inline-cta .eyebrow {
     font-family: 'JetBrains Mono', monospace; font-size: 11px;
@@ -492,6 +500,7 @@
     .detail-back { top: 76px; left: 16px; padding: 8px 14px; font-size: 10px; }
     .detail-hero-img { aspect-ratio: 4 / 3; }
     .detail-meta { padding-top: 32px; }
+    .detail-sequence { column-count: 1; padding-top: 40px; }
     body.detail-mode .mobile-fixed-cta { display: block; }
     .detail-inquiry { padding-bottom: 120px; }
     .lightbox { padding: 16px; }
