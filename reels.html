@@ -335,12 +335,13 @@
   /* PRICING */
   .tier-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
     margin-top: 56px;
   }
-  @media (max-width: 1100px) { .tier-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 600px) { .tier-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 1280px) { .tier-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 800px) { .tier-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .tier-grid { grid-template-columns: 1fr; } }
   .tier {
     background: var(--bg);
     border: 1px solid var(--line);
@@ -778,24 +779,29 @@
             </select>
           </div>
           <div class="calc-row">
-            <label for="ci-tier">Tier</label>
+            <label for="ci-tier">Package</label>
             <select id="ci-tier">
-              <option value="2500">The Flagship — $2,500/mo (1 reel + 4 shorts)</option>
-              <option value="5000" selected>The Channel — $5,000/mo (2 reels + 8 shorts)</option>
-              <option value="7500">The Director's Cut — $7,500/mo (4 reels + 16 shorts)</option>
+              <option value="1500-once">The One — $1,500 once (1 reel)</option>
+              <option value="1500-1" selected>The Monthly — $1,500/mo × 1 reel</option>
+              <option value="2500-2">The Channel — $2,500/mo × 2 reels</option>
+              <option value="3500-3">The Series — $3,500/mo × 3 reels</option>
+              <option value="4500-4">Director's Cut — $4,500/mo × 4 reels</option>
             </select>
           </div>
         </div>
 
         <div class="calc-output" id="calcOutput">
-          <div class="calc-output-label">PROJECTED MONTHLY VALUE</div>
-          <div class="calc-line"><span class="key">Direct ad revenue from reels</span><span class="val" id="o-ads">$0</span></div>
-          <div class="calc-line"><span class="key">New subscribers attributed</span><span class="val" id="o-newsubs">0</span></div>
-          <div class="calc-line"><span class="key">Back-end product value</span><span class="val" id="o-backend">$0</span></div>
-          <div class="calc-line total"><span class="key">Total monthly value</span><span class="val" id="o-total">$0</span></div>
-          <div class="calc-line total" style="border-color: var(--line); margin-top: 24px;"><span class="key">Net vs retainer</span><span class="val" id="o-net" style="color: var(--text);">$0</span></div>
+          <div class="calc-output-label">12-MONTH PROJECTION (COMPOUNDING)</div>
+          <div class="calc-line"><span class="key">Reel ad revenue</span><span class="val" id="o-reelads">$0</span></div>
+          <div class="calc-line"><span class="key">Lift on regular videos*</span><span class="val" id="o-lift">$0</span></div>
+          <div class="calc-line"><span class="key">Back-end conversions</span><span class="val" id="o-backend">$0</span></div>
+          <div class="calc-line"><span class="key">New subscribers built</span><span class="val" id="o-newsubs">0</span></div>
+          <div class="calc-line total"><span class="key">Total value · year 1</span><span class="val" id="o-total">$0</span></div>
+          <div class="calc-line"><span class="key">Total cost · year 1</span><span class="val" id="o-cost">$0</span></div>
+          <div class="calc-line total" style="border-color: var(--line); margin-top: 8px;"><span class="key">Net · year 1</span><span class="val" id="o-net" style="color: var(--text);">$0</span></div>
+          <div class="calc-line" style="border-bottom: 0; padding-top: 18px;"><span class="key" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-mute);">Year 2 (asset compounds)</span><span class="val" id="o-year2" style="font-size: 18px;">$0</span></div>
           <div class="calc-disclaimer">
-            Estimate. Assumes 1.5% of new viewers subscribe and 2% of new subscribers convert to your back-end product within 12 months. Real numbers depend on your hooks, your CTAs, and the algorithm. A free spec reel is the only way to know for sure.
+            *Larger sub base watches your regular uploads too. Assumes 1.5% reel-viewer-to-sub conversion, 2% sub-to-back-end conversion, 18% sub view-rate on regular videos, 4 regular uploads/wk, 60% non-subscriber views on reels. Year 1 builds the asset — Year 2 compounds it. Real numbers depend on your hooks and the algorithm. A spec reel is the only way to know for sure.
           </div>
         </div>
       </div>
@@ -814,75 +820,95 @@
 
     <div class="tier-grid">
       <div class="tier spec">
-        <div class="tier-tag">FREE · ONCE</div>
-        <div class="tier-name">The <em>Spec</em></div>
+        <div class="tier-tag">SINGLE PROJECT</div>
+        <div class="tier-name">The <em>One</em></div>
         <div class="tier-price">
-          <span class="tier-price-num">$0</span>
+          <span class="tier-price-num">$1,500</span>
           <span class="tier-price-suf">/ once</span>
         </div>
-        <div class="tier-meta">2 spots / month · No obligation</div>
+        <div class="tier-meta">No retainer · 4 slots / mo</div>
         <div class="tier-includes-label">What you get</div>
         <ul class="tier-includes">
-          <li>One 60–90 second spec reel cut from your existing footage</li>
-          <li>Original score, atmospheric b-roll, full color and sound</li>
-          <li>You publish it. We watch what happens.</li>
-          <li>If it lifts views, we talk about a retainer. If it doesn't, no follow-up.</li>
+          <li>One flagship compilation reel from your existing footage</li>
+          <li>4–8 min finished, original score, AI atmospheric b-roll</li>
+          <li>Color, sound design, custom thumbnail</li>
+          <li>10-day delivery, 1 round of revisions</li>
+          <li>You publish on your channel. Asset earns indefinitely.</li>
+        </ul>
+        <a href="#spec" class="tier-cta">Start with one</a>
+      </div>
+
+      <div class="tier">
+        <div class="tier-tag">RETAINER · 1/MO</div>
+        <div class="tier-name">The <em>Monthly</em></div>
+        <div class="tier-price">
+          <span class="tier-price-num">$1,500</span>
+          <span class="tier-price-suf">/ mo</span>
+        </div>
+        <div class="tier-meta">3-mo minimum · 4 slots open</div>
+        <div class="tier-includes-label">Each month</div>
+        <ul class="tier-includes">
+          <li>1 long-form flagship reel</li>
+          <li>2 emotional shorts cut from same source</li>
+          <li>Original score, color, sound</li>
+          <li>10-day delivery</li>
         </ul>
         <a href="#spec" class="tier-cta">Start with a Spec</a>
       </div>
 
       <div class="tier">
-        <div class="tier-tag">RETAINER · ENTRY</div>
-        <div class="tier-name">The <em>Flagship</em></div>
+        <div class="tier-tag">RETAINER · 2/MO</div>
+        <div class="tier-name">The <em>Channel</em></div>
         <div class="tier-price">
           <span class="tier-price-num">$2,500</span>
+          <span class="tier-price-suf">/ mo</span>
+        </div>
+        <div class="tier-meta">3-mo minimum · 3 slots open</div>
+        <div class="tier-includes-label">Each month</div>
+        <ul class="tier-includes">
+          <li>2 long-form flagship reels</li>
+          <li>4 emotional shorts</li>
+          <li>Bi-weekly delivery cadence</li>
+          <li>Monthly strategy call</li>
+        </ul>
+        <a href="#spec" class="tier-cta">Start with a Spec</a>
+      </div>
+
+      <div class="tier">
+        <div class="tier-tag">RETAINER · 3/MO</div>
+        <div class="tier-name">The <em>Series</em></div>
+        <div class="tier-price">
+          <span class="tier-price-num">$3,500</span>
           <span class="tier-price-suf">/ mo</span>
         </div>
         <div class="tier-meta">3-mo minimum · 2 slots open</div>
         <div class="tier-includes-label">Each month</div>
         <ul class="tier-includes">
-          <li>1 long-form flagship compilation reel (4–8 min)</li>
-          <li>4 emotional shorts cut from the same source material</li>
-          <li>Original score, color, sound design</li>
-          <li>7-day rough, 14-day final, 1 round of revisions</li>
-        </ul>
-        <a href="#spec" class="tier-cta">Start with a Spec</a>
-      </div>
-
-      <div class="tier">
-        <div class="tier-tag">RETAINER · MIDDLE</div>
-        <div class="tier-name">The <em>Channel</em></div>
-        <div class="tier-price">
-          <span class="tier-price-num">$5,000</span>
-          <span class="tier-price-suf">/ mo</span>
-        </div>
-        <div class="tier-meta">2 slots open</div>
-        <div class="tier-includes-label">Each month</div>
-        <ul class="tier-includes">
-          <li>2 long-form flagship compilation reels</li>
+          <li>3 long-form flagship reels</li>
           <li>8 emotional shorts</li>
-          <li>Monthly strategy call with Jeff</li>
-          <li>Two rounds of revisions</li>
-          <li>Priority delivery lane</li>
+          <li>10-day cadence</li>
+          <li>Bi-weekly strategy call</li>
+          <li>Custom thumbnails &amp; titles</li>
         </ul>
         <a href="#spec" class="tier-cta">Start with a Spec</a>
       </div>
 
       <div class="tier">
-        <div class="tier-tag">RETAINER · TOP</div>
-        <div class="tier-name">The Director's <em>Cut</em></div>
+        <div class="tier-tag">RETAINER · 4/MO</div>
+        <div class="tier-name">Director's <em>Cut</em></div>
         <div class="tier-price">
-          <span class="tier-price-num">$7,500</span>
+          <span class="tier-price-num">$4,500</span>
           <span class="tier-price-suf">/ mo</span>
         </div>
-        <div class="tier-meta">1 slot open</div>
+        <div class="tier-meta">3-mo minimum · 1 slot open</div>
         <div class="tier-includes-label">Each month</div>
         <ul class="tier-includes">
-          <li>4 long-form flagship compilation reels</li>
+          <li>4 long-form flagship reels (weekly)</li>
           <li>16 emotional shorts</li>
-          <li>Bi-weekly strategy call</li>
-          <li>Jeff personally on every cut (no junior editor pass)</li>
-          <li>Custom thumbnails and titles by Jeff</li>
+          <li>Weekly delivery cadence</li>
+          <li>Weekly strategy call</li>
+          <li>Jeff personally on every cut</li>
+          <li>Custom thumbnails, titles, and descriptions</li>
         </ul>
         <a href="#spec" class="tier-cta">Start with a Spec</a>
       </div>
@@ -1031,50 +1057,98 @@ https://youtube.com/watch?v=..." required></textarea>
 </footer>
 
 <script>
-/* ===== Calculator ===== */
+/* ===== Calculator — 12-month compounding model ===== */
 function recalc() {
-  const subs = +document.getElementById('ci-subs').value || 0;
   const avgViews = +document.getElementById('ci-avg').value || 0;
   const rpm = +document.getElementById('ci-niche').value || 0;
   const ltv = +document.getElementById('ci-backend').value || 0;
   const lift = +document.getElementById('ci-lift').value || 1;
-  const tier = +document.getElementById('ci-tier').value || 0;
+  const tierVal = document.getElementById('ci-tier').value || '1500-1';
 
-  // Reels per month based on tier
-  const reelsPerMonth = tier === 2500 ? 1 : tier === 5000 ? 2 : 4;
+  // Parse tier value: "PRICE-REELSPERMO" or "1500-once"
+  const [priceStr, reelStr] = tierVal.split('-');
+  const monthlyPrice = +priceStr;
+  const isOnce = reelStr === 'once';
+  const reelsPerMonth = isOnce ? 0 : +reelStr; // one-time has 1 reel total
+  const oneTimeReels = isOnce ? 1 : 0;
 
-  // View per reel (lift x avg)
+  // === Per-reel view & sub conversion ===
   const viewsPerReel = avgViews * lift;
-  const totalReelViews = viewsPerReel * reelsPerMonth;
+  const SUB_CONV_RATE = 0.015;       // 1.5% of new viewers subscribe
+  const NON_SUB_VIEW_RATE = 0.6;     // 60% of reel views are non-subscribers
+  const BACKEND_CONV_RATE = 0.02;    // 2% of new subs become back-end customers
+  const REGULAR_VIEW_RATE = 0.18;    // 18% of subs watch each regular upload
+  const REGULAR_UPLOADS_PER_MO = 16; // 4/wk × ~4 weeks
 
-  // Direct ad revenue: views/1000 * RPM
-  const adRevenue = (totalReelViews / 1000) * rpm;
+  // === Year 1 simulation, month by month ===
+  let cumNewSubs = 0;
+  let totalReelAdRev = 0;
+  let totalRegularLiftAdRev = 0;
+  let totalBackendRev = 0;
 
-  // New subs: 1.5% of new (non-subscriber) viewers convert
-  // Assume 60% of views are non-subscribers (upper estimate; conservative would be lower)
-  const newViewers = totalReelViews * 0.6;
-  const newSubs = Math.round(newViewers * 0.015);
+  // For one-time tier: 1 reel in month 1, then nothing more.
+  // The reel keeps earning declining views over the year (start 30% in M1, decline)
+  // For monthly tiers: reelsPerMonth new reels each month, plus older reels still earning.
+  for (let m = 1; m <= 12; m++) {
+    // Reels published this month
+    const newReels = (m === 1 ? oneTimeReels : 0) + reelsPerMonth;
 
-  // Back-end revenue: 2% of new subs convert to back-end product within 12 mo
-  // Monthly value = (annualLTV * 2% * newSubs) / 12
-  const backendMonthly = (newSubs * (ltv * 0.02));
-  // wait — LTV is $/yr/sub, but only 2% of NEW subs convert
-  // Better: of the new subs, 2% buy a product. Monthly attributable revenue = newSubs * 0.02 * ltv / 12 * 12 = newSubs * 0.02 * ltv (annualized)
-  // For monthly value: let's say monthly = (newSubs * 0.02 * ltv) — annual accrued from this month's new subs
-  // Simpler: show monthly contribution as (newSubs * 0.02 * ltv) / 12 to annualize
-  const backendMonthlyValue = (newSubs * 0.02 * ltv);
+    // Each new reel earns its peak in publish month, decaying for ~3 months after
+    // Simple model: month 1 of a reel = 60% of total 12-mo views, M2 = 20%, M3 = 10%, M4-12 = 1% each
+    // Sum across all currently-active reels
+    const decayCurve = [0.55, 0.20, 0.10, 0.04, 0.03, 0.02, 0.02, 0.01, 0.01, 0.01, 0.005, 0.005];
+    let monthlyReelViews = 0;
+    // Each month's reels generate views in subsequent months
+    for (let publishMonth = 1; publishMonth <= m; publishMonth++) {
+      const ageMonths = m - publishMonth;
+      if (ageMonths >= 12) continue;
+      // Reels published in publishMonth
+      const reelsInThatMonth = (publishMonth === 1 ? oneTimeReels : 0) + reelsPerMonth;
+      monthlyReelViews += reelsInThatMonth * viewsPerReel * decayCurve[ageMonths];
+    }
 
-  const totalValue = adRevenue + backendMonthlyValue;
-  const net = totalValue - tier;
+    // Direct ad revenue from reels this month
+    totalReelAdRev += (monthlyReelViews / 1000) * rpm;
 
-  document.getElementById('o-ads').textContent = '$' + Math.round(adRevenue).toLocaleString();
-  document.getElementById('o-newsubs').textContent = newSubs.toLocaleString();
-  document.getElementById('o-backend').textContent = '$' + Math.round(backendMonthlyValue).toLocaleString() + (ltv === 0 ? '' : '*');
-  document.getElementById('o-total').textContent = '$' + Math.round(totalValue).toLocaleString();
+    // New subs from this month's reel views
+    const newSubsThisMonth = monthlyReelViews * NON_SUB_VIEW_RATE * SUB_CONV_RATE;
+    cumNewSubs += newSubsThisMonth;
+
+    // Lift on regular videos: cumulative new subs × view rate × uploads/mo × RPM
+    totalRegularLiftAdRev += (cumNewSubs * REGULAR_VIEW_RATE * REGULAR_UPLOADS_PER_MO / 1000) * rpm;
+
+    // Back-end revenue this month: cumulative new subs × conv rate × LTV / 12 (monthly portion of annual LTV)
+    totalBackendRev += (cumNewSubs * BACKEND_CONV_RATE * ltv) / 12;
+  }
+
+  const year1Cost = isOnce ? monthlyPrice : monthlyPrice * 12;
+  const year1Value = totalReelAdRev + totalRegularLiftAdRev + totalBackendRev;
+  const year1Net = year1Value - year1Cost;
+
+  // Year 2 estimate: if we keep running, sub base doubles roughly. Year 2 value scales.
+  // Quick approximation: year 2 starts with cumNewSubs already in place, earning back-end + lift the whole year.
+  const year2BackendBaseline = (cumNewSubs * BACKEND_CONV_RATE * ltv); // annual LTV from year 1 cohort
+  const year2LiftBaseline = (cumNewSubs * REGULAR_VIEW_RATE * REGULAR_UPLOADS_PER_MO * 12 / 1000) * rpm;
+  // Plus year 2's new reel revenue (similar pattern, slightly higher base)
+  const year2NewValue = (totalReelAdRev + totalBackendRev * 0.5 + totalRegularLiftAdRev * 0.5);
+  const year2Total = year2BackendBaseline + year2LiftBaseline + year2NewValue;
+  const year2Cost = isOnce ? 0 : monthlyPrice * 12;
+  const year2Net = year2Total - year2Cost;
+
+  // === Render ===
+  document.getElementById('o-reelads').textContent = '$' + Math.round(totalReelAdRev).toLocaleString();
+  document.getElementById('o-lift').textContent = '$' + Math.round(totalRegularLiftAdRev).toLocaleString();
+  document.getElementById('o-backend').textContent = '$' + Math.round(totalBackendRev).toLocaleString() + (ltv === 0 ? '' : '');
+  document.getElementById('o-newsubs').textContent = Math.round(cumNewSubs).toLocaleString();
+  document.getElementById('o-total').textContent = '$' + Math.round(year1Value).toLocaleString();
+  document.getElementById('o-cost').textContent = '$' + year1Cost.toLocaleString();
 
   const netEl = document.getElementById('o-net');
-  netEl.textContent = (net >= 0 ? '+' : '−') + '$' + Math.abs(Math.round(net)).toLocaleString();
-  netEl.style.color = net >= 0 ? 'var(--accent)' : '#d97560';
+  netEl.textContent = (year1Net >= 0 ? '+' : '−') + '$' + Math.abs(Math.round(year1Net)).toLocaleString() +
+    '  ·  ' + (year1Value / Math.max(year1Cost, 1)).toFixed(1) + 'x ROI';
+  netEl.style.color = year1Net >= 0 ? 'var(--accent)' : '#d97560';
+
+  document.getElementById('o-year2').textContent = '+$' + Math.round(year2Net).toLocaleString() + ' net';
 }
 
 document.querySelectorAll('#ci-subs, #ci-avg, #ci-niche, #ci-backend, #ci-lift, #ci-tier').forEach(el => {
