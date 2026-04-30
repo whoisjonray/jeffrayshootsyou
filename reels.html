@@ -1374,41 +1374,58 @@ function matchChannel() {
     return;
   }
 
-  const isSmall = subs < 100000 || peak < 100000 || avg < 3000;
-  const liftRatio = avg > 0 ? peak / avg : 0;
-  const isComeback = !isSmall && liftRatio >= 8;
-  const isHealthy = !isSmall && !isComeback;
+  // Engagement rate (subs DRIVE this — same avg with smaller subs = more engaged)
+  const viewRate = subs > 0 ? avg / subs : 0;       // share of subs watching each upload
+  const viewRatePct = (viewRate * 100).toFixed(1);
+  const liftRatio = avg > 0 ? peak / avg : 0;       // peak vs avg — the algorithmic ceiling signal
+
+  // === Classification ===
+  // Hard floors first
+  const isSmall = subs < 50000 || peak < 75000 || avg < 2000;
+
+  // Dormant signature: cooled engagement (<3% view rate) AND big outlier (8x+ peak/avg) AND meaningful peak
+  // The subs input drives this through the viewRate calculation.
+  const isDormant = !isSmall && viewRate < 0.03 && liftRatio >= 8 && peak >= 100000;
+
+  // Otherwise = healthy
+  const isHealthy = !isSmall && !isDormant;
 
   let html;
   if (isHealthy) {
     const projection = Math.round((peak + avg) / 2);
+    let engagementNote;
+    if (viewRate >= 0.20) engagementNote = `your engagement rate is <strong>${viewRatePct}%</strong> — exceptional for any channel. Loyal niche audiences like this respond hard to flagship content.`;
+    else if (viewRate >= 0.08) engagementNote = `your engagement rate is <strong>${viewRatePct}%</strong> — healthy band for a channel your size.`;
+    else engagementNote = `your engagement rate is <strong>${viewRatePct}%</strong> — typical for a mid-to-large channel; the reel is what brings the breakout.`;
     html = `<div class="match-verdict good">
       <span class="vdct-icon">✓</span>
       <div class="match-verdict-body">
         <h4>You match The Healthy Creator.</h4>
-        <p>Your peak (${peak.toLocaleString()}) is ${liftRatio.toFixed(1)}x your average — the normal variance band for an active channel. A flagship reel realistically projects to ~${projection.toLocaleString()} views, well above the 100K trigger. The math closes itself.</p>
+        <p>Your peak (${peak.toLocaleString()}) is ${liftRatio.toFixed(1)}x your average — the normal variance band for an active channel. With ${subs.toLocaleString()} subs, ${engagementNote}</p>
+        <p>A flagship reel realistically projects to ~${projection.toLocaleString()} views, well above the 100K trigger. <strong>The math closes itself.</strong></p>
         <a href="#spec" class="cta">Apply for a Spec →</a>
       </div>
     </div>`;
-  } else if (isComeback) {
+  } else if (isDormant) {
     html = `<div class="match-verdict comeback">
       <span class="vdct-icon">⟳</span>
       <div class="match-verdict-body">
         <h4>You match The Dormant Coaching Channel.</h4>
-        <p>Your peak (${peak.toLocaleString()}) is ${liftRatio.toFixed(0)}x your average — the comeback signature. The algorithm has demonstrably pushed you past 100K, but recent uploads have cooled. A reel that hits 100K again proves the format works for you and reactivates the dormant audience.</p>
+        <p>Your peak (${peak.toLocaleString()}) is ${liftRatio.toFixed(0)}x your average. Combined with a ${viewRatePct}% engagement rate (${avg.toLocaleString()} avg views ÷ ${subs.toLocaleString()} subs), this is the comeback signature: the algorithm has pushed you past 100K before, but recent uploads have cooled.</p>
+        <p>A reel that hits 100K again proves the format works for you and reactivates the dormant audience. <strong>That signal is worth the bet.</strong></p>
         <a href="#spec" class="cta">Apply for a Spec →</a>
       </div>
     </div>`;
   } else {
     let why = [];
-    if (subs < 100000) why.push(`under 100K subs (you're at ${subs.toLocaleString()})`);
-    if (peak < 100000) why.push(`no video past 100K in the last 6 months (peak ${peak.toLocaleString()})`);
-    if (avg < 3000) why.push(`average views under 3K (you're at ${avg.toLocaleString()})`);
+    if (subs < 50000) why.push(`under 50K subs (you're at ${subs.toLocaleString()})`);
+    if (peak < 75000) why.push(`no video past 75K (peak ${peak.toLocaleString()})`);
+    if (avg < 2000) why.push(`average views under 2K (you're at ${avg.toLocaleString()})`);
     html = `<div class="match-verdict bad">
       <span class="vdct-icon">✕</span>
       <div class="match-verdict-body">
         <h4>You match The Small Channel pattern.</h4>
-        <p>${why.join(', ')}. The 100K-view threshold is too far for the format to reliably deliver. Build to 100K+ subs or land a 100K+ peak first — then come back. We'll be honest about timing instead of taking your money.</p>
+        <p>You're ${why.join(' and ')}. The 100K-view threshold is too far for the format to reliably deliver at your current scale. Build to a meaningful 100K+ peak first — then come back. We'll be honest about timing instead of taking your money.</p>
       </div>
     </div>`;
   }
