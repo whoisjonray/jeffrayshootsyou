@@ -799,68 +799,124 @@
     <div class="calc-card">
       <div class="calc-grid">
         <div class="calc-inputs">
+
           <div class="calc-row">
-            <label for="ci-subs">Subscribers</label>
-            <input type="number" id="ci-subs" value="500000" min="1000" step="1000">
-          </div>
-          <div class="calc-row">
-            <label for="ci-avg">Average views per video</label>
+            <label for="ci-avg">Your average views per video</label>
             <input type="number" id="ci-avg" value="50000" min="100" step="100">
+            <div class="helper"><strong>Why we ask:</strong> This is the baseline we project against. Look at your last 10 regular uploads and average them. Higher = the reel has a bigger starting audience to break out from.</div>
           </div>
+
           <div class="calc-row">
-            <label for="ci-niche">Niche (drives RPM)</label>
+            <label for="ci-niche">Your niche</label>
             <select id="ci-niche">
-              <option value="6">Motivation / self-improvement ($6 RPM)</option>
-              <option value="8" selected>Heritage / wisdom / Americana ($8 RPM)</option>
-              <option value="10">Business / career coaching ($10 RPM)</option>
-              <option value="14">Finance / investing ($14 RPM)</option>
-              <option value="4">Spirituality / manifestation ($4 RPM)</option>
-              <option value="3">Lifestyle / vlog ($3 RPM)</option>
+              <option value="6">Motivation / self-improvement</option>
+              <option value="8" selected>Heritage / wisdom / Americana</option>
+              <option value="10">Business / career / coaching</option>
+              <option value="14">Finance / investing</option>
+              <option value="4">Spirituality / manifestation</option>
+              <option value="3">Lifestyle / vlog</option>
             </select>
+            <div class="helper"><strong>Why we ask:</strong> YouTube pays creators a different rate per 1,000 views (RPM) depending on what advertisers are willing to spend in your niche. Heritage/wisdom = $8 RPM. Finance = $14. Spirituality = $4. <em>Source: Lenos, OutlierKit, Influencer Marketing Hub 2026 data.</em></div>
           </div>
+
           <div class="calc-row">
-            <label for="ci-backend">Back-end product</label>
+            <label for="ci-backend">What you sell off-platform</label>
             <select id="ci-backend">
-              <option value="0">None (ad revenue only)</option>
-              <option value="10">Patreon / membership ($10/sub/yr LTV)</option>
-              <option value="20" selected>Skool / community / book ($20/sub/yr LTV)</option>
-              <option value="40">Course ($40/sub/yr LTV)</option>
-              <option value="80">High-ticket coaching / mastermind ($80/sub/yr LTV)</option>
+              <option value="0">Nothing (ad revenue only)</option>
+              <option value="10">Patreon / membership ($10/sub/yr)</option>
+              <option value="20" selected>Skool / community / book ($20/sub/yr)</option>
+              <option value="40">Online course ($40/sub/yr)</option>
+              <option value="80">High-ticket coaching / mastermind ($80/sub/yr)</option>
             </select>
+            <div class="helper"><strong>Why we ask:</strong> Most creators earn 60–80% of their income off YouTube — courses, communities, coaching. A reel that brings new subscribers compounds into back-end sales. <em>Industry benchmark: 2% of new subscribers buy your back-end product within 12 months.</em></div>
           </div>
+
           <div class="calc-row">
-            <label for="ci-lift">View lift on flagship reel (vs your average)</label>
+            <label for="ci-lift">How well will the reel perform?</label>
             <select id="ci-lift">
-              <option value="2" selected>2x (conservative)</option>
-              <option value="3">3x (realistic)</option>
-              <option value="5">5x (good)</option>
-              <option value="10">10x (breakout)</option>
+              <option value="2" selected>2x your average (conservative)</option>
+              <option value="3">3x your average (realistic)</option>
+              <option value="5">5x your average (strong breakout)</option>
+              <option value="10">10x your average (viral moment)</option>
             </select>
+            <div class="helper"><strong>What this means:</strong> A flagship compilation typically gets 2–5x the views of a regular upload because emotional retention triggers the algorithm to push it past your subscriber bubble. Stick with 2x to be safe — anything above is upside. <em>Reference: "Year in Review" videos consistently rank in creators' top 5 every year.</em></div>
           </div>
+
           <div class="calc-row">
             <label for="ci-tier">Package</label>
             <select id="ci-tier">
-              <option value="1500-once">The Spec — $0 unless it crosses 100K views ($1,500 if so)</option>
-              <option value="1500-1" selected>The Monthly — $1,500/mo × 1 reel</option>
+              <option value="1500-once" selected>The Spec — $0 unless it hits 100K views ($1,500 if so)</option>
+              <option value="1500-1">The Monthly — $1,500/mo × 1 reel</option>
               <option value="2500-2">The Channel — $2,500/mo × 2 reels</option>
               <option value="3500-3">The Series — $3,500/mo × 3 reels</option>
               <option value="4500-4">Director's Cut — $4,500/mo × 4 reels</option>
             </select>
+            <div class="helper"><strong>Why The Spec is the default:</strong> If The Spec doesn't make sense for your numbers, the retainers won't either. Start here. If the math works at one reel, it'll work at four.</div>
           </div>
+
         </div>
 
         <div class="calc-output" id="calcOutput">
-          <div class="calc-output-label">12-MONTH PROJECTION (COMPOUNDING)</div>
-          <div class="calc-line"><span class="key">Reel ad revenue</span><span class="val" id="o-reelads">$0</span></div>
-          <div class="calc-line"><span class="key">Lift on regular videos*</span><span class="val" id="o-lift">$0</span></div>
-          <div class="calc-line"><span class="key">Back-end conversions</span><span class="val" id="o-backend">$0</span></div>
-          <div class="calc-line"><span class="key">New subscribers built</span><span class="val" id="o-newsubs">0</span></div>
-          <div class="calc-line total"><span class="key">Total value · year 1</span><span class="val" id="o-total">$0</span></div>
-          <div class="calc-line"><span class="key">Total cost · year 1</span><span class="val" id="o-cost">$0</span></div>
-          <div class="calc-line total" style="border-color: var(--line); margin-top: 8px;"><span class="key">Net · year 1</span><span class="val" id="o-net" style="color: var(--text);">$0</span></div>
-          <div class="calc-line" style="border-bottom: 0; padding-top: 18px;"><span class="key" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-mute);">Year 2 (asset compounds)</span><span class="val" id="o-year2" style="font-size: 18px;">$0</span></div>
+          <div class="calc-output-label">YOUR 12-MONTH PROJECTION</div>
+
+          <div class="calc-scenario" id="o-scenario">
+            Set your numbers above. We'll show you what one reel could do over the next 12 months.
+          </div>
+
+          <div class="calc-line">
+            <span class="key">Direct ad revenue from the reel
+              <small id="o-reelads-detail">views × RPM ÷ 1,000</small>
+            </span>
+            <span class="val" id="o-reelads">$0</span>
+          </div>
+
+          <div class="calc-line">
+            <span class="key">New subscribers added
+              <small>1.5% of non-subscriber viewers → subscribe</small>
+            </span>
+            <span class="val" id="o-newsubs">0</span>
+          </div>
+
+          <div class="calc-line">
+            <span class="key">Back-end product sales
+              <small id="o-backend-detail">2% of new subs convert × your LTV</small>
+            </span>
+            <span class="val" id="o-backend">$0</span>
+          </div>
+
+          <div class="calc-line">
+            <span class="key">Lift on your regular videos
+              <small>Bigger sub base watches your daily uploads (18% view rate × ~4 videos/wk)</small>
+            </span>
+            <span class="val" id="o-lift">$0</span>
+          </div>
+
+          <div class="calc-line total">
+            <span class="key">Total value over 12 months</span>
+            <span class="val" id="o-total">$0</span>
+          </div>
+
+          <div class="calc-line">
+            <span class="key">What you pay
+              <small id="o-cost-detail">Spec only triggers payment if reel hits 100K views</small>
+            </span>
+            <span class="val" id="o-cost">$0</span>
+          </div>
+
+          <div class="calc-line total" style="border-top: 1px solid var(--line); border-bottom: 0;">
+            <span class="key">Net to you</span>
+            <span class="val" id="o-net" style="color: #8cc88c;">$0</span>
+          </div>
+
+          <!-- Verdict -->
+          <div class="calc-verdict good" id="o-verdict">
+            <span class="calc-verdict-icon" id="o-verdict-icon">✓</span>
+            <div class="calc-verdict-headline" id="o-verdict-headline">Set your numbers</div>
+            <p id="o-verdict-text">We'll tell you whether your channel is a fit.</p>
+          </div>
+
           <div class="calc-disclaimer">
-            *Larger sub base watches your regular uploads too. Assumes 1.5% reel-viewer-to-sub conversion, 2% sub-to-back-end conversion, 18% sub view-rate on regular videos, 4 regular uploads/wk, 60% non-subscriber views on reels. Year 1 builds the asset — Year 2 compounds it. Real numbers depend on your hooks and the algorithm. A spec reel is the only way to know for sure.
+            <strong>Sources for the assumptions above:</strong> RPM by niche from Lenos, OutlierKit, Influencer Marketing Hub 2026 reports. Sub-conversion rate (1.5%), back-end conversion rate (2%), and regular-video sub view rate (18%) are creator-economy industry benchmarks. Real numbers depend on your hooks, your CTAs, and the algorithm — but these defaults are the conservative middle of every dataset we found.
           </div>
         </div>
       </div>
@@ -1260,7 +1316,7 @@ function recalc() {
   }
 }
 
-document.querySelectorAll('#ci-subs, #ci-avg, #ci-niche, #ci-backend, #ci-lift, #ci-tier').forEach(el => {
+document.querySelectorAll('#ci-avg, #ci-niche, #ci-backend, #ci-lift, #ci-tier').forEach(el => {
   el.addEventListener('input', recalc);
   el.addEventListener('change', recalc);
 });
