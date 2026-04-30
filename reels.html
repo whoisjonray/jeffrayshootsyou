@@ -258,7 +258,123 @@
   .avatar-card h3 em { font-style: italic; color: var(--accent); font-weight: 300; }
   .avatar-card p { color: var(--text-mute); font-size: 14.5px; line-height: 1.65; }
 
-  /* CALCULATOR */
+  /* SCENARIO CARDS (replaces calculator) */
+  .scenarios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 56px;
+  }
+  @media (max-width: 1000px) { .scenarios-grid { grid-template-columns: 1fr; gap: 24px; } }
+  .scenario-card {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 36px 32px 32px;
+    display: flex; flex-direction: column;
+    transition: transform 0.3s, border-color 0.3s;
+    position: relative;
+  }
+  .scenario-card:hover { transform: translateY(-4px); }
+  .scenario-card.good { border-color: rgba(140, 200, 140, 0.4); }
+  .scenario-card.comeback { border-color: rgba(212, 168, 67, 0.4); }
+  .scenario-card.bad { border-color: rgba(217, 117, 96, 0.35); }
+  .scenario-card.good:hover { border-color: rgba(140, 200, 140, 0.7); }
+  .scenario-card.comeback:hover { border-color: rgba(212, 168, 67, 0.7); }
+  .scenario-card.bad:hover { border-color: rgba(217, 117, 96, 0.6); }
+
+  .scenario-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .scenario-card.good .scenario-tag { color: #8cc88c; }
+  .scenario-card.comeback .scenario-tag { color: #d4a843; }
+  .scenario-card.bad .scenario-tag { color: #d97560; }
+
+  .scenario-name {
+    font-family: 'Fraunces', serif;
+    font-size: 24px; line-height: 1.15;
+    margin-bottom: 22px;
+  }
+
+  .scenario-stats {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+  }
+  .scenario-stats li {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .scenario-stats .num {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(22px, 2.2vw, 28px); line-height: 1;
+    color: var(--text);
+  }
+  .scenario-stats .lbl {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-faint); line-height: 1.3;
+  }
+
+  .scenario-niche {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-mute); margin-bottom: 22px;
+  }
+
+  .scenario-math {
+    flex: 1;
+    margin-bottom: 22px;
+  }
+  .scenario-math p {
+    font-size: 14.5px; color: var(--text-mute);
+    line-height: 1.6; margin-bottom: 14px;
+  }
+  .scenario-math p:last-child { margin-bottom: 0; }
+  .scenario-math strong { color: var(--text); font-weight: 500; }
+
+  .scenario-verdict {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 16px 18px;
+    border-radius: 4px;
+    border: 1px solid;
+  }
+  .scenario-verdict.good { background: rgba(140, 200, 140, 0.06); border-color: rgba(140, 200, 140, 0.3); }
+  .scenario-verdict.comeback { background: rgba(212, 168, 67, 0.06); border-color: rgba(212, 168, 67, 0.3); }
+  .scenario-verdict.bad { background: rgba(217, 117, 96, 0.06); border-color: rgba(217, 117, 96, 0.3); }
+  .scenario-verdict .vdct-icon {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 22px; line-height: 1; flex-shrink: 0;
+  }
+  .scenario-verdict.good .vdct-icon { color: #8cc88c; }
+  .scenario-verdict.comeback .vdct-icon { color: #d4a843; }
+  .scenario-verdict.bad .vdct-icon { color: #d97560; }
+  .scenario-verdict .vdct-text {
+    font-size: 13.5px; line-height: 1.5; color: var(--text);
+  }
+  .scenario-verdict .vdct-text strong { font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; font-weight: 400; }
+
+  .scenarios-footer {
+    margin-top: 48px;
+    text-align: center;
+    color: var(--text-mute);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 720px; margin-left: auto; margin-right: auto;
+  }
+  .scenarios-footer a {
+    color: var(--accent);
+    border-bottom: 1px solid var(--accent-soft);
+    padding-bottom: 1px;
+  }
+  .scenarios-footer a:hover { color: var(--text); border-color: var(--text); }
+
+  /* CALCULATOR (legacy — kept in case we want to bring it back) */
   .calc-card {
     background: var(--bg-elev);
     border: 1px solid var(--accent-soft);
@@ -793,153 +909,78 @@
   </div>
 </section>
 
-<!-- ============== CALCULATOR ============== -->
+<!-- ============== SCENARIOS (replaces calculator) ============== -->
 <section id="calculator" class="section alt bordered">
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow">RUN YOUR NUMBERS</div>
-      <h2>The math, with <em>your data.</em></h2>
-      <p>Most retainer offers in this space pretend ad revenue alone justifies the price. It doesn't. The real math is what a flagship reel does to your back-end business. Here's the realistic version.</p>
+      <div class="eyebrow">WILL THIS WORK FOR YOUR CHANNEL?</div>
+      <h2>Three real patterns. <em>Self-identify yours.</em></h2>
+      <p>The Spec is built around a 100K-view threshold. That makes it profitable for some channels and not others. Here are three channel patterns we see — find the one closest to yours.</p>
     </div>
 
-    <div class="calc-card">
-      <div class="calc-grid">
-        <div class="calc-inputs">
+    <div class="scenarios-grid">
 
-          <div class="calc-row">
-            <label for="ci-subs">Your subscriber count</label>
-            <input type="number" id="ci-subs" value="500000" min="1000" step="1000">
-            <div class="helper"><strong>Why we ask:</strong> Combined with your avg views, this tells us your channel's actual sub-to-view rate. A 1M-sub channel getting 50K views has a 5% view rate; a 100K-sub channel getting 50K has 50%. Your real number replaces our 18% industry benchmark for the regular-video lift calc below.</div>
-          </div>
-
-          <div class="calc-row">
-            <label for="ci-avg">Your average views per video</label>
-            <input type="number" id="ci-avg" value="50000" min="100" step="100">
-            <div class="helper"><strong>Why we ask:</strong> This is the baseline we project against. Look at your last 10 regular uploads and average them.</div>
-          </div>
-
-          <div class="calc-row">
-            <label for="ci-outlier">Your best-ever video (peak view count)</label>
-            <input type="number" id="ci-outlier" value="500000" min="100" step="1000">
-            <div class="helper"><strong>Why we ask:</strong> This is the strongest signal we have. If the algorithm has ALREADY pushed one of your videos to this number, it's proven willing to push you that far when retention spikes. A flagship compilation reel is designed to trigger that retention spike. We project the reel's performance as a fraction of the gap between your average and your best-ever — not a flat multiplier.</div>
-          </div>
-
-          <div class="calc-row">
-            <label for="ci-niche">Your niche</label>
-            <select id="ci-niche">
-              <option value="6">Motivation / self-improvement</option>
-              <option value="8" selected>Heritage / wisdom / Americana</option>
-              <option value="10">Business / career / coaching</option>
-              <option value="14">Finance / investing</option>
-              <option value="4">Spirituality / manifestation</option>
-              <option value="3">Lifestyle / vlog</option>
-            </select>
-            <div class="helper"><strong>Why we ask:</strong> YouTube pays creators a different rate per 1,000 views (RPM) depending on what advertisers are willing to spend in your niche. Heritage/wisdom = $8 RPM. Finance = $14. Spirituality = $4. <em>Source: Lenos, OutlierKit, Influencer Marketing Hub 2026 data.</em></div>
-          </div>
-
-          <div class="calc-row">
-            <label for="ci-backend">What you sell off-platform</label>
-            <select id="ci-backend">
-              <option value="0">Nothing (ad revenue only)</option>
-              <option value="10">Patreon / membership ($10/sub/yr)</option>
-              <option value="20" selected>Skool / community / book ($20/sub/yr)</option>
-              <option value="40">Online course ($40/sub/yr)</option>
-              <option value="80">High-ticket coaching / mastermind ($80/sub/yr)</option>
-            </select>
-            <div class="helper"><strong>Why we ask:</strong> Most creators earn 60–80% of their income off YouTube — courses, communities, coaching. A reel that brings new subscribers compounds into back-end sales. <em>Industry benchmark: 2% of new subscribers buy your back-end product within 12 months.</em></div>
-          </div>
-
-          <div class="calc-row">
-            <label for="ci-lift">How well will the reel perform?</label>
-            <select id="ci-lift">
-              <option value="0.25">Conservative — close to your average</option>
-              <option value="0.5" selected>Realistic — halfway between average and your best ever</option>
-              <option value="0.75">Strong — within reach of your best ever</option>
-              <option value="1.0">Match your best ever</option>
-              <option value="1.5">Breakout — beats your best ever</option>
-            </select>
-            <div class="helper"><strong>What this means:</strong> Your channel's outlier proves the algorithmic ceiling. A flagship reel optimized for emotional retention realistically lands in the band between average and outlier. Pick where you think it'll fall. <em>Reference: "Year in Review" videos consistently rank in creators' top 5 every year. Compilation reels at peak (MotivationMadness, Alan Watts, Tragedy &amp; Hope) routinely matched or beat their channels' previous outliers.</em></div>
-          </div>
-
-          <div class="calc-row">
-            <label for="ci-tier">Package</label>
-            <select id="ci-tier">
-              <option value="1500-once" selected>The Spec — $0 unless it hits 100K views ($1,500 if so)</option>
-              <option value="1500-1">The Monthly — $1,500/mo × 1 reel</option>
-              <option value="2500-2">The Channel — $2,500/mo × 2 reels</option>
-              <option value="3500-3">The Series — $3,500/mo × 3 reels</option>
-              <option value="4500-4">Director's Cut — $4,500/mo × 4 reels</option>
-            </select>
-            <div class="helper"><strong>Why The Spec is the default:</strong> If The Spec doesn't make sense for your numbers, the retainers won't either. Start here. If the math works at one reel, it'll work at four.</div>
-          </div>
-
+      <div class="scenario-card good">
+        <div class="scenario-tag">CLEAR FIT</div>
+        <h3 class="scenario-name">The Healthy Heritage Creator</h3>
+        <ul class="scenario-stats">
+          <li><span class="num">1M</span><span class="lbl">subscribers</span></li>
+          <li><span class="num">144K</span><span class="lbl">avg views/video</span></li>
+          <li><span class="num">990K</span><span class="lbl">peak (recent)</span></li>
+        </ul>
+        <p class="scenario-niche">Heritage / wisdom niche · Patreon back-end</p>
+        <div class="scenario-math">
+          <p>Reel projects ~565K views. <strong>Above the 100K trigger.</strong></p>
+          <p>Earns ~$5,500 back over 12 months vs $1,500 cost.</p>
         </div>
-
-        <div class="calc-output" id="calcOutput">
-          <div class="calc-output-label">YOUR 12-MONTH PROJECTION</div>
-
-          <div class="calc-scenario" id="o-scenario">
-            Set your numbers above. We'll show you what one reel could do over the next 12 months.
-          </div>
-
-          <div class="calc-line">
-            <span class="key">Direct ad revenue from the reel
-              <small id="o-reelads-detail">views × RPM ÷ 1,000</small>
-            </span>
-            <span class="val" id="o-reelads">$0</span>
-          </div>
-
-          <div class="calc-line">
-            <span class="key">New subscribers added
-              <small>1.5% of non-subscriber viewers → subscribe</small>
-            </span>
-            <span class="val" id="o-newsubs">0</span>
-          </div>
-
-          <div class="calc-line">
-            <span class="key">Back-end product sales
-              <small id="o-backend-detail">2% of new subs convert × your LTV</small>
-            </span>
-            <span class="val" id="o-backend">$0</span>
-          </div>
-
-          <div class="calc-line">
-            <span class="key">Lift on your regular videos
-              <small id="o-lift-detail">Bigger sub base watches your daily uploads</small>
-            </span>
-            <span class="val" id="o-lift">$0</span>
-          </div>
-
-          <div class="calc-line total">
-            <span class="key">Total value over 12 months</span>
-            <span class="val" id="o-total">$0</span>
-          </div>
-
-          <div class="calc-line">
-            <span class="key">What you pay
-              <small id="o-cost-detail">Spec only triggers payment if reel hits 100K views</small>
-            </span>
-            <span class="val" id="o-cost">$0</span>
-          </div>
-
-          <div class="calc-line total" style="border-top: 1px solid var(--line); border-bottom: 0;">
-            <span class="key">Net to you</span>
-            <span class="val" id="o-net" style="color: #8cc88c;">$0</span>
-          </div>
-
-          <!-- Verdict -->
-          <div class="calc-verdict good" id="o-verdict">
-            <span class="calc-verdict-icon" id="o-verdict-icon">✓</span>
-            <div class="calc-verdict-headline" id="o-verdict-headline">Set your numbers</div>
-            <p id="o-verdict-text">We'll tell you whether your channel is a fit.</p>
-          </div>
-
-          <div class="calc-disclaimer">
-            <strong>Sources for the assumptions above:</strong> RPM by niche from Lenos, OutlierKit, Influencer Marketing Hub 2026 reports. Sub-conversion rate (1.5%), back-end conversion rate (2%), and regular-video sub view rate (18%) are creator-economy industry benchmarks. Real numbers depend on your hooks, your CTAs, and the algorithm — but these defaults are the conservative middle of every dataset we found.
-          </div>
+        <div class="scenario-verdict good">
+          <span class="vdct-icon">✓</span>
+          <span class="vdct-text"><strong>3.7x ROI.</strong> The math closes itself. Apply.</span>
         </div>
       </div>
+
+      <div class="scenario-card comeback">
+        <div class="scenario-tag">COMEBACK BET</div>
+        <h3 class="scenario-name">The Dormant Spirituality Channel</h3>
+        <ul class="scenario-stats">
+          <li><span class="num">470K</span><span class="lbl">subscribers</span></li>
+          <li><span class="num">11K</span><span class="lbl">recent avg</span></li>
+          <li><span class="num">4.1M</span><span class="lbl">peak (3 yrs ago)</span></li>
+        </ul>
+        <p class="scenario-niche">Spirituality / mindset niche · Skool back-end</p>
+        <div class="scenario-math">
+          <p>Algorithm has pushed them past 100K before. A reel that hits 100K again proves the format works for them.</p>
+          <p>That signal alone is worth the $1,500 — and unlocks the retainer math where the bigger money lives.</p>
+        </div>
+        <div class="scenario-verdict comeback">
+          <span class="vdct-icon">⟳</span>
+          <span class="vdct-text"><strong>Comeback bet.</strong> Apply if you've had a peak — even if recent has cooled.</span>
+        </div>
+      </div>
+
+      <div class="scenario-card bad">
+        <div class="scenario-tag">NOT A FIT YET</div>
+        <h3 class="scenario-name">The Small Lifestyle Channel</h3>
+        <ul class="scenario-stats">
+          <li><span class="num">50K</span><span class="lbl">subscribers</span></li>
+          <li><span class="num">3K</span><span class="lbl">avg views/video</span></li>
+          <li><span class="num">22K</span><span class="lbl">peak (ever)</span></li>
+        </ul>
+        <p class="scenario-niche">Lifestyle / vlog niche · No back-end product</p>
+        <div class="scenario-math">
+          <p>Even at strong lift, projection doesn't realistically reach 100K. Algorithm has never pushed them past 22K.</p>
+          <p>Low CPM + no back-end means even hitting 100K wouldn't clear the cost.</p>
+        </div>
+        <div class="scenario-verdict bad">
+          <span class="vdct-icon">✕</span>
+          <span class="vdct-text"><strong>Not yet.</strong> Build to 100K subs and start a back-end product first.</span>
+        </div>
+      </div>
+
     </div>
+
+    <p class="scenarios-footer">If your channel looks like one of the first two patterns, <a href="#spec">apply for a Spec</a>. If you're closer to the third, the format works once your channel grows or your back-end product solidifies. We'll be honest if it's not the right time.</p>
+
   </div>
 </section>
 
