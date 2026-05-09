@@ -637,7 +637,8 @@
     <button class="filter-btn" data-filter="reel">Director's Reel</button>
     <button class="filter-btn" data-filter="music">Music Videos</button>
     <button class="filter-btn" data-filter="doc">Documentary</button>
-    <button class="filter-btn" data-filter="film">Short Film</button>
+    <button class="filter-btn" data-filter="live">Live Performance</button>
+    <button class="filter-btn" data-filter="film">Proof of Concept / Short Films</button>
   </div>
 </div>
 
@@ -646,7 +647,7 @@
   <div class="wrap">
     <div class="section-head">
       <div class="section-head-left">
-        <h2>Films <em>&amp; videos.</em></h2>
+        <h2>Films <em>and videos.</em></h2>
       </div>
       <div class="section-head-meta" id="videoCount">38 PIECES · 300M+ COMBINED VIEWS · CLICK TO PLAY</div>
     </div>
@@ -660,7 +661,7 @@
   <div class="wrap">
     <div class="section-head">
       <div class="section-head-left">
-        <h2>Photography <em>&amp; portraiture.</em></h2>
+        <h2>Photography <em>and portraiture.</em></h2>
       </div>
       <div class="section-head-meta">100+ FRAMES · 8 PROJECTS</div>
     </div>
@@ -668,14 +669,14 @@
     <div class="photo-categories">
       <div class="photo-category">
         <div class="photo-category-tag">ALBUM &amp; PRESS</div>
-        <h3 class="photo-category-title">Album covers <em>&amp; press photography.</em></h3>
+        <h3 class="photo-category-title">Album covers <em>and press photography.</em></h3>
         <p>Album artwork and press shots for major-label country artists — Scotty McCreery, Eli Young Band, Jordan Fletcher (Sony / Triple Tigers), Chase Bryant (Green Iris), and the multi-year Kelsey project.</p>
         <a href="photography.html" class="photo-category-link">SEE THE FULL PHOTOGRAPHY ARCHIVE →</a>
       </div>
 
       <div class="photo-category">
         <div class="photo-category-tag">HEADSHOTS</div>
-        <h3 class="photo-category-title">Editorial headshots <em>&amp; portraits.</em></h3>
+        <h3 class="photo-category-title">Editorial headshots <em>and portraits.</em></h3>
         <p>Founder, executive, and creator headshots. 60-minute Austin sessions, cinematic lighting, editorial finish. The kind of headshot that doesn't look like a headshot.</p>
         <a href="photography.html#headshots-2025" class="photo-category-link">SEE THE HEADSHOT WORK →</a>
       </div>
@@ -720,46 +721,78 @@
   // Video catalog — Vimeo IDs scraped from jeffrayshootsyou.com homepage.
   // platform: "vimeo" or "youtube". videoId: 11-char (YouTube) or numeric (Vimeo).
   const videos = [
-    { slug: "directors-reel",            artist: "Jeff Ray",                     title: "DIRECTOR'S REEL",                category: "reel",  platform: "vimeo",   videoId: "1169701150", featured: true },
-    { slug: "scotty-five-more-minutes",  artist: "Scotty McCreery",              title: "FIVE MORE MINUTES",              category: "music", platform: "youtube", videoId: "2dPDBU9MC8c", featured: true, tag: "100M+ VIEWS" },
-    { slug: "missio-can-i-exist",        artist: "MISSIO",                       title: "CAN I EXIST",                     category: "music", platform: "vimeo",   videoId: "162209236",  featured: true, tag: "AMVA · BEST NARRATIVE" },
-    { slug: "eli-young-band-doc",        artist: "Eli Young Band",               title: "THIS IS ELI YOUNG BAND",          category: "doc",   platform: "youtube", videoId: "MdZBTwl9xZU", featured: true },
-    { slug: "sigur-ros-varud",           artist: "Sigur Rós",                    title: "VARÚÐ",                            category: "music", platform: "vimeo",   videoId: "51864518",   tag: "SELECTED · VALTARI" },
+    { slug: "directors-reel",                       artist: "Jeff Ray",                     title: "DIRECTOR'S REEL",                       category: "reel",  platform: "vimeo",   videoId: "1169701150",  featured: true },
 
-    { slug: "corey-kent-wild-as-her",    artist: "Corey Kent",                   title: "WILD AS HER",                     category: "music", platform: "youtube", videoId: "uUTpppM8xOQ" },
-    { slug: "eli-young-prayer",          artist: "Eli Young Band",               title: "PRAYER FOR THE ROAD",              category: "music", platform: "vimeo",   videoId: "115089204" },
-    { slug: "chase-bryant-part-1",       artist: "Chase Bryant",                 title: "PART I",                            category: "music", platform: "vimeo",   videoId: "438527417" },
-    { slug: "chase-bryant-part-2",       artist: "Chase Bryant",                 title: "PART II",                           category: "music", platform: "vimeo",   videoId: "564944721" },
-    { slug: "jordan-fletcher-elsewhere", artist: "Jordan Fletcher",              title: "ELSEWHERE",                         category: "music", platform: "vimeo",   videoId: "583317404" },
-    { slug: "ross-ellis-buy-and-buy",    artist: "Ross Ellis",                   title: "BUY AND BUY",                       category: "music", platform: "vimeo",   videoId: "385643771" },
-    { slug: "scotty-this-is-it",         artist: "Scotty McCreery",              title: "THIS IS IT",                        category: "music", platform: "vimeo",   videoId: "276631409" },
-    { slug: "scotty-damn-strait",        artist: "Scotty McCreery",              title: "DAMN STRAIT",                       category: "music", platform: "vimeo",   videoId: "664592998" },
-    { slug: "scotty-fall-of-summer",     artist: "Scotty McCreery",              title: "FALL OF SUMMER",                    category: "music", platform: "vimeo",   videoId: "1006414436" },
-    { slug: "blue-october-the-chills",   artist: "Blue October",                 title: "THE CHILLS",                        category: "music", platform: "vimeo",   videoId: "51867988" },
-    { slug: "sam-riggs-air-opportunity", artist: "Sam Riggs",                    title: "AIR & OPPORTUNITY",                 category: "music", platform: "vimeo",   videoId: "257856055" },
-    { slug: "missio-love-me-whole",      artist: "MISSIO",                       title: "DOCUMENTARY FEATURE",               category: "doc",   platform: "vimeo",   videoId: "351066957" },
-    { slug: "ember-days-without-love",   artist: "The Ember Days",               title: "WITHOUT LOVE",                      category: "music", platform: "vimeo",   videoId: "267168748" },
-    { slug: "scotty-in-between",         artist: "Scotty McCreery",              title: "IN BETWEEN",                        category: "music", platform: "vimeo",   videoId: "336745367" },
-    { slug: "scotty-gusi",               artist: "Scotty McCreery / Gusi",       title: "WHY SHE GOTTA BE LIKE THAT",        category: "music", platform: "vimeo",   videoId: "813780160" },
-    { slug: "wind-wave-grand-canyon",    artist: "The Wind + The Wave",          title: "GRAND CANYON",                      category: "music", platform: "vimeo",   videoId: "168122468" },
-    { slug: "third-eye-blind-everything",artist: "Third Eye Blind",              title: "EVERYTHING IS EASY",                category: "music", platform: "vimeo",   videoId: "128455694" },
-    { slug: "whiskey-myers-early",       artist: "Whiskey Myers",                title: "EARLY MORNING SHAKES",              category: "music", platform: "vimeo",   videoId: "88605491" },
-    { slug: "missio-skeletons",          artist: "MISSIO",                       title: "SKELETONS",                         category: "music", platform: "vimeo",   videoId: "233244301" },
-    { slug: "wind-wave-introduction",    artist: "The Wind + The Wave",          title: "INTRODUCTION",                      category: "music", platform: "vimeo",   videoId: "71611563" },
-    { slug: "deliver-me-from-glory",     artist: "Deliver Me From Glory",        title: "SHORT FILM",                        category: "film",  platform: "vimeo",   videoId: "125765408" },
-    { slug: "missio-stripped",           artist: "MISSIO",                       title: "STRIPPED · KAMIKAZEE (ACOUSTIC)",   category: "music", platform: "vimeo",   videoId: "207908320" },
-    { slug: "paper-hotel-golddigger",    artist: "Paper Hotel",                  title: "GOLDDIGGER",                        category: "music", platform: "vimeo",   videoId: "51867989" },
-    { slug: "ryan-hurd-volumes",         artist: "Ryan Hurd",                    title: "VOLUMES I & II",                    category: "music", platform: "vimeo",   videoId: "188897667" },
-    { slug: "scotty-cab-in-a-solo",      artist: "Scotty McCreery",              title: "CAB IN A SOLO",                     category: "music", platform: "vimeo",   videoId: "876427403" },
-    { slug: "scotty-it-matters-to-her",  artist: "Scotty McCreery",              title: "IT MATTERS TO HER",                 category: "music", platform: "vimeo",   videoId: "761678482" },
-    { slug: "zeale-hope-dies",           artist: "Zeale",                        title: "HOPE DIES",                         category: "music", platform: "vimeo",   videoId: "51872348" },
-    { slug: "wind-wave-neon-prayer",     artist: "The Wind + The Wave",          title: "NEON PRAYER FLAGS",                 category: "music", platform: "vimeo",   videoId: "289184805" },
-    { slug: "ross-ellis-acoustic",       artist: "Ross Ellis",                   title: "BUY AND BUY (ACOUSTIC)",            category: "music", platform: "vimeo",   videoId: "281525184" },
-    { slug: "where-the-red-fox-lies",    artist: "Where the Red Fox Lies",       title: "PROOF-OF-CONCEPT",                  category: "film",  platform: "vimeo",   videoId: "207992250" },
-    { slug: "wheeler-walker-summers",    artist: "Wheeler Walker Jr.",           title: "SUMMERS IN KENTUCKY",               category: "music", platform: "vimeo",   videoId: "207723297" },
-    { slug: "joe-nichols-never-gets-old",artist: "Joe Nichols",                  title: "NEVER GETS OLD · BTS",              category: "doc",   platform: "vimeo",   videoId: "223039785" },
-    { slug: "jason-scott-high-heat",     artist: "Jason Scott & The High Heat",  title: "MUSIC VIDEO",                       category: "music", platform: "vimeo",   videoId: "1071650849" },
-    { slug: "j-greene-shakedown",        artist: "J. Greene & The Steady",       title: "SHAKEDOWN",                         category: "music", platform: "vimeo",   videoId: "88730799" }
+    // FEATURED
+    { slug: "scotty-five-more-minutes",             artist: "Scotty McCreery",              title: "FIVE MORE MINUTES",                     category: "music", platform: "youtube", videoId: "2dPDBU9MC8c", featured: true, tag: "100M+ VIEWS" },
+    { slug: "missio-can-i-exist",                   artist: "MISSIO",                       title: "CAN I EXIST",                           category: "music", platform: "youtube", videoId: "QIH42EbN6g4", featured: true, tag: "AMVA + NOFF GRAND JURY" },
+    { slug: "missio-love-me-whole-feature",         artist: "MISSIO",                       title: "LOVE ME WHOLE · FEATURE DOC",           category: "doc",   platform: "youtube", videoId: "7aqVcwo8J7U", featured: true },
+    { slug: "sigur-ros-varud",                      artist: "Sigur Rós",                    title: "VARÚÐ · MUSIC VIDEO",                   category: "music", platform: "vimeo",   videoId: "51864518",    featured: true },
+
+    // MUSIC VIDEOS
+    { slug: "corey-kent-wild-as-her",               artist: "Corey Kent",                   title: "WILD AS HER",                           category: "music", platform: "youtube", videoId: "uUTpppM8xOQ" },
+    { slug: "ember-days-without-love",              artist: "The Ember Days",               title: "WITHOUT LOVE",                          category: "music", platform: "vimeo",   videoId: "267168748" },
+    { slug: "scotty-this-is-it",                    artist: "Scotty McCreery",              title: "THIS IS IT",                            category: "music", platform: "youtube", videoId: "4JSd4KfG1vo" },
+    { slug: "scotty-damn-strait",                   artist: "Scotty McCreery",              title: "DAMN STRAIT",                           category: "music", platform: "youtube", videoId: "uuSftOLsCkk" },
+    { slug: "eli-young-prayer",                     artist: "Eli Young Band",               title: "PRAYER FOR THE ROAD",                   category: "music", platform: "vimeo",   videoId: "115089204" },
+    { slug: "ross-ellis-buy-and-buy",               artist: "Ross Ellis",                   title: "BUY AND BUY",                           category: "music", platform: "vimeo",   videoId: "385643771" },
+    { slug: "blue-october-the-chills",              artist: "Blue October",                 title: "THE CHILLS",                            category: "music", platform: "youtube", videoId: "Oeum1rx3SlQ" },
+    { slug: "scotty-in-between",                    artist: "Scotty McCreery",              title: "IN BETWEEN",                            category: "music", platform: "youtube", videoId: "d-n1Cjlsws8" },
+    { slug: "scotty-cab-in-a-solo",                 artist: "Scotty McCreery",              title: "CAB IN A SOLO",                         category: "music", platform: "youtube", videoId: "7M3gdcnM6eg" },
+    { slug: "scotty-gusi",                          artist: "Scotty McCreery feat. Gusi",   title: "WHY SHE GOTTA BE LIKE THAT",            category: "music", platform: "youtube", videoId: "oZB1UTBDIHY" },
+    { slug: "scotty-fall-of-summer",                artist: "Scotty McCreery",              title: "FALL OF SUMMER",                        category: "music", platform: "youtube", videoId: "Zhjx8_VcbGo" },
+    { slug: "scotty-bottle-rockets",                artist: "Scotty McCreery",              title: "BOTTLE ROCKETS",                        category: "music", platform: "youtube", videoId: "VdXHJkvqF-k" },
+    { slug: "third-eye-blind-everything",           artist: "Third Eye Blind",              title: "EVERYTHING IS EASY",                    category: "music", platform: "youtube", videoId: "5l2xXhHLUi8" },
+    { slug: "paper-hotel-golddigger",               artist: "Paper Hotel",                  title: "GOLDDIGGER",                            category: "music", platform: "vimeo",   videoId: "51867989" },
+    { slug: "zeale-hope-dies",                      artist: "Zeale",                        title: "HOPE DIES",                             category: "music", platform: "vimeo",   videoId: "51872348" },
+    { slug: "wind-wave-neon-prayer",                artist: "The Wind + The Wave",          title: "NEON PRAYER FLAGS",                     category: "music", platform: "youtube", videoId: "F3lzyAoMJx0" },
+    { slug: "wind-wave-grand-canyon",               artist: "The Wind + The Wave",          title: "GRAND CANYON",                          category: "music", platform: "youtube", videoId: "--zhov5kpbQ" },
+
+    // DOCUMENTARY
+    { slug: "chase-bryant-part-1",                  artist: "Chase Bryant",                 title: "THIS IS ME · PART I",                   category: "doc",   platform: "vimeo",   videoId: "438527417" },
+    { slug: "chase-bryant-part-2",                  artist: "Chase Bryant",                 title: "THIS IS ME · PART II",                  category: "doc",   platform: "vimeo",   videoId: "564944721" },
+    { slug: "jordan-fletcher-elsewhere",            artist: "Jordan Fletcher",              title: "ELSEWHERE",                             category: "doc",   platform: "vimeo",   videoId: "583317404" },
+    { slug: "jason-scott-high-heat",                artist: "Jason Scott & The High Heat",  title: "DOCUMENTARY",                           category: "doc",   platform: "vimeo",   videoId: "1071650849" },
+    { slug: "sam-riggs-air-opportunity",            artist: "Sam Riggs",                    title: "AIR AND OPPORTUNITY",                   category: "doc",   platform: "vimeo",   videoId: "257856055" },
+    { slug: "joey-hendricks-home",                  artist: "Joey Hendricks",               title: "HOME",                                  category: "doc",   platform: "vimeo",   videoId: "469674467" },
+    { slug: "missio-love-me-whole-trailer",         artist: "MISSIO",                       title: "LOVE ME WHOLE · TRAILER",               category: "doc",   platform: "vimeo",   videoId: "351066957" },
+    { slug: "missio-skeletons-part-1",              artist: "MISSIO",                       title: "SKELETONS · PART I",                    category: "doc",   platform: "youtube", videoId: "-qj73Br4m6U" },
+    { slug: "missio-skeletons-part-2",              artist: "MISSIO",                       title: "SKELETONS · PART II",                   category: "doc",   platform: "youtube", videoId: "6jbGGx7Mppw" },
+    { slug: "missio-skeletons-part-3",              artist: "MISSIO",                       title: "SKELETONS · PART III",                  category: "doc",   platform: "youtube", videoId: "o0kbu5AOFlc" },
+    { slug: "wind-wave-introduction",               artist: "The Wind + The Wave",          title: "INTRODUCTION",                          category: "doc",   platform: "vimeo",   videoId: "71611563" },
+    { slug: "whiskey-myers-early",                  artist: "Whiskey Myers",                title: "EARLY MORNING SHAKES",                  category: "doc",   platform: "vimeo",   videoId: "88605491" },
+    { slug: "ryan-hurd-volume-1",                   artist: "Ryan Hurd",                    title: "VOLUME I",                              category: "doc",   platform: "vimeo",   videoId: "183781528" },
+    { slug: "ryan-hurd-volume-2",                   artist: "Ryan Hurd",                    title: "VOLUME II",                             category: "doc",   platform: "vimeo",   videoId: "188897667" },
+    { slug: "ross-ellis-doc",                       artist: "Ross Ellis",                   title: "DOCUMENTARY",                           category: "doc",   platform: "vimeo",   videoId: "395776884" },
+    { slug: "joe-nichols-never-gets-old",           artist: "Joe Nichols",                  title: "NEVER GETS OLD · BEHIND THE ALBUM",     category: "doc",   platform: "vimeo",   videoId: "223039785" },
+    { slug: "wheeler-walker-living-legend",         artist: "Wheeler Walker Jr.",           title: "LIVING LEGEND",                         category: "doc",   platform: "vimeo",   videoId: "199231767" },
+
+    // LIVE PERFORMANCE
+    { slug: "scotty-cant-pass-the-bar-live",        artist: "Scotty McCreery",              title: "CAN'T PASS THE BAR · LIVE FROM BOSTON", category: "live",  platform: "vimeo",   videoId: "921663833" },
+    { slug: "scotty-fall-of-summer-live",           artist: "Scotty McCreery",              title: "FALL OF SUMMER · LIVE FROM BOSTON",     category: "live",  platform: "vimeo",   videoId: "923951174" },
+    { slug: "scotty-slow-dance-live",               artist: "Scotty McCreery",              title: "SLOW DANCE · LIVE FROM BOSTON",         category: "live",  platform: "vimeo",   videoId: "921440492" },
+    { slug: "scotty-lonely-live",                   artist: "Scotty McCreery",              title: "LONELY · LIVE FROM BOSTON",             category: "live",  platform: "vimeo",   videoId: "925620582" },
+    { slug: "missio-everybody-gets-high-stripped",  artist: "MISSIO",                       title: "EVERYBODY GETS HIGH · STRIPPED",        category: "live",  platform: "vimeo",   videoId: "212207619" },
+    { slug: "missio-bottom-deep-blue-sea-stripped", artist: "MISSIO",                       title: "BOTTOM OF THE DEEP BLUE SEA · STRIPPED",category: "live",  platform: "vimeo",   videoId: "207349871" },
+    { slug: "missio-kamikazee-stripped",            artist: "MISSIO",                       title: "KAMIKAZEE · STRIPPED",                  category: "live",  platform: "vimeo",   videoId: "207908320" },
+    { slug: "missio-dwi-stripped",                  artist: "MISSIO",                       title: "DWI · STRIPPED",                        category: "live",  platform: "vimeo",   videoId: "202488525" },
+    { slug: "missio-i-dont-care-stripped",          artist: "MISSIO",                       title: "I DON'T EVEN CARE ABOUT YOU · STRIPPED",category: "live",  platform: "vimeo",   videoId: "211615334" },
+    { slug: "missio-animal-stripped",               artist: "MISSIO",                       title: "ANIMAL · STRIPPED",                     category: "live",  platform: "vimeo",   videoId: "211753529" },
+    { slug: "missio-middle-fingers-stripped",       artist: "MISSIO",                       title: "MIDDLE FINGERS · STRIPPED",             category: "live",  platform: "vimeo",   videoId: "205799476" },
+    { slug: "ross-ellis-this-town-live",            artist: "Ross Ellis",                   title: "THIS TOWN · LIVE @ 1979",               category: "live",  platform: "vimeo",   videoId: "524373716" },
+    { slug: "ross-ellis-2000-and-you-live",         artist: "Ross Ellis",                   title: "2000 AND YOU · LIVE @ 1979",            category: "live",  platform: "vimeo",   videoId: "525266469" },
+    { slug: "ross-ellis-how-do-you-sleep-live",     artist: "Ross Ellis",                   title: "HOW DO YOU SLEEP · LIVE @ 1979",        category: "live",  platform: "vimeo",   videoId: "523011644" },
+    { slug: "ross-ellis-buy-and-buy-acoustic",      artist: "Ross Ellis",                   title: "BUY AND BUY · ACOUSTIC",                category: "live",  platform: "vimeo",   videoId: "281525184" },
+    { slug: "ross-ellis-ghosts",                    artist: "Ross Ellis",                   title: "GHOSTS",                                category: "live",  platform: "vimeo",   videoId: "281515177" },
+    { slug: "ross-ellis-barefoot-dancer-acoustic",  artist: "Ross Ellis",                   title: "BAREFOOT DANCER · ACOUSTIC",            category: "live",  platform: "vimeo",   videoId: "281530855" },
+    { slug: "jordan-fletcher-hometowns-acoustic",   artist: "Jordan Fletcher",              title: "HOMETOWNS DON'T · ACOUSTIC",            category: "live",  platform: "vimeo",   videoId: "571032329" },
+    { slug: "jordan-fletcher-still-those-acoustic", artist: "Jordan Fletcher",              title: "STILL THOSE KIDS · ACOUSTIC",           category: "live",  platform: "vimeo",   videoId: "571724455" },
+    { slug: "jordan-fletcher-firebird-acoustic",    artist: "Jordan Fletcher",              title: "FIREBIRD · ACOUSTIC",                   category: "live",  platform: "vimeo",   videoId: "570107803" },
+
+    // PROOF-OF-CONCEPT / SHORT FILMS
+    { slug: "deliver-me-from-glory",                artist: "Deliver Me From Glory",        title: "PROOF-OF-CONCEPT",                      category: "film",  platform: "vimeo",   videoId: "80951554" },
+    { slug: "red-fox-lies-trailer",                 artist: "Where the Red Fox Lies",       title: "TRAILER",                               category: "film",  platform: "vimeo",   videoId: "207992250" },
+    { slug: "red-fox-lies-full",                    artist: "Where the Red Fox Lies",       title: "FULL SHORT FILM",                       category: "film",  platform: "vimeo",   videoId: "80951554" }
   ];
 
   function thumbUrl(v) {

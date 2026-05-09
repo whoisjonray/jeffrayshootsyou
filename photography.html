@@ -122,7 +122,8 @@
   .page-hero-bg img {
     position: absolute; inset: 0;
     width: 100%; height: 100%;
-    object-fit: cover; object-position: center;
+    object-fit: cover;
+    object-position: center 30%; /* bias upward so faces stay in frame on wide hero crops */
     opacity: 0;
     transition: opacity 2s ease, transform 8s ease;
     transform: scale(1.04);
@@ -598,7 +599,7 @@
   <div class="wrap">
     <div class="page-hero-eyebrow">PHOTOGRAPHY · 2020 — 2026</div>
     <h1>Stills with the same <em>eye.</em></h1>
-    <p>Album covers and press for major-label country artists. Editorial headshots that don't look like headshots. Brand and personal portraiture out of Austin. Click any project to see the full set.</p>
+    <p>Album covers and press for major-label musical artists. Actor and editorial headshots that maintain authenticity (no over-photoshopped, plastic-looking faces). Brand and personal portraiture out of Austin. Click any project to see the full set.</p>
   </div>
   <div class="page-hero-meta"><span class="dot"></span>SELECTED FRAMES · 2020 – 2026</div>
 </section>
@@ -607,8 +608,8 @@
   <div class="wrap">
     <div class="bucket-head">
       <div>
-        <h2>Album <em>&amp; press.</em></h2>
-        <p>Album artwork, press shots, and tour book photography for label-signed and independent artists.</p>
+        <h2>Album <em>and press.</em></h2>
+        <p>Album artwork, press shots, and tour book photography for major-label musical artists.</p>
       </div>
       <div class="bucket-head-meta">SCOTTY McCREERY · ELI YOUNG BAND · JORDAN FLETCHER · CHASE BRYANT</div>
     </div>
@@ -620,10 +621,10 @@
   <div class="wrap">
     <div class="bucket-head">
       <div>
-        <h2>Editorial <em>headshots.</em></h2>
-        <p>Founder, executive, and creator headshots. Cinematic lighting, editorial finish.</p>
+        <h2>Actor <em>and editorial headshots.</em></h2>
+        <p>That maintain authenticity. Cinematic lighting, editorial finish, no over-photoshopped, plastic-looking faces. Actors, founders, executives, creators.</p>
       </div>
-      <div class="bucket-head-meta">AUSTIN · STUDIO &amp; LOCATION</div>
+      <div class="bucket-head-meta">AUSTIN · STUDIO AND LOCATION</div>
     </div>
     <div class="project-grid" id="headshotGrid"></div>
   </div>
@@ -633,7 +634,7 @@
   <div class="wrap">
     <div class="bucket-head">
       <div>
-        <h2>Personal <em>&amp; lifestyle.</em></h2>
+        <h2>Personal <em>and lifestyle.</em></h2>
         <p>Editorial portraiture and personal projects.</p>
       </div>
       <div class="bucket-head-meta">SELECTED WORK</div>
@@ -894,7 +895,7 @@ const projects = {
     bucket: 'headshot',
     cover: '61bc19b0-8924-4c6a-9c2e-4a22616fd156/DSC09228+copy.jpg',
     artist: 'Founders, executives, creators',
-    blurb: 'Editorial headshots that don\'t look like headshots. 60-minute sessions in Austin (studio or location), cinematic lighting, 5 finished frames delivered, raw included.',
+    blurb: 'Actor and editorial headshots that maintain authenticity. No over-photoshopped, plastic-looking faces. 60-minute sessions in Austin (studio or location), cinematic lighting, 5 finished frames delivered, raw included.',
     credits: [
       ['Photographer', 'Jeff Ray'],
       ['Format', 'Editorial Headshot'],
@@ -1279,12 +1280,25 @@ function initHeroRotator() {
       return sized(path, 2500);
     });
 
+  // Per-image object-position overrides keep faces in frame when the hero crops wide.
+  // Format: { slug: 'css object-position value' }. Default is 'center 30%' (set in CSS).
+  const heroPositions = {
+    'scotty-mccreery-2025': 'center 25%',
+    'chase-bryant':         'center 28%',
+    'eli-young-band-2024':  'center 22%',
+    'jordan-fletcher':      'center 30%',
+    'headshots-2025':       'center 32%',
+    'scotty-mccreery-2024': 'center 25%',
+  };
+
   // Inject all images upfront so transitions are smooth
   heroUrls.forEach((url, i) => {
     const img = document.createElement('img');
     img.src = url;
     img.alt = '';
     img.loading = i === 0 ? 'eager' : 'lazy';
+    const slug = heroSlugs[i];
+    if (heroPositions[slug]) img.style.objectPosition = heroPositions[slug];
     if (i === 0) img.classList.add('active');
     bg.appendChild(img);
   });
