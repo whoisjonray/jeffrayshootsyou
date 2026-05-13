@@ -1258,47 +1258,29 @@ if (navToggle && mobileMenu) {
   });
 }
 
-/* ===== Hero rotating background ===== */
+/* ===== Hero rotating background =====
+   Photos hand-cropped to 16:9 by Jeff for this hero specifically.
+   Framing already correct, so no per-image object-position needed. */
 function initHeroRotator() {
   const bg = document.getElementById('heroBg');
   if (!bg) return;
-  // Pick one strong landscape-leaning shot from each major project
-  const heroSlugs = [
-    'scotty-mccreery-2025',
-    'chase-bryant',
-    'eli-young-band-2024',
-    'jordan-fletcher',
-    'headshots-2025',
-    'scotty-mccreery-2024',
+  const heroUrls = [
+    'images/hero-2026/DSC05637.jpg',
+    'images/hero-2026/CHASE_BRYANT_-_SUNSET_FIELD.jpg',
+    'images/hero-2026/DSC04463.jpg',
+    'images/hero-2026/DSC01560.jpg',
+    'images/hero-2026/DSC09228.jpg',
+    'images/hero-2026/DSC03479.jpg',
+    'images/hero-2026/CHASE_BRYANT_-_CIGARETTE_PORTRAIT.jpg',
+    'images/hero-2026/KELSEY_GRASS_PHOTO.jpg',
   ];
-  const heroUrls = heroSlugs
-    .map(s => projects[s])
-    .filter(Boolean)
-    .map(p => {
-      // Use the cover, sized for hero (full-width)
-      const path = p.cover.replace(cdn + '/', '').split('?')[0];
-      return sized(path, 2500);
-    });
 
-  // Per-image object-position overrides keep faces in frame when the hero crops wide.
-  // Format: { slug: 'css object-position value' }. Default is 'center 30%' (set in CSS).
-  const heroPositions = {
-    'scotty-mccreery-2025': 'center 25%',
-    'chase-bryant':         'center 28%',
-    'eli-young-band-2024':  'center 22%',
-    'jordan-fletcher':      'center 30%',
-    'headshots-2025':       'center 32%',
-    'scotty-mccreery-2024': 'center 25%',
-  };
-
-  // Inject all images upfront so transitions are smooth
   heroUrls.forEach((url, i) => {
     const img = document.createElement('img');
     img.src = url;
     img.alt = '';
     img.loading = i === 0 ? 'eager' : 'lazy';
-    const slug = heroSlugs[i];
-    if (heroPositions[slug]) img.style.objectPosition = heroPositions[slug];
+    img.style.objectPosition = 'center 50%';
     if (i === 0) img.classList.add('active');
     bg.appendChild(img);
   });

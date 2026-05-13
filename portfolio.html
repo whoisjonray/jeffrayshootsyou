@@ -721,7 +721,7 @@
   // Video catalog — Vimeo IDs scraped from jeffrayshootsyou.com homepage.
   // platform: "vimeo" or "youtube". videoId: 11-char (YouTube) or numeric (Vimeo).
   const videos = [
-    { slug: "directors-reel",                       artist: "Jeff Ray",                     title: "DIRECTOR'S REEL",                       category: "reel",  platform: "vimeo",   videoId: "1169701150",  featured: true },
+    { slug: "directors-reel",                       artist: "Jeff Ray",                     title: "DIRECTOR'S REEL",                       category: "reel",  platform: "vimeo",   videoId: "1191691471", vimeoHash: "b3c5bb320c", featured: true },
 
     // FEATURED
     { slug: "scotty-five-more-minutes",             artist: "Scotty McCreery",              title: "FIVE MORE MINUTES",                     category: "music", platform: "youtube", videoId: "2dPDBU9MC8c", featured: true, tag: "100M+ VIEWS" },
@@ -790,7 +790,7 @@
     { slug: "jordan-fletcher-firebird-acoustic",    artist: "Jordan Fletcher",              title: "FIREBIRD · ACOUSTIC",                   category: "live",  platform: "vimeo",   videoId: "570107803" },
 
     // PROOF-OF-CONCEPT / SHORT FILMS
-    { slug: "deliver-me-from-glory",                artist: "Deliver Me From Glory",        title: "PROOF-OF-CONCEPT",                      category: "film",  platform: "vimeo",   videoId: "80951554" },
+    { slug: "deliver-me-from-glory",                artist: "Deliver Me From Glory",        title: "PROOF-OF-CONCEPT",                      category: "film",  platform: "vimeo",   videoId: "125765408" },
     { slug: "red-fox-lies-trailer",                 artist: "Where the Red Fox Lies",       title: "TRAILER",                               category: "film",  platform: "vimeo",   videoId: "207992250" },
     { slug: "red-fox-lies-full",                    artist: "Where the Red Fox Lies",       title: "FULL SHORT FILM",                       category: "film",  platform: "vimeo",   videoId: "80951554" }
   ];
@@ -803,7 +803,10 @@
 
   function embedUrl(v) {
     if (v.platform === 'youtube') return `https://www.youtube.com/embed/${v.videoId}?autoplay=1&rel=0&modestbranding=1`;
-    if (v.platform === 'vimeo') return `https://player.vimeo.com/video/${v.videoId}?autoplay=1&dnt=1`;
+    if (v.platform === 'vimeo') {
+      const hash = v.vimeoHash ? `&h=${v.vimeoHash}` : '';
+      return `https://player.vimeo.com/video/${v.videoId}?autoplay=1&dnt=1${hash}`;
+    }
     return '';
   }
 
