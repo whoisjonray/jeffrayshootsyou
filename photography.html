@@ -1259,28 +1259,29 @@ if (navToggle && mobileMenu) {
 }
 
 /* ===== Hero rotating background =====
-   Photos hand-cropped to 16:9 by Jeff for this hero specifically.
-   Framing already correct, so no per-image object-position needed. */
+   Photos hand-cropped to 16:9 by Jeff. Hero container is ~3:1 on desktop,
+   so object-fit: cover clips ~40% off vertically. Per-image position
+   biases the visible window so faces stay in frame. */
 function initHeroRotator() {
   const bg = document.getElementById('heroBg');
   if (!bg) return;
-  const heroUrls = [
-    'images/hero-2026/DSC05637.jpg',
-    'images/hero-2026/CHASE_BRYANT_-_SUNSET_FIELD.jpg',
-    'images/hero-2026/DSC04463.jpg',
-    'images/hero-2026/DSC01560.jpg',
-    'images/hero-2026/DSC09228.jpg',
-    'images/hero-2026/DSC03479.jpg',
-    'images/hero-2026/CHASE_BRYANT_-_CIGARETTE_PORTRAIT.jpg',
-    'images/hero-2026/KELSEY_GRASS_PHOTO.jpg',
+  const heroImages = [
+    { url: 'images/hero-2026/DSC05637.jpg',                      pos: 'center 10%' }, // Scotty 2025 beach
+    { url: 'images/hero-2026/CHASE_BRYANT_-_SUNSET_FIELD.jpg',   pos: 'center 25%' }, // Chase sunset field
+    { url: 'images/hero-2026/DSC04463.jpg',                      pos: 'center 25%' }, // Eli Young Band
+    { url: 'images/hero-2026/DSC01560.jpg',                      pos: 'center 25%' }, // Jordan Fletcher
+    { url: 'images/hero-2026/DSC09228.jpg',                      pos: 'center 25%' }, // Headshot
+    { url: 'images/hero-2026/DSC03479.jpg',                      pos: 'center 25%' }, // Scotty 2024
+    { url: 'images/hero-2026/CHASE_BRYANT_-_CIGARETTE_PORTRAIT.jpg', pos: 'center 20%' }, // Chase close portrait
+    { url: 'images/hero-2026/KELSEY_GRASS_PHOTO.jpg',            pos: 'center 30%' }, // Kelsey grass
   ];
 
-  heroUrls.forEach((url, i) => {
+  heroImages.forEach((entry, i) => {
     const img = document.createElement('img');
-    img.src = url;
+    img.src = entry.url;
     img.alt = '';
     img.loading = i === 0 ? 'eager' : 'lazy';
-    img.style.objectPosition = 'center 50%';
+    img.style.objectPosition = entry.pos;
     if (i === 0) img.classList.add('active');
     bg.appendChild(img);
   });
