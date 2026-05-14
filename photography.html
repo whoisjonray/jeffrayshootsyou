@@ -294,6 +294,9 @@
     color: var(--accent);
     border-color: var(--accent-soft);
   }
+  .project-strip-viewport {
+    position: relative;
+  }
   .project-strip-scroll {
     display: flex;
     gap: 14px;
@@ -306,6 +309,50 @@
     margin-right: calc(-1 * clamp(32px, 5vw, 56px));
     padding-right: clamp(32px, 5vw, 56px);
     scroll-snap-type: x proximity;
+    scroll-behavior: smooth;
+  }
+  .project-strip-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(10, 10, 10, 0.85);
+    border: 1px solid var(--accent-soft);
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    transition: opacity 0.25s ease, background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0.85;
+  }
+  .project-strip-arrow:hover {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    opacity: 1;
+  }
+  .project-strip-arrow:active {
+    transform: translateY(-50%) scale(0.94);
+  }
+  .project-strip-arrow:disabled {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .project-strip-arrow.left { left: 12px; }
+  .project-strip-arrow.right { right: 18px; }
+  .project-strip-arrow svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+  @media (max-width: 700px) {
+    .project-strip-arrow { display: none; }
   }
   .project-strip-scroll::-webkit-scrollbar { height: 6px; }
   .project-strip-scroll::-webkit-scrollbar-track { background: transparent; }
@@ -1174,9 +1221,43 @@ function renderHub() {
         <h3 class="project-strip-title">${p.title}<span class="meta">${p.year} · ${p.images.length} frames</span></h3>
         <a class="project-strip-link" href="#${slug}">See full set →</a>
       </div>
-      <div class="project-strip-scroll">${photos}</div>
+      <div class="project-strip-viewport">
+        <button class="project-strip-arrow left" aria-label="Scroll left" data-dir="-1">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.7 4.3L8 12l7.7 7.7 1.4-1.4L10.8 12l6.3-6.3z"/></svg>
+        </button>
+        <div class="project-strip-scroll">${photos}</div>
+        <button class="project-strip-arrow right" aria-label="Scroll right" data-dir="1">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.3 4.3l7.7 7.7-7.7 7.7-1.4-1.4L13.2 12 6.9 5.7z"/></svg>
+        </button>
+      </div>
     `;
     grid.appendChild(strip);
+
+    // Wire the arrows to scroll the strip
+    const scrollEl = strip.querySelector('.project-strip-scroll');
+    const leftBtn = strip.querySelector('.project-strip-arrow.left');
+    const rightBtn = strip.querySelector('.project-strip-arrow.right');
+
+    const updateArrows = () => {
+      const atStart = scrollEl.scrollLeft <= 4;
+      const atEnd = scrollEl.scrollLeft + scrollEl.clientWidth >= scrollEl.scrollWidth - 4;
+      leftBtn.disabled = atStart;
+      rightBtn.disabled = atEnd;
+    };
+
+    strip.querySelectorAll('.project-strip-arrow').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const dir = Number(btn.dataset.dir);
+        const step = scrollEl.clientWidth * 0.8;
+        scrollEl.scrollBy({ left: dir * step, behavior: 'smooth' });
+      });
+    });
+
+    scrollEl.addEventListener('scroll', updateArrows, { passive: true });
+    // Initial state (and after layout settles)
+    updateArrows();
+    setTimeout(updateArrows, 50);
   });
 }
 
