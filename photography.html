@@ -242,59 +242,106 @@
     letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-mute);
   }
 
-  /* Project card grid */
-  .project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 20px;
+  /* Project strips (horizontal scroll per project) */
+  .project-strips {
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
   }
-  .project-card {
-    position: relative;
-    aspect-ratio: 4 / 5;
-    background: var(--bg-panel);
-    border: 1px solid var(--line);
+  .project-strip {
+    /* Bleed the strip past the wrap on the right so users see it continues offscreen */
+  }
+  .project-strip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .project-strip-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(22px, 2.2vw, 28px);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin: 0;
+  }
+  .project-strip-title .meta {
+    display: inline-block;
+    margin-left: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    vertical-align: middle;
+    font-weight: 500;
+  }
+  .project-strip-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .project-strip-link:hover {
+    color: var(--accent);
+    border-color: var(--accent-soft);
+  }
+  .project-strip-scroll {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+    padding-bottom: 10px;
+    /* Bleed past the right edge of the wrap so the strip visibly extends offscreen */
+    margin-right: calc(-1 * clamp(32px, 5vw, 56px));
+    padding-right: clamp(32px, 5vw, 56px);
+    scroll-snap-type: x proximity;
+  }
+  .project-strip-scroll::-webkit-scrollbar { height: 6px; }
+  .project-strip-scroll::-webkit-scrollbar-track { background: transparent; }
+  .project-strip-scroll::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 3px;
+  }
+  .project-strip-scroll::-webkit-scrollbar-thumb:hover { background: var(--accent-soft); }
+  .project-strip-photo {
+    flex: 0 0 auto;
+    height: clamp(260px, 30vw, 380px);
+    background: var(--bg-elev);
     border-radius: 4px;
     overflow: hidden;
     cursor: pointer;
-    transition: transform 0.4s ease, border-color 0.3s;
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    scroll-snap-align: start;
   }
-  .project-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-4px);
+  .project-strip-photo:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
   }
-  .project-card img {
-    width: 100%; height: 100%;
+  .project-strip-photo img {
+    display: block;
+    height: 100%;
+    width: auto;
     object-fit: cover;
-    transition: transform 0.6s ease, filter 0.4s ease;
-    filter: brightness(0.9);
+    transition: filter 0.3s ease;
+    filter: brightness(0.95);
   }
-  .project-card:hover img { transform: scale(1.04); filter: brightness(1.05); }
-  .project-card-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(10,10,10,0.1) 0%, rgba(10,10,10,0.2) 50%, rgba(10,10,10,0.92) 100%);
-    pointer-events: none;
-  }
-  .project-card-body {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 24px 24px 22px;
-    z-index: 2;
-  }
-  .project-card-meta {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--accent);
-    margin-bottom: 8px;
-  }
-  .project-card-name {
-    font-family: 'Fraunces', serif; font-size: 22px; line-height: 1.2;
-    color: var(--text); margin-bottom: 4px;
-  }
-  .project-card-name em { font-style: italic; color: var(--accent); font-weight: 300; }
-  .project-card-count {
-    font-family: 'JetBrains Mono', monospace; font-size: 10px;
-    letter-spacing: 0.16em; color: var(--text-mute);
+  .project-strip-photo:hover img { filter: brightness(1.05); }
+  @media (max-width: 640px) {
+    .project-strips { gap: 40px; }
+    .project-strip-photo { height: clamp(220px, 56vw, 320px); }
+    .project-strip-header { margin-bottom: 14px; }
   }
 
   /* DETAIL VIEW */
@@ -657,7 +704,7 @@
       </div>
       <div class="bucket-head-meta">SCOTTY McCREERY · ELI YOUNG BAND · JORDAN FLETCHER · CHASE BRYANT</div>
     </div>
-    <div class="project-grid" id="albumGrid"></div>
+    <div class="project-strips" id="albumGrid"></div>
   </div>
 </section>
 
@@ -670,7 +717,7 @@
       </div>
       <div class="bucket-head-meta">AUSTIN · STUDIO AND LOCATION</div>
     </div>
-    <div class="project-grid" id="headshotGrid"></div>
+    <div class="project-strips" id="headshotGrid"></div>
   </div>
 </section>
 
@@ -683,7 +730,7 @@
       </div>
       <div class="bucket-head-meta">SELECTED WORK</div>
     </div>
-    <div class="project-grid" id="lifestyleGrid"></div>
+    <div class="project-strips" id="lifestyleGrid"></div>
   </div>
 </section>
 
@@ -1113,20 +1160,23 @@ function renderHub() {
     if (!p) return;
     const grid = grids[p.bucket];
     if (!grid) return;
-    const card = document.createElement('a');
-    card.className = 'project-card';
-    card.href = `#${slug}`;
-    const coverPath = p.cover.replace(cdn + '/', '');
-    card.innerHTML = `
-      <img src="${sized(coverPath, 1000)}" alt="${p.title} — ${p.year}" loading="lazy">
-      <div class="project-card-overlay"></div>
-      <div class="project-card-body">
-        <div class="project-card-meta">${p.year}</div>
-        <div class="project-card-name">${p.title}</div>
-        <div class="project-card-count">${p.images.length} frames</div>
+
+    const strip = document.createElement('div');
+    strip.className = 'project-strip';
+
+    const photos = p.images.map((url, i) => {
+      const path = url.replace(cdn + '/', '').split('?')[0];
+      return `<a class="project-strip-photo" href="#${slug}" aria-label="${p.title} — frame ${i+1}"><img src="${sized(path, 1000)}" alt="${p.title} — frame ${i+1}" loading="lazy"></a>`;
+    }).join('');
+
+    strip.innerHTML = `
+      <div class="project-strip-header">
+        <h3 class="project-strip-title">${p.title}<span class="meta">${p.year} · ${p.images.length} frames</span></h3>
+        <a class="project-strip-link" href="#${slug}">See full set →</a>
       </div>
+      <div class="project-strip-scroll">${photos}</div>
     `;
-    grid.appendChild(card);
+    grid.appendChild(strip);
   });
 }
 
