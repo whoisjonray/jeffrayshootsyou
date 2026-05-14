@@ -2286,11 +2286,10 @@
     <h2 class="contact-title reveal">Tell me about <em>the project.</em></h2>
     <p class="contact-sub reveal">If it's a retainer, tell me who your audience is and what you're already filming. If it's a brand doc or a founder film, tell me the story you want to leave behind. I read every message myself.</p>
 
-    <form class="contact-form reveal" action="https://formsubmit.co/jeffrayshootsyou@gmail.com" method="POST">
-      <input type="hidden" name="_subject" value="New project inquiry from jeffrayshootsyou.com">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" value="https://www.jeffrayshootsyou.com/thanks">
+    <form class="contact-form reveal form-relay-form" data-success-message="Got it. I'll reply within 24 hours." method="POST">
+      <input type="hidden" name="client_id" value="jeffrayshootsyou">
+      <input type="hidden" name="form_type" value="contact">
+      <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
 
       <div class="contact-form-grid">
         <div class="contact-form-row">
@@ -2383,5 +2382,6 @@
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
 
+<script src="/js/form-relay.js" defer></script>
 </body>
 </html>

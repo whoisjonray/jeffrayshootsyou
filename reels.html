@@ -1199,10 +1199,10 @@
       <h2>Apply for a <em>Spec cut.</em></h2>
       <p class="sub">We don't take everyone. We pick 2 fits per month — channels we think have the back-catalog depth, the audience, and the niche economics for the format to work. <strong style="color: var(--text);">If we accept your application, we cut your reel for free. Pay-on-performance kicks in only if the reel crosses 100,000 views on your channel — the fee gets quoted with your application.</strong> If it doesn't hit the threshold, you keep the reel and owe nothing. Skin in the game on both sides.</p>
 
-      <form class="spec-form" action="https://formsubmit.co/jeffrayshootsyou@gmail.com" method="POST">
-        <input type="hidden" name="_subject" value="New Spec application — jeffrayshootsyou.whoisjonray.com/reels">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
+      <form class="spec-form form-relay-form" data-success-message="Application received. We review every Friday and respond within 7 days." method="POST">
+        <input type="hidden" name="client_id" value="jeffrayshootsyou">
+        <input type="hidden" name="form_type" value="spec">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
 
         <div class="spec-form-grid">
           <div class="spec-form-row">
@@ -1436,5 +1436,6 @@ if (navToggle && mobileMenu) {
 }
 </script>
 
+<script src="/js/form-relay.js" defer></script>
 </body>
 </html>

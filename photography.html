@@ -673,11 +673,11 @@
         <div class="eyebrow">BOOK A SHOOT LIKE THIS</div>
         <h2 id="inquiryTitle">Want this for <em>your project?</em></h2>
         <p>Album, press, headshots, brand. Tell me the format, the deadline, and the budget range. I read every message myself.</p>
-        <form class="inquiry-form" action="https://formsubmit.co/jeffrayshootsyou@gmail.com" method="POST">
-          <input type="hidden" name="_subject" value="Photography inquiry from jeffrayshootsyou.whoisjonray.com">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
+        <form class="inquiry-form form-relay-form" data-success-message="Got it. I'll reply within 24 hours." method="POST">
+          <input type="hidden" name="client_id" value="jeffrayshootsyou">
+          <input type="hidden" name="form_type" value="photography">
           <input type="hidden" name="referrer" id="inquiryReferrer" value="">
+          <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
           <div class="inquiry-form-grid">
             <div class="inquiry-form-row">
               <label for="iname">Your name</label>
@@ -1303,5 +1303,6 @@ initHeroRotator();
 handleHash();
 </script>
 
+<script src="/js/form-relay.js" defer></script>
 </body>
 </html>
