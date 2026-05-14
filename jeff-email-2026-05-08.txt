@@ -1,0 +1,26 @@
+Subject: Site updates + a few things I need from you
+
+Hey man,
+
+Applied most of your loom notes. Live here:
+https://jeffrayshootsyou.whoisjonray.com/
+
+Let's grab coffee or jump on a call to fine-tune the stuff that needs a real conversation (pricing, the about photo, the reel video, the long-form doc framing).
+
+Couple things I need from you when you get a sec:
+
+1. New reel video — drop me a Vimeo unlisted URL and I'll swap it in.
+
+2. Drive link for any still photos you want in the gallery. Any folders, any volume, I'll sort them.
+
+3. Hero photos on the photography page — they're cropping faces weird. If you can re-crop a few, here's the spec:
+   - 16:9 landscape
+   - At least 2560 x 1440 (4K is better)
+   - Keep the subject's face/eyes in the upper third with ~12-15% headroom above so the nav doesn't crash into them
+   - JPEG, sRGB, under ~800KB
+   I added per-image vertical positioning as a stopgap so existing photos sit higher in the frame, but new crops will look way better.
+
+4. Heads up — in the portfolio breakdown you sent, "Deliver Me From Glory" and "Where the Red Fox Lies (Full Short Film)" both point to vimeo.com/80951554. Pretty sure one of those is a copy/paste. Send me the right link for whichever's wrong.
+
+Talk soon,
+Jon
