@@ -398,10 +398,17 @@
     color: var(--accent);
     margin: 0 4px;
   }
-  .video-card-tag {
+  .video-card-tags {
     position: absolute;
     top: 12px;
     left: 12px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .video-card-tag {
     font-family: 'JetBrains Mono', monospace;
     font-size: 9px;
     letter-spacing: 0.16em;
@@ -411,7 +418,7 @@
     padding: 4px 8px;
     border-radius: 2px;
     backdrop-filter: blur(6px);
-    z-index: 2;
+    -webkit-backdrop-filter: blur(6px);
   }
   .video-card-tag.featured {
     background: rgba(200,149,109,0.92);
@@ -769,7 +776,7 @@
 
     // FEATURED
     { slug: "scotty-five-more-minutes",             artist: "Scotty McCreery",              title: "FIVE MORE MINUTES",                     category: "music", platform: "youtube", videoId: "2dPDBU9MC8c", featured: true, tag: "100M+ VIEWS" },
-    { slug: "missio-can-i-exist",                   artist: "MISSIO",                       title: "CAN I EXIST",                           category: "music", platform: "youtube", videoId: "QIH42EbN6g4", featured: true, tag: "AMVA + NOFF GRAND JURY" },
+    { slug: "missio-can-i-exist",                   artist: "MISSIO",                       title: "CAN I EXIST",                           category: "music", platform: "youtube", videoId: "QIH42EbN6g4", featured: true, tag: ["3M+ VIEWS", "AMVA + NOFF GRAND JURY"] },
     { slug: "missio-love-me-whole-feature",         artist: "MISSIO",                       title: "LOVE ME WHOLE · FEATURE DOC",           category: "doc",   platform: "youtube", videoId: "7aqVcwo8J7U", featured: true },
     { slug: "sigur-ros-varud",                      artist: "Sigur Rós",                    title: "VARÚÐ · MUSIC VIDEO",                   category: "music", platform: "vimeo",   videoId: "51864518",    featured: true },
 
@@ -871,9 +878,11 @@
         card.dataset.title = `${v.artist} | ${v.title}`;
       }
 
-      const tagHTML = v.tag
-        ? `<div class="video-card-tag${v.featured ? ' featured' : ''}">${v.tag}</div>`
+      const tagList = Array.isArray(v.tag) ? v.tag : (v.tag ? [v.tag] : []);
+      const tagInner = tagList.length
+        ? tagList.map(t => `<div class="video-card-tag${v.featured ? ' featured' : ''}">${t}</div>`).join('')
         : (v.featured ? `<div class="video-card-tag featured">FEATURED</div>` : '');
+      const tagHTML = tagInner ? `<div class="video-card-tags">${tagInner}</div>` : '';
 
       const thumbHTML = hasId
         ? `<img src="${thumbUrl(v)}" alt="${v.artist} — ${v.title}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="video-thumb-fallback" style="display:none;">${v.artist}<br>${v.title}</div><div class="video-thumb-play"></div>`
