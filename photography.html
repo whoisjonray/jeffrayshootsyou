@@ -415,22 +415,11 @@
   .detail-hero {
     position: relative;
     width: 100%;
-    padding-top: 96px;
+    padding-top: 140px;
     background: var(--bg);
   }
-  .detail-hero-img {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    background: var(--bg-elev);
-    overflow: hidden;
-  }
-  .detail-hero-img img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    cursor: zoom-in;
-  }
   .detail-meta {
-    padding: 56px 0 0;
+    padding: 0;
   }
   .detail-meta-eyebrow {
     font-family: 'JetBrains Mono', monospace; font-size: 11px;
@@ -683,11 +672,8 @@
     .nav-links { display: none; }
     .nav-toggle { display: block; }
     .footer-grid { flex-direction: column; align-items: flex-start; }
-    .project-grid { grid-template-columns: 1fr; gap: 16px; }
-    .project-card { aspect-ratio: 5 / 6; }
     .detail-back { top: 76px; left: 16px; padding: 8px 14px; font-size: 10px; }
-    .detail-hero-img { aspect-ratio: 4 / 3; }
-    .detail-meta { padding-top: 32px; }
+    .detail-hero { padding-top: 110px; }
     .detail-sequence { column-count: 1; padding-top: 40px; }
     body.detail-mode .mobile-fixed-cta { display: block; }
     .detail-inquiry { padding-bottom: 120px; }
@@ -790,7 +776,6 @@
   <button class="detail-back" id="detailBack">All photography</button>
 
   <section class="detail-hero">
-    <div class="detail-hero-img" id="detailHeroImg"></div>
     <div class="wrap">
       <div class="detail-meta">
         <div class="detail-meta-eyebrow" id="detailEyebrow"></div>
@@ -1270,21 +1255,16 @@ function renderDetail(slug) {
   document.getElementById('detailTitle').innerHTML = `${p.title}<em>.</em>`;
   document.getElementById('detailBlurb').textContent = p.blurb;
 
-  // Hero image (use the cover at high res)
-  const coverPath = p.cover.replace(cdn + '/', '');
-  document.getElementById('detailHeroImg').innerHTML =
-    `<img src="${sized(coverPath, 2500)}" alt="${p.title} — ${p.year}" data-full="${cdn}/${coverPath}?format=2500w" data-idx="0">`;
-
   // Credits
   const creditsEl = document.getElementById('detailCredits');
   creditsEl.innerHTML = p.credits.map(([k, v]) =>
     `<div class="detail-credit"><span class="key">${k}:</span><span class="val">${v}</span></div>`
   ).join('');
 
-  // Sequence (skip the cover since it's the hero)
+  // Sequence — show ALL images (cover first, no hero banner above)
   const seq = document.getElementById('detailSequence');
   seq.innerHTML = '';
-  const sequenceImages = p.images.filter(u => !u.includes(coverPath.split('?')[0]));
+  const sequenceImages = p.images;
 
   // Insert the inline CTA at ~70% depth
   const insertAt = Math.max(2, Math.floor(sequenceImages.length * 0.7));
@@ -1306,7 +1286,7 @@ function renderDetail(slug) {
     const path = url.replace(cdn + '/', '').split('?')[0];
     img.src = sized(path, 1500);
     img.dataset.full = sized(path, 2500);
-    img.dataset.idx = i + 1; // +1 because cover is idx 0
+    img.dataset.idx = i; // cover is now first item in sequence
     img.loading = 'lazy';
     img.alt = `${p.title} — frame ${i + 2}`;
     seq.appendChild(img);
@@ -1336,11 +1316,8 @@ function closeDetail() {
 /* ===== Lightbox ===== */
 let currentLightbox = { slug: null, index: 0, total: 0 };
 function bindLightbox(slug) {
-  const p = projects[slug];
-  const heroImg = document.querySelector('#detailHeroImg img');
   const seqImgs = document.querySelectorAll('#detailSequence .seq-img');
-  const all = [heroImg, ...seqImgs].filter(Boolean);
-  all.forEach((img, i) => {
+  seqImgs.forEach((img, i) => {
     img.addEventListener('click', () => openLightbox(slug, i));
   });
 }
